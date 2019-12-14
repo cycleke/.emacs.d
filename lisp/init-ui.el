@@ -7,6 +7,10 @@
 
 ;;; Code:
 
+(eval-when-compile
+  (require 'init-const)
+  (require 'init-funcs))
+
 (setq frame-title-format '("Emacs - %b")
       icon-title-format frame-title-format)
 
@@ -26,22 +30,7 @@
   (push '(tool-bar-lines . 0) default-frame-alist)
   (push '(vertical-scroll-bars) default-frame-alist))
 
-(use-package doom-themes
-  :init (my-load-theme my-theme)
-  :config
-  ;; Global settings (defaults)
-  (setq doom-themes-enable-bold t    ; if nil, bold is universally disabled
-        doom-themes-enable-italic t) ; if nil, italics is universally disabled
-
-  ;; Enable flashing mode-line on errors
-  (doom-themes-visual-bell-config)
-
-  ;; Enable custom treemacs theme
-  (setq doom-themes-treemacs-theme "doom-colors") ; use the colorful treemacs theme
-  (doom-themes-treemacs-config)
-
-  ;; Corrects (and improves) org-mode's native fontification.
-  (doom-themes-org-config))
+(load-theme 'dichromacy t)
 
 (use-package doom-modeline
   :hook (after-init . doom-modeline-mode)

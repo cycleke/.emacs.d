@@ -34,7 +34,7 @@
   (catch 'loop
     (dolist (font '("PingFang SC" "WenQuanYi Micro Hei" "Microsoft Yahei"))
       (when (member font (font-family-list))
-        (set-fontset-font t '(#x4e00 . #x9fff) font)
+        (set-fontset-font t '(#x4e00 . #x9fff) :font font :weight normal)
         (throw 'loop t)))))
 
 
@@ -79,9 +79,6 @@
                               :tag (capitalize (symbol-name name))
                               name)))
                     my-package-archives-alist)))
-
-(defcustom my-theme 'doom-one-light
-  "Set color theme.")
 
 (setq custom-file (expand-file-name "custom.el" user-cache-directory))
 

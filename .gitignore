@@ -23,8 +23,9 @@ python-*-docs-html
 .mc-lists.el
 transient/
 eclipse.jdt.ls
-tldr
+tldr/
 workspace
 amx-items
 .dap-breakpoints
 .lsp-session*
+emms/

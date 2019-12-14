@@ -2,7 +2,7 @@
 
 ;;; Commentary:
 ;;
-;; Initialize emacs
+;; Initialize Emacs
 ;;
 
 
@@ -56,7 +56,7 @@ decrease this. If you experience stuttering, increase this.")
 ;; Optimize: Force "lisp" at the head to reduce the startup time.
 (defun update-load-path (&rest _)
   "Update `load-path'."
-  (push (expand-file-name "lisp" user-emacs-directory) load-path)
+  (push (expand-file-name "lisp" user-emacs-directory) load-path))
 (advice-add #'package-initialize :after #'update-load-path)
 (update-load-path)
 
@@ -82,6 +82,8 @@ decrease this. If you experience stuttering, increase this.")
 (require 'init-yasnippet)
 (require 'init-treemacs)
 (require 'init-tex)
+(require 'init-emms)
+(require 'init-vterm)
 
 ;; Programming
 (require 'init-flycheck)

@@ -9,7 +9,8 @@
 
 (eval-when-compile
   (require 'init-const)
-  (require 'init-custom))
+  (require 'init-custom)
+  (require 'init-company))
 
 (use-package tex
   :ensure nil
@@ -46,28 +47,37 @@
   (add-hook 'LaTeX-mode-hook 'TeX-PDF-mode)
   :config
   (use-package auctex
+    :ensure nil
+    :mode ("\\.tex\\'" . latex-mode)
+    :config
+    (setq TeX-parse-self t)
+    (setq-default TeX-master nil)
+    (setq TeX-auto-save t)
+    (setq TeX-save-query nil))
+  (use-package company-math
+    :ensure t
+    :commands (luna-latex-company-setup)
+    :init
+    (add-hook
+     'LaTeX-mode-hook
+     (lambda ()
+       (require 'company-math)
+       (setq-local company-backends
+		   (append '((company-math-symbols-latex company-latex-commands))
+			   company-backends)))))
+  (use-package cdlatex
     :defer t
-    :ensure t)
+    :init (add-hook 'LaTeX-mode-hook #'cdlatex-mode))
   (use-package auctex-latexmk
     :defer t
     :init (setq auctex-latexmk-inherit-TeX-PDF-mode t))
   (use-package company-auctex
-    :defer t
-    :init (:backends
-	   (company-auctex-macros
-	    company-auctex-symbols
-	    company-auctex-environments)
-	   :modes LaTeX-mode))
+    :defer t)
   (use-package company-reftex
-    :defer t
-    :init (:backends
-	   company-reftex-labels
-	   company-reftex-citations
-	   :modes LaTeX-mode))
-  )
+    :defer t))
 
 
 (provide 'init-tex)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;; init-latex.el ends here
+;;; init-tex.el ends here

@@ -9,9 +9,11 @@
 
 (use-package graphviz-dot-mode
   :ensure nil
-  :mode "\\.dot\\'")
+  :mode "\\.dot\\'"
+  :config
+  (setq graphviz-dot-indent-width 2))
 
-(provide 'init-graphviz)
+  (provide 'init-graphviz)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; init-graphviz.el ends here
