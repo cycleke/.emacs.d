@@ -8,35 +8,8 @@
 ;;; Code:
 
 (eval-when-compile
-  (require 'init-const))
-
-;; Fonts
-(when (display-graphic-p)
-  ;; Set default font
-  (catch 'loop
-    (dolist (font '("Go Mono for Powerline" "SF Mono" "Hack" "Source Code Pro" "Fira Code"
-                    "Menlo" "Monaco" "DejaVu Sans Mono" "Consolas"))
-      (when (member font (font-family-list))
-        (set-face-attribute 'default nil :font font :height (cond
-                                                             (sys/mac-x-p 130)
-                                                             (sys/win32p 110)
-                                                             (t 110)))
-        (throw 'loop t))))
-
-  ;; Specify font for all unicode characters
-  (catch 'loop
-    (dolist (font '("Symbols Nerd Font" "Symbola" "Apple Symbols" "Symbol"))
-      (when (member font (font-family-list))
-        (set-fontset-font t 'unicode font nil 'prepend)
-        (throw 'loop t))))
-
-  ;; Specify font for Chinese characters
-  (catch 'loop
-    (dolist (font '("PingFang SC" "WenQuanYi Micro Hei" "Microsoft Yahei"))
-      (when (member font (font-family-list))
-        (set-fontset-font t '(#x4e00 . #x9fff) :font font :weight normal)
-        (throw 'loop t)))))
-
+  (require 'init-const)
+  (require 'cl))
 
 (defcustom my-package-archives-alist
   (let* ((no-ssl (and (memq system-type '(windows-nt ms-dos))
@@ -79,6 +52,35 @@
                               :tag (capitalize (symbol-name name))
                               name)))
                     my-package-archives-alist)))
+
+(defcustom my-theme 'doom-solarized-light
+  "Set color theme.")
+
+;; Font
+(defun font-installed-p (font-name)
+  "Check if font with FONT-NAME is available."
+  (find-font (font-spec :name font-name)))
+
+(when (display-graphic-p)
+  ;; Set default font
+  (cl-loop for font in '("Go Mono for Powerline" "SF Mono" "Hack" "Source Code Pro"
+                         "Fira Code" "Menlo" "Monaco" "DejaVu Sans Mono" "Consolas")
+           when (font-installed-p font)
+           return (set-face-attribute 'default nil
+                                      :font font
+                                      :height (cond (sys/mac-x-p 130)
+                                                    (sys/win32p 110)
+                                                    (t 110))))
+
+  ;; Specify font for all unicode characters
+  (cl-loop for font in '("Symbola" "Apple Symbols" "Symbol" "icons-in-terminal")
+           when (font-installed-p font)
+           return (set-fontset-font t 'unicode font nil 'prepend))
+
+  ;; Specify font for Chinese characters
+  (cl-loop for font in '("PingFang SC" "WenQuanYi Micro Hei" "Microsoft Yahei")
+           when (font-installed-p font)
+           return (set-fontset-font t '(#x4e00 . #x9fff) font)))
 
 (setq custom-file (expand-file-name "custom.el" user-cache-directory))
 

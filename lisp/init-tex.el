@@ -12,12 +12,14 @@
   (require 'init-custom)
   (require 'init-company))
 
-(use-package tex
-  :ensure nil
+(use-package auctex
+  :mode ("\\.tex\\'" . latex-mode)
   :init
+  (setq-default TeX-master nil)
   (setq TeX-auto-save t
 	TeX-parse-self t
 	TeX-syntactic-comment t
+	TeX-save-query nil
 	;; Synctex support
 	TeX-source-correlate-start-server nil
 	;; Don't insert line-break at inline math
@@ -30,7 +32,6 @@
 	  ("Evince" "evince %o")
 	  ("Firefox" "firefox %o")
 	  ("zathura" "zathura %o")))
-
   (cond
    (sys/win32p
     (add-hook 'LaTeX-mode-hook
@@ -46,14 +47,6 @@
   (add-hook 'LaTeX-mode-hook 'TeX-source-correlate-mode)
   (add-hook 'LaTeX-mode-hook 'TeX-PDF-mode)
   :config
-  (use-package auctex
-    :ensure nil
-    :mode ("\\.tex\\'" . latex-mode)
-    :config
-    (setq TeX-parse-self t)
-    (setq-default TeX-master nil)
-    (setq TeX-auto-save t)
-    (setq TeX-save-query nil))
   (use-package company-math
     :ensure t
     :commands (luna-latex-company-setup)
@@ -76,6 +69,8 @@
   (use-package company-reftex
     :defer t))
 
+(eval-after-load "tex"
+  '(add-to-list 'TeX-command-list '("Make" "make" TeX-run-command t t)))
 
 (provide 'init-tex)
 

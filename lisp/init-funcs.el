@@ -8,7 +8,8 @@
 
 (eval-when-compile
   (require 'init-const)
-  (require 'init-custom))
+  (require 'init-custom)
+  (require 'cl))
 
 (defun open-init-file()
   "Open init.el file."
