@@ -154,9 +154,10 @@
       scroll-margin 0
       scroll-conservatively 100000)
 
+(menu-bar-mode -1)
 (show-paren-mode 1)
-(display-battery-mode 1)
 (toggle-scroll-bar -1)
+(display-battery-mode 1)
 
 (setq-default fill-column 80)
 (fset 'yes-or-no-p 'y-or-n-p)
@@ -165,3 +166,6 @@
 
 
 (provide 'init-base)
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; init-base.el ends here

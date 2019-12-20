@@ -8,7 +8,6 @@
 ;;; Code:
 
 (use-package graphviz-dot-mode
-  :ensure nil
   :mode "\\.dot\\'"
   :config
   (setq graphviz-dot-indent-width 2))

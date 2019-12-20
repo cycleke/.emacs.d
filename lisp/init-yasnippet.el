@@ -10,10 +10,7 @@
 (use-package yasnippet
   :diminish yas-minor-mode
   :hook (after-init . yas-global-mode)
-  :bind (("M-/" . yas-expand)
-	 :map yas-minor-mode-map
-	 ("TAB" . nil)
-	 ("<tab>" . nil))
+  :bind (("M-/" . yas-expand))
   :config
   (use-package yasnippet-snippets))
 

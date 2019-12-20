@@ -1,7 +1,5 @@
 ;;; init-ivy.el --- Initialize ivy configurations.	-*- lexical-binding: t -*-
 
-
-
 ;;; Commentary:
 ;;
 ;; Ivy configurations.

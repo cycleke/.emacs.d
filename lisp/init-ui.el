@@ -246,8 +246,9 @@
 ;; Suppress GUI features
 (setq use-file-dialog nil
       use-dialog-box nil
-      inhibit-startup-screen nil
-      inhibit-startup-echo-area-message t)
+      inhibit-startup-screen t
+      inhibit-startup-echo-area-message t
+      initial-scratch-message ";; Happy hacking and Grey ♥ you!\n\n")
 
 ;; Display dividers between windows
 (setq window-divider-default-places t
