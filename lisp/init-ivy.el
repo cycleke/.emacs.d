@@ -13,7 +13,7 @@
 (use-package counsel
   :diminish ivy-mode counsel-mode
   :bind (("C-s" . swiper-isearch)
-         ("C-r" . swiper-isearch-backward)
+         ("C-r" . counsel-rg)
          ("s-f" . swiper)
          ("C-S-s" . swiper-all)
 

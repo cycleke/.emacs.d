@@ -242,6 +242,11 @@
   (c-mode-common . turn-on-fic-mode)
   (prog-mode . turn-on-fic-mode))
 
+;; Switch window
+(use-package ace-window
+  :bind
+  ("M-o" . ace-window))
+
 (provide 'init-edit)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
