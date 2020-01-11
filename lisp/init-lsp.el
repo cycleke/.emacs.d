@@ -106,7 +106,6 @@
 	      ("<f5>" . dap-debug)
 	      ("M-<f5>" . dap-hydra))
   :hook ((after-init . dap-mode)
-	 (dap-mode . dap-ui-mode)
 	 (dap-session-created . (lambda (&_rest) (dap-hydra)))
 	 (dap-terminated . (lambda (&_rest) (dap-hydra/nil)))
 
