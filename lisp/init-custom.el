@@ -53,7 +53,7 @@
                               name)))
                     my-package-archives-alist)))
 
-(defcustom my-theme 'doom-solarized-light
+(defcustom my-theme 'doom-opera-light
   "Set color theme.")
 
 ;; Font

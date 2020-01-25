@@ -19,11 +19,12 @@
 (setq make-backup-files nil)               ; Forbide to make backup files
 (setq auto-save-default nil)               ; Disable auto save
 
-
 (setq-default major-mode 'text-mode)
 
 (setq sentence-end "\\([。！？]\\|……\\|[.?!][]\"')}]*\\($\\|[ \t]\\)\\)[ \t\n]*")
 (setq sentence-end-double-space nil)
+
+(add-hook 'before-save-hook 'delete-trailing-whitespace)
 
 ;; Delete selection if you insert
 (use-package delsel
