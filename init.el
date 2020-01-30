@@ -94,6 +94,7 @@ decrease this. If you experience stuttering, increase this.")
 (require 'init-tex)
 (require 'init-emms)
 (require 'init-vterm)
+(require 'init-w3m)
 
 ;; Programming
 (require 'init-flycheck)

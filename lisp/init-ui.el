@@ -31,6 +31,7 @@
   (push '(vertical-scroll-bars) default-frame-alist))
 
 (use-package doom-themes
+  :if (display-graphic-p)
   :init (my-load-theme my-theme)
   :config
   ;; Global settings (defaults)
