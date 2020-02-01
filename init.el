@@ -36,9 +36,9 @@ decrease this. If you experience stuttering, increase this.")
             ;; `focus-out-hook' is obsolete since 27.1
             (if (boundp 'after-focus-change-function)
                 (add-function :after after-focus-change-function
-                  (lambda ()
-                    (unless (frame-focus-state)
-                      (garbage-collect))))
+			      (lambda ()
+				(unless (frame-focus-state)
+				  (garbage-collect))))
               (add-hook 'focus-out-hook 'garbage-collect))
 
             ;; Avoid GCs while using `ivy'/`counsel'/`swiper' and `helm', etc.
@@ -108,6 +108,9 @@ decrease this. If you experience stuttering, increase this.")
 (require 'init-web)
 (require 'init-graphviz)
 (require 'init-haskell)
+
+(load "server")
+(unless (server-running-p) (server-start))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; init.el ends here

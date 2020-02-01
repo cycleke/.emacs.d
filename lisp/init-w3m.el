@@ -36,7 +36,7 @@
 (defun toggle-env-http-proxy ()
   "Set/unset the environment variable http_proxy which w3m use."
   (interactive)
-  (let ((proxy "socks://127.0.0.1:1080"))
+  (let ((proxy "http://127.0.0.1:1081"))
     (if (string= (getenv "http_proxy") proxy)
         ;; clear the proxy
         (progn
