@@ -155,6 +155,7 @@
       scroll-conservatively 100000)
 
 (menu-bar-mode -1)
+(tool-bar-mode -1)
 (show-paren-mode 1)
 (toggle-scroll-bar -1)
 (display-battery-mode 1)

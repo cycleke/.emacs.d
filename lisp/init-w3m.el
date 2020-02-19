@@ -11,7 +11,7 @@
   :defer t
   :custom
   ;; W3M Home Page
-  (w3m-home-page "https://www.google.com")
+  (w3m-home-page "https://start.duckduckgo.com/")
 
   ;; W3M default display images
   (w3m-default-display-inline-images t)
@@ -31,7 +31,12 @@
 	w3m-file-name-coding-system 'utf-8
 	w3m-input-coding-system 'utf-8
 	w3m-output-coding-system 'utf-8
-	w3m-terminal-coding-system 'utf-8))
+	w3m-terminal-coding-system 'utf-8)
+  :config
+       (require 'w3m-search)
+       (setq w3m-search-default-engine "duckduckgo")
+       (add-to-list 'w3m-search-engine-alist
+                    '("duckduckgo" "https://duckduckgo.com/lite/?q=%s")))
 
 (defun toggle-env-http-proxy ()
   "Set/unset the environment variable http_proxy which w3m use."

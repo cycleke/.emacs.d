@@ -42,8 +42,11 @@
   :hook ((js2-mode . js2-imenu-extras-mode)
          (js2-mode . js2-highlight-unused-variables-mode))
   :config
-  ;; Use default keybindings for lsp
+  (setq js-indent-level 2
+        js2-basic-offset 2
+        js-chain-indent t)
 
+  ;; Use default keybindings for lsp
   (unbind-key "M-." js2-mode-map)
 
   (with-eval-after-load 'flycheck
@@ -59,7 +62,7 @@
   (use-package js2-refactor
     :diminish
     :hook (js2-mode . js2-refactor-mode)
-    :config (js2r-add-keybindings-with-prefix "C-c C-m")))
+    :config (js2r-add-keybindings-with-prefix "C-c C-r")))
 
 ;; Live browser JavaScript, CSS, and HTML interaction
 (use-package skewer-mode
@@ -89,17 +92,23 @@
 ;; Major mode for editing web templates
 (use-package web-mode
   :mode "\\.\\(phtml\\|php|[gj]sp\\|as[cp]x\\|erb\\|djhtml\\|html?\\|hbs\\|ejs\\|jade\\|swig\\|tm?pl\\|vue\\)$"
+  ("\\.css\\'" . web-mode)
+  ("\\.jsx\\'" . web-mode)
+  ("\\.tsx\\'" . web-mode)
+  ("\\.html\\'" . web-mode)
+  ("\\.scss\\'" . web-mode)
   :config
-  (setq web-mode-markup-indent-offset 2)
+  (setq tab-width 2)
   (setq web-mode-css-indent-offset 2)
-  (setq web-mode-code-indent-offset 2))
+  (setq web-mode-code-indent-offset 2)
+  (setq web-mode-markup-indent-offset 2))
 
-;; Format HTML, CSS and JavaScript/JSON
-;; Install: npm -g install prettier
 (use-package prettier-js
-  :hook ((js-mode js2-mode json-mode web-mode css-mode sgml-mode html-mode)
-         .
-         prettier-js-mode))
+  :hook ((js2-mode . prettier-js-mode)
+         (rjsx-mode . prettier-js-mode))
+  :config
+  (setq prettier-js-args '("--trailing-comma" "all"
+                           "--bracket-spacing" "false")))
 
 (use-package haml-mode)
 (use-package php-mode)
