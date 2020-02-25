@@ -36,7 +36,7 @@
 
   ;; Microsoft python-language-server support
   (use-package lsp-python-ms
-    :ensure t
+    :after lsp-mode
     :hook (python-mode . (lambda ()
 			   (require 'lsp-python-ms)
 			   (lsp-deferred)))

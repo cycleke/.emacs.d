@@ -14,6 +14,7 @@
 
 
 (use-package lsp-java
+  :after lsp-mode
   :hook (java-mode . (lambda ()
 		       (require 'lsp-java)
 		       (lsp-deferred))))

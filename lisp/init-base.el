@@ -165,7 +165,6 @@
 (setq visible-bell t
       inhibit-compacting-font-caches t) ; Don’t compact font caches during GC.
 
-
 (provide 'init-base)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;

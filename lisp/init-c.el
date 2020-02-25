@@ -27,6 +27,7 @@
 
 ;; C/C++/Objective-C support
 (use-package ccls
+  :after lsp-mode
   :defines projectile-project-root-files-top-down-recurring
   :hook ((c-mode c++-mode objc-mode cuda-mode) . (lambda ()
 						   (require 'ccls)

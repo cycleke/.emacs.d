@@ -286,6 +286,10 @@
 ;; change font size, interactively
 (global-set-key (kbd "C->") 'my/zoom-in)
 (global-set-key (kbd "C-<") 'my/zoom-out)
+
+;; transparent
+(set-frame-parameter (selected-frame) 'alpha (list 95 90))
+(add-to-list 'default-frame-alist (cons 'alpha (list 95 90)))
 (add-to-list 'default-frame-alist '(ns-transparent-titlebar . t))
 
 (provide 'init-ui)

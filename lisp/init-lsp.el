@@ -35,6 +35,7 @@
       (setq lsp-rust-rls-server-command '("rustup" "run" "stable" "rls")))))
 
 (use-package lsp-ui
+  :after (lsp-mode)
   :functions my-lsp-ui-imenu-hide-mode-line
   :commands lsp-ui-doc-hide
   :custom-face
@@ -96,10 +97,12 @@
   (advice-add #'lsp-ui-imenu :after #'my-lsp-ui-imenu-hide-mode-line))
 
 (use-package company-lsp
+  :after (lsp-mode lsp-ui-mode)
   :init (setq company-lsp-cache-candidates 'auto))
 
 ;; Debug
 (use-package dap-mode
+  :after (lsp-mode lsp-ui-mode)
   :diminish
   :functions dap-hydra/nil
   :bind (:map lsp-mode-map

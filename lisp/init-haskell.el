@@ -27,6 +27,7 @@
   (setq haskell-mode-stylish-haskell-path "brittany"))
 
 (use-package lsp-haskell
+  :after lsp-mode
   :defer t
   :hook ((haskell-mode) .
 	 (lambda ()
