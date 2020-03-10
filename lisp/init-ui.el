@@ -49,6 +49,7 @@
   (doom-themes-org-config))
 
 (use-package doom-modeline
+  :disabled
   :hook (after-init . doom-modeline-mode)
   :init
   ;; prevent flash of unstyled modeline at startup

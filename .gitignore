@@ -19,7 +19,7 @@ python-*-docs-html
 /.cask/
 /session.*
 /srecode-map.el
-/recentf
+/recentf*
 .mc-lists.el
 transient/
 eclipse.jdt.ls

@@ -104,8 +104,10 @@
   (setq web-mode-markup-indent-offset 2))
 
 (use-package prettier-js
-  :hook ((js2-mode . prettier-js-mode)
-         (rjsx-mode . prettier-js-mode))
+  :hook ((js2-mode      . prettier-js-mode)
+         (rjsx-mode     . prettier-js-mode)
+	 (web-mode      . prettier-js-mode)
+	 (markdown-mode . prettier-js-mode))
   :config
   (setq prettier-js-args '("--trailing-comma" "all"
                            "--bracket-spacing" "false")))

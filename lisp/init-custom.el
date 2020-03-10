@@ -53,7 +53,7 @@
                               name)))
                     my-package-archives-alist)))
 
-(defcustom my-theme 'doom-tomorrow-night
+(defcustom my-theme 'doom-tomorrow-day
   "Set color theme.")
 
 ;; Font
@@ -70,7 +70,7 @@
                                       :font font
                                       :height (cond (sys/mac-x-p 130)
                                                     (sys/win32p 110)
-                                                    (t 110))))
+                                                    (t 120))))
 
   ;; Specify font for all unicode characters
   (cl-loop for font in '("Symbola" "Apple Symbols" "Symbol" "icons-in-terminal")

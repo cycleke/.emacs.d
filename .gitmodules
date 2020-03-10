@@ -4,9 +4,9 @@
 [submodule "snails"]
   path = site-lisp/snails
   url = https://github.com/manateelazycat/snails.git
-[submodule "emacs-application-framework"]
-  path = site-lisp/emacs-application-framework
-  url = https://github.com/manateelazycat/emacs-application-framework.git
 [submodule "fuz.el"]
-  path = site-lisp//fuz.el
+  path = site-lisp/fuz.el
   url = https://github.com/cireu/fuz.el.git
+[submodule "awesome-tray"]
+  path = site-lisp/awesome-tray
+  url = https://github.com/manateelazycat/awesome-tray.git

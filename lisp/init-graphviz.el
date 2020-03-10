@@ -9,6 +9,8 @@
 
 (use-package graphviz-dot-mode
   :mode "\\.dot\\'"
+  :bind (:map graphviz-dot-mode-map
+	      ("C-M-\\" . graphviz-dot-indent-graph))
   :config
   (setq graphviz-dot-indent-width 2))
 
