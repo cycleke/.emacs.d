@@ -39,10 +39,10 @@
 ;; (setq browse-url-browser-function 'eaf-open-browser)
 ;; (defalias 'browse-web #'eaf-open-browser)
 
-;; fuz.el
-(require 'fuz)
-(unless (require 'fuz-core nil t)
-  (fuz-build-and-load-dymod))
+;; ;; fuz.el
+;; (require 'fuz)
+;; (unless (require 'fuz-core nil t)
+;;   (fuz-build-and-load-dymod))
 
 ;; snails
 (require 'snails)

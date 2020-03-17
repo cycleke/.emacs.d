@@ -32,7 +32,7 @@
 
 (use-package doom-themes
   :if (display-graphic-p)
-  :init (my-load-theme my-theme)
+  ;; :init (my-load-theme my-theme)
   :config
   ;; Global settings (defaults)
   (setq doom-themes-enable-bold t    ; if nil, bold is universally disabled
@@ -49,7 +49,7 @@
   (doom-themes-org-config))
 
 (use-package doom-modeline
-  :disabled
+  ;; :disabled
   :hook (after-init . doom-modeline-mode)
   :init
   ;; prevent flash of unstyled modeline at startup
@@ -292,6 +292,22 @@
 (set-frame-parameter (selected-frame) 'alpha (list 95 90))
 (add-to-list 'default-frame-alist (cons 'alpha (list 95 90)))
 (add-to-list 'default-frame-alist '(ns-transparent-titlebar . t))
+
+(use-package circadian
+  :ensure t
+  :config
+  (setq circadian-themes '(("8:00" . doom-opera-light)
+                           ("19:30" . doom-one)))
+  (circadian-setup))
+(circadian-setup)
+
+(add-hook 'circadian-after-load-theme-hook
+          #'(lambda (theme)
+              ;; Line numbers appearance
+              (setq linum-format 'linum-format-func)
+              ;; Cursor
+              (set-default 'cursor-type 'box)
+              (set-cursor-color "#F52503")))
 
 (provide 'init-ui)
 

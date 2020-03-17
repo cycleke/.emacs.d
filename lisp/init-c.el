@@ -33,12 +33,21 @@
 						   (require 'ccls)
 						   (lsp-deferred)))
   :config
-  (setq ccls-executable "/usr/bin/ccls")
+  (setq ccls-executable "/usr/local/bin/ccls")
   (with-eval-after-load 'projectile
     (setq projectile-project-root-files-top-down-recurring
 	  (append '("compile_commands.json"
 		    ".ccls")
-		  projectile-project-root-files-top-down-recurring))))
+		  projectile-project-root-files-top-down-recurring)))
+  (setq ccls-initialization-options
+        '(:clang (:extraArgs ["-isystem/Library/Developer/CommandLineTools/usr/include/c++/v1"
+                              "-isystem/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include"
+                              "-isystem/usr/local/include"
+                              "-isystem/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/11.0.0/include"
+                              "-isystem/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include"
+                              "-isystem/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include"
+                              "-isystem/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/System/Library/Frameworks"]
+			     :resourceDir "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/11.0.0"))))
 
 (use-package cmake-mode
   :mode (("CMakeLists\\.txt\\'" . cmake-mode) ("\\.cmake\\'" . cmake-mode)))

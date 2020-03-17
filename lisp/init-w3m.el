@@ -21,7 +21,7 @@
   (w3m-command-arguments '("-cookie" "-F"))
   (w3m-use-cookies t)
   ;; Browse url function use w3m
-  (browse-url-browser-function 'w3m-browse-url)
+  ;; (browse-url-browser-function 'w3m-browse-url)
   ;; W3M view url new session in background
   (w3m-view-this-url-new-session-in-background t)
   :init

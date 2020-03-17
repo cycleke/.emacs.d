@@ -42,7 +42,7 @@
 			   (lsp-deferred)))
     :config
     (setq lsp-python-ms-executable
-	  "~/Softwares/python-language-server/output/bin/Release/linux-x64/publish/Microsoft.Python.LanguageServer"))
+	  "~/lsp/python-language-server/output/bin/Release/osx.10.14-x64/publish/Microsoft.Python.LanguageServer"))
 
   ;; Live Coding in Python
   (use-package live-py-mode)
