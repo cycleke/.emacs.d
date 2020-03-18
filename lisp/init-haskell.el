@@ -8,36 +8,31 @@
 ;;; Code:
 
 (eval-when-compile
-  (require 'init-custom)
-  (require 'init-lsp))
+  (require 'init-custom))
 
 ;; Haskell Mode
 (use-package haskell-mode
   :ensure nil
   :mode ("\\.hs\\'")
-  :requires lsp-haskell
-  :hook ((haskell-mode . lsp)
-         (haskell-mode . haskell-mode-startup))
-
+  :hook ((haskell-mode . haskell-mode-startup))
+  :bind (:map haskell-mode-map ("C-M-\\" . haskell-mode-stylish-buffer))
   :config
-  (use-package hindent
-    :config
-    (add-hook 'haskell-mode-hook #'hindent-mode))
   (setq haskell-stylish-on-save t)
   (setq haskell-mode-stylish-haskell-path "brittany"))
 
-(use-package lsp-haskell
-  :after lsp-mode
-  :defer t
-  :hook ((haskell-mode) .
-	 (lambda ()
-	   (require 'lsp-haskell)
-	   (lsp)))
+(use-package dante
+  :ensure t
+  :after haskell-mode
+  :commands 'dante-mode
+  :init
+  (add-hook 'haskell-mode-hook 'flycheck-mode)
+  (add-hook 'haskell-mode-hook 'dante-mode)
+  (add-hook 'dante-mode-hook
+	    '(lambda () (flycheck-add-next-checker 'haskell-dante
+					      '(warning . haskell-hlint))))
   :config
-  (setq lsp-haskell-process-path-hie "hie-wrapper")
-  (add-hook 'lsp-mode-hook 'lsp-ui-mode)
-  (add-hook 'haskell-mode-hook #'lsp-haskell-enable)
-  (add-hook 'haskell-mode-hook 'flycheck-mode))
+  (auto-save-visited-mode 1)
+  (setq auto-save-visited-interval 1))
 
 (provide 'init-haskell)
 
