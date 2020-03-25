@@ -18,9 +18,7 @@
   :hook (prog-mode . lsp-deferred)
   :bind (:map lsp-mode-map
 	      ("C-c C-d" . lsp-describe-thing-at-point))
-  :init (setq lsp-auto-guess-root t       ; Detect project root
-	      lsp-prefer-flymake nil      ; Use lsp-ui and flycheck
-	      flymake-fringe-indicator-position 'right-fringe)
+  :init (setq lsp-auto-guess-root t)       ; Detect project root
   :config
   ;; Configure LSP clients
   (use-package lsp-clients

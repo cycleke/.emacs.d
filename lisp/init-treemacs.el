@@ -30,7 +30,7 @@
            ([mouse-1]   . treemacs-single-click-expand-action))
     :config
     (setq treemacs-collapse-dirs           (if treemacs-python-executable 3 0)
-          treemacs-sorting                 'alphabetic-case-insensitive-desc
+          ;; treemacs-sorting                 'alphabetic-case-insensitive-desc
           treemacs-follow-after-init       t
           treemacs-is-never-other-window   t
           treemacs-silent-filewatch        t

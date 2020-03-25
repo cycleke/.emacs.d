@@ -96,11 +96,6 @@
   (- (elt (window-pixel-edges) 3)
      (elt (window-inside-pixel-edges) 3)))
 
-(defun my-load-theme (theme)
-  "Set color THEME."
-  (interactive)
-  (load-theme my-theme t))
-
 (defun compile-without-debug ()
   "Compile current buffer."
   (interactive)

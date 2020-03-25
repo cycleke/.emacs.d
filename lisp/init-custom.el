@@ -53,9 +53,6 @@
                               name)))
                     my-package-archives-alist)))
 
-(defcustom my-theme 'doom-tomorrow-day
-  "Set color theme.")
-
 ;; Font
 (defun font-installed-p (font-name)
   "Check if font with FONT-NAME is available."
@@ -68,7 +65,7 @@
            when (font-installed-p font)
            return (set-face-attribute 'default nil
                                       :font font
-                                      :height (cond (sys/mac-x-p 130)
+                                      :height (cond (sys/mac-x-p 140)
                                                     (sys/win32p 110)
                                                     (t 120))))
 
