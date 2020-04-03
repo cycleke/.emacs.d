@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: begin_end
+# key: bg
+# --
+\begin{$1}
+  $0
+\end{$1}
