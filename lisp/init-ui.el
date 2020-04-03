@@ -174,10 +174,17 @@
 (add-to-list 'default-frame-alist (cons 'alpha (list 95 90)))
 (add-to-list 'default-frame-alist '(ns-transparent-titlebar . t))
 
-(use-package leuven-theme
-  :config
-  (load-theme 'leuven t))
-
+(use-package leuven-theme :ensure :defer)
+(if (display-graphic-p) (load-theme 'leuven t))
+;; (use-package circadian
+;;   :if (display-graphic-p)
+;;   :ensure t
+;;   :config
+;;   (setq calendar-latitude 31.47104)
+;;   (setq calendar-longitude 104.73409)
+;;   (setq circadian-themes '((:sunrise . leuven)
+;;                            (:sunset  . leuven-dark)))
+;;   (circadian-setup))
 (provide 'init-ui)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;

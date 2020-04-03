@@ -34,7 +34,7 @@
 ;; Rectangle
 (use-package rect
   :ensure nil
-  :bind (("<C-return>" . rect-hydra/body))
+  :bind (("M-RET r" . rect-hydra/body))
   :pretty-hydra
   ((:title (pretty-hydra-title "Rectangle" 'material "border_all" :height 1.1 :v-adjust -0.225)
 	   :color amaranth :body-pre (rectangle-mark-mode) :post (deactivate-mark) :quit-key "q")
@@ -205,7 +205,7 @@
      ("d" origami-redo "redo")
      ("r" origami-reset "reset"))))
   :bind (:map origami-mode-map
-	      ("C-`" . origami-hydra/body))
+	      ("M-RET o" . origami-hydra/body))
   :hook (prog-mode . origami-mode)
   :init (setq origami-show-fold-header t)
   :config

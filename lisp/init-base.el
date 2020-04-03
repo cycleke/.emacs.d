@@ -59,7 +59,7 @@
 (cond (sys/macp
        (progn
          ;; modify option and command key
-         (setq mac-command-modifier 'control)
+         (setq mac-command-modifier 'super)
          (setq mac-option-modifier 'meta)
 
          ;; batter copy and paste support for mac os x
@@ -157,8 +157,8 @@
 (menu-bar-mode -1)
 (tool-bar-mode -1)
 (show-paren-mode 1)
-(scroll-bar-mode -1)
-(toggle-scroll-bar -1)
+;; (scroll-bar-mode -1)
+;; (toggle-scroll-bar -1)
 (display-battery-mode 1)
 
 (setq-default fill-column 80)

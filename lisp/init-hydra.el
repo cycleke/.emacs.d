@@ -19,8 +19,8 @@
 
 (use-package pretty-hydra
   :defines (display-line-numbers-mode linum-mode)
-  :functions set-package-archives my-load-theme
-  :bind ("<f6>" . toggles-hydra/body)
+  :functions set-package-archives
+  :bind ("M-RET g" . toggles-hydra/body)
   :init
   (cl-defun pretty-hydra-title (title &optional icon-type icon-name
 				      &key face height v-adjust)
@@ -38,7 +38,8 @@
        (propertize title 'face face))))
 
   ;; Global toggles
-  (pretty-hydra-define toggles-hydra (:title (pretty-hydra-title "Toggles" 'faicon "toggle-on")
+  (pretty-hydra-define toggles-hydra
+    (:title (pretty-hydra-title "Toggles" 'faicon "toggle-on")
 					     :color amaranth :quit-key "q")
     ("Basic"
      (("n" (if (fboundp 'display-line-numbers-mode)

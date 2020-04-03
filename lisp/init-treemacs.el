@@ -26,6 +26,7 @@
            ("C-x t b"   . treemacs-bookmark)
            ("C-x t C-t" . treemacs-find-file)
            ("C-x t M-t" . treemacs-find-tag)
+	   ("M-RET t". awesome-fast-switch/body)
            :map treemacs-mode-map
            ([mouse-1]   . treemacs-single-click-expand-action))
     :config
@@ -35,7 +36,8 @@
           treemacs-is-never-other-window   t
           treemacs-silent-filewatch        t
           treemacs-silent-refresh          t
-          treemacs-width                   30)
+	  treemacs-no-png-images           t
+          treemacs-width                   27)
 
     (treemacs-follow-mode t)
     (treemacs-filewatch-mode t)
@@ -45,6 +47,41 @@
        (treemacs-git-mode 'deferred))
       (`(t . _)
        (treemacs-git-mode 'simple)))
+
+    (defhydra awesome-fast-switch (:hint nil)
+      "
+ ^^^^Fast Move             ^^^^Tab                    ^^Search            ^^Misc
+-^^^^--------------------+-^^^^---------------------+-^^----------------+-^^---------------------------
+   ^_k_^   prev group    | _C-a_^^     select first | _b_ search buffer | _C-k_   kill buffer
+ _h_   _l_  switch tab   | _C-e_^^     select last  | _g_ search group  | _C-S-k_ kill others in group
+   ^_j_^   next group    | _C-j_^^     ace jump     | ^^                | ^^
+ ^^0 ~ 9^^ select window | _C-h_/_C-l_ move current | ^^                | ^^
+-^^^^--------------------+-^^^^---------------------+-^^----------------+-^^---------------------------
+"
+      ("h" awesome-tab-backward-tab)
+      ("j" awesome-tab-forward-group)
+      ("k" awesome-tab-backward-group)
+      ("l" awesome-tab-forward-tab)
+      ("0" my-select-window)
+      ("1" my-select-window)
+      ("2" my-select-window)
+      ("3" my-select-window)
+      ("4" my-select-window)
+      ("5" my-select-window)
+      ("6" my-select-window)
+      ("7" my-select-window)
+      ("8" my-select-window)
+      ("9" my-select-window)
+      ("C-a" awesome-tab-select-beg-tab)
+      ("C-e" awesome-tab-select-end-tab)
+      ("C-j" awesome-tab-ace-jump)
+      ("C-h" awesome-tab-move-current-tab-to-left)
+      ("C-l" awesome-tab-move-current-tab-to-right)
+      ("b" ivy-switch-buffer)
+      ("g" awesome-tab-counsel-switch-group)
+      ("C-k" kill-current-buffer)
+      ("C-S-k" awesome-tab-kill-other-buffers-in-current-group)
+      ("q" nil "quit"))
 
     ;; Projectile integration
     (use-package treemacs-projectile

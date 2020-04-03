@@ -60,7 +60,7 @@
   :bind (:map lsp-ui-mode-map
 	      ([remap xref-find-definitions] . lsp-ui-peek-find-definitions)
 	      ([remap xref-find-references] . lsp-ui-peek-find-references)
-	      ("M-<f6>" . lsp-ui-hydra/body)
+	      ("M-RET u" . lsp-ui-hydra/body)
 	      ("C-c u" . lsp-ui-imenu))
   :init (setq lsp-ui-doc-enable t
 	      lsp-ui-doc-use-webkit nil
@@ -105,7 +105,8 @@
   :functions dap-hydra/nil
   :bind (:map lsp-mode-map
 	      ("<f5>" . dap-debug)
-	      ("M-<f5>" . dap-hydra))
+	      ("M-<f5>" . dap-hydra)
+	      ("M-RET d". dap-hydra))
   :hook ((after-init . dap-mode)
 	 (dap-session-created . (lambda (&_rest) (dap-hydra)))
 	 (dap-terminated . (lambda (&_rest) (dap-hydra/nil)))
