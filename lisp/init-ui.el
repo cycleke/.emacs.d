@@ -175,7 +175,8 @@
 (add-to-list 'default-frame-alist '(ns-transparent-titlebar . t))
 
 (use-package leuven-theme :ensure :defer)
-(if (display-graphic-p) (load-theme 'leuven t))
+(use-package gruvbox-theme :ensure :defer)
+(if (display-graphic-p) (load-theme light-theme t))
 ;; (use-package circadian
 ;;   :if (display-graphic-p)
 ;;   :ensure t

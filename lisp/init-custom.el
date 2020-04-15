@@ -79,6 +79,11 @@
            when (font-installed-p font)
            return (set-fontset-font t '(#x4e00 . #x9fff) font)))
 
+(defcustom light-theme 'leuven
+  "Set light color theme.")
+(defcustom dark-theme 'gruvbox-dark-soft
+  "Set light color theme.")
+
 (setq custom-file (expand-file-name "custom.el" user-cache-directory))
 
 (if (file-exists-p custom-file)

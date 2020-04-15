@@ -33,7 +33,7 @@
 						   (require 'ccls)
 						   (lsp)))
   :config
-  (setq ccls-executable "/usr/local/bin/ccls")
+  (setq ccls-executable "/Users/cycleke/scripts/ccls.sh")
   (with-eval-after-load 'projectile
     (setq projectile-project-root-files-top-down-recurring
 	  (append '("compile_commands.json"
