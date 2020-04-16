@@ -34,6 +34,11 @@
   (auto-save-visited-mode 1)
   (setq auto-save-visited-interval 1))
 
+;; Agda-mode
+(load-file (let ((coding-system-for-read 'utf-8))
+                (shell-command-to-string "agda-mode locate")))
+
+
 (provide 'init-haskell)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
