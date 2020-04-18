@@ -103,6 +103,8 @@ decrease this. If you experience stuttering, increase this.")
 (require 'init-projectile)
 (require 'init-lsp)
 (require 'init-prog)
+(when (display-graphic-p)
+  (require 'init-firasymbol))
 
 (require 'init-c)
 (require 'init-python)

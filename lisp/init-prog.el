@@ -9,31 +9,30 @@
 
 ;; Prettify Symbols
 ;; e.g. display “lambda” as “λ”
-(when (display-graphic-p)
-  (use-package prog-mode
-    :ensure nil
-    :hook (prog-mode . prettify-symbols-mode)
-    :init
-    (setq-default prettify-symbols-alist '(("lambda" . ?λ)
-					   ("<-" . ?←)
-					   ("->" . ?→)
-					   ("->>" . ?↠)
-					   ("=>" . ?⇒)
-					   ("map" . ?↦)
-					   ("/=" . ?≠)
-					   ("!=" . ?≠)
-					   ("==" . ?≡)
-					   ("<=" . ?≤)
-					   (">=" . ?≥)
-					   ("=<<" . (?= (Br . Bl) ?≪))
-					   (">>=" . (?≫ (Br . Bl) ?=))
-					   ("<=<" . ?↢)
-					   (">=>" . ?↣)
-					   ("&&" . ?∧)
-					   ("||" . ?∨)
-					   ("not" . ?¬)))
-    (setq prettify-symbols-unprettify-at-point 'right-edge)))
-
+;; (when (display-graphic-p)
+;;   (use-package prog-mode
+;;     :ensure nil
+;;     :hook (prog-mode . prettify-symbols-mode)
+;;     :init
+;;     (setq-default prettify-symbols-alist '(("lambda" . ?λ)
+;; 					   ("<-" . ?←)
+;; 					   ("->" . ?→)
+;; 					   ("->>" . ?↠)
+;; 					   ("=>" . ?⇒)
+;; 					   ("map" . ?↦)
+;; 					   ("/=" . ?≠)
+;; 					   ("!=" . ?≠)
+;; 					   ("==" . ?≡)
+;; 					   ("<=" . ?≤)
+;; 					   (">=" . ?≥)
+;; 					   ("=<<" . (?= (Br . Bl) ?≪))
+;; 					   (">>=" . (?≫ (Br . Bl) ?=))
+;; 					   ("<=<" . ?↢)
+;; 					   (">=>" . ?↣)
+;; 					   ("&&" . ?∧)
+;; 					   ("||" . ?∨)
+;; 					   ("not" . ?¬)))
+;;     (setq prettify-symbols-unprettify-at-point 'right-edge)))
 
 (use-package vimrc-mode)
 
