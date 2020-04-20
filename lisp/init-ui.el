@@ -176,15 +176,15 @@
 
 (use-package leuven-theme :ensure :defer)
 (use-package gruvbox-theme :ensure :defer)
-(if (display-graphic-p) (load-theme dark-theme t))
+(if (display-graphic-p) (load-theme light-theme t))
 ;; (use-package circadian
 ;;   :if (display-graphic-p)
 ;;   :ensure t
 ;;   :config
 ;;   (setq calendar-latitude 31.47104)
 ;;   (setq calendar-longitude 104.73409)
-;;   (setq circadian-themes '((:sunrise . leuven)
-;;                            (:sunset  . leuven-dark)))
+;;   (setq circadian-themes '((:sunrise . light-theme)
+;;                            (:sunset  . dark-theme)))
 ;;   (circadian-setup))
 (provide 'init-ui)
 

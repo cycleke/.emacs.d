@@ -122,12 +122,27 @@
         (compile (concat "g++ " filename " -o " progname " -g -Wall -lm -std=gnu++14 ")))))
 
 (defun match-paren (arg)
-  "Go to the matching paren if on a paren; otherwise insert %."
+  "Go to the matching paren if on a paren; otherwise insert %. ARG."
   (interactive "p")
   (cond ((looking-at "\\s(") (forward-list 1) (backward-char 1))
 	((looking-at "\\s)") (forward-char 1) (backward-list 1))
 	(t (self-insert-command (or arg 1)))))
 (global-set-key "%" 'match-paren)
+
+;; LaTeX formatter
+(defvar latex-format-binary "latexindent")
+(defun latex-format-buffer ()
+  "Use latexindent.pl to format the buffer."
+  (interactive)
+  (if (executable-find latex-format-binary)
+      (progn
+	(shell-command
+	 (concat latex-format-binary " -s "
+		 "-cruft " user-cache-directory " "
+		 buffer-file-name " -o " buffer-file-name " "
+		 "-y=\"defaultIndent: ' ',maximumIndentation:' '\""))
+	(revert-buffer :ignore-auto :noconfirm))
+    (error "%s" (concat latex-format-binary " not found."))))
 
 (provide 'init-funcs)
 

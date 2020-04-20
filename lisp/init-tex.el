@@ -10,7 +10,8 @@
 (eval-when-compile
   (require 'init-const)
   (require 'init-custom)
-  (require 'init-company))
+  (require 'init-company)
+  (require 'init-funcs))
 
 (use-package auctex
   :mode ("\\.tex\\'" . latex-mode)
@@ -42,11 +43,18 @@
     (add-hook 'LaTeX-mode-hook
 	      (lambda ()
 		(setq TeX-view-program-selection '((output-pdf "zathura")
-						   (output-dvi "zathura")))))))
+						   (output-dvi "zathura"))))))
+   (sys/linuxp
+    (add-hook 'LaTeX-mode-hook
+	      (lambda ()
+		(setq TeX-view-program-selection '((output-pdf "open")
+						   (output-dvi "open"))))))
+   )
   (add-hook 'LaTeX-mode-hook 'LaTeX-math-mode)
   (add-hook 'LaTeX-mode-hook 'TeX-source-correlate-mode)
   (add-hook 'LaTeX-mode-hook 'TeX-PDF-mode)
   (add-hook 'LaTeX-mode-hook 'prettify-symbols-mode)
+  (add-hook 'LaTeX-mode-hook '(lambda () (local-set-key (kbd "C-M-\\") 'latex-format-buffer)))
   :config
   (use-package company-math
     :ensure t
@@ -68,10 +76,8 @@
   (use-package company-auctex
     :defer t)
   (use-package company-reftex
-    :defer t))
-
-(eval-after-load "tex"
-  '(add-to-list 'TeX-command-list '("Make" "make" TeX-run-command t t)))
+    :defer t)
+  ())
 
 (provide 'init-tex)
 
