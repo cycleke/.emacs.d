@@ -176,7 +176,7 @@
 
 (use-package leuven-theme :ensure :defer)
 (use-package gruvbox-theme :ensure :defer)
-(if (display-graphic-p) (load-theme light-theme t))
+(if (display-graphic-p) (load-theme dark-theme t))
 ;; (use-package circadian
 ;;   :if (display-graphic-p)
 ;;   :ensure t

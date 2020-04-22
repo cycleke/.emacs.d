@@ -9,11 +9,11 @@
 
 ;; Prettify Symbols
 ;; e.g. display “lambda” as “λ”
-(when (display-graphic-p)
-  (use-package prog-mode
-    :ensure nil
-    :hook (prog-mode . prettify-symbols-mode)
-    :init
+(use-package prog-mode
+  :ensure nil
+  :hook (prog-mode . prettify-symbols-mode)
+  :init
+  (when (display-graphic-p)
     (setq-default prettify-symbols-alist '(("lambda" . ?λ)
 					   ("<-" . ?←)
 					   ("->" . ?→)
@@ -32,11 +32,12 @@
 					   ("&&" . ?∧)
 					   ("||" . ?∨)
 					   ("not" . ?¬)))
-    (setq prettify-symbols-unprettify-at-point 'right-edge))
+    (setq prettify-symbols-unprettify-at-point 'right-edge)))
 
-  (use-package fira-code-mode
-    :custom (fira-code-mode-disabled-ligatures '("x"))
-    :hook prog-mode))
+(use-package fira-code-mode
+  :if (display-graphic-p)
+  :custom (fira-code-mode-disabled-ligatures '("x"))
+  :hook prog-mode)
 
 (use-package vimrc-mode)
 
@@ -51,6 +52,16 @@
 (use-package nxml-mode
   :ensure nil
   :mode (("\\.xaml$" . xml-mode)))
+
+(use-package highlight-indent-guides
+  :ensure t
+  :hook ((prog-mode . highlight-indent-guides-mode)
+	 (agda2-mode . highlight-indent-guides-mode))
+  :config
+  (setq highlight-indent-guides-method 'character))
+(add-hook 'prog-mode-hook 'highlight-indent-guides-mode)
+(add-hook 'agda2-mode-hook 'highlight-indent-guides-mode)
+(setq highlight-indent-guides-method 'character)
 
 (provide 'init-prog)
 

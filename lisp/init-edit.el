@@ -240,8 +240,8 @@
     (interactive)
     (fic-mode 1))
   :hook
-  (c-mode-common . turn-on-fic-mode)
-  (prog-mode . turn-on-fic-mode))
+  ((prog-mode . turn-on-fic-mode)
+  (agda2-mode . turn-on-fic-mode)))
 
 ;; Switch window
 (use-package ace-window
