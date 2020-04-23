@@ -97,7 +97,8 @@ decrease this. If you experience stuttering, increase this.")
 (require 'init-dict)
 ;; (require 'init-w3m)
 (require 'init-awesome-tab)
-(require 'init-awesome-tray)
+;; (require 'init-awesome-tray)
+(require 'init-rime)
 
 ;; Programming
 (require 'init-flycheck)
@@ -115,8 +116,6 @@ decrease this. If you experience stuttering, increase this.")
 (run-with-idle-timer
  1 nil
  #'(lambda ()
-     (require 'init-site-lisp)
-
      (load "server")
      (unless (server-running-p) (server-start))))
 

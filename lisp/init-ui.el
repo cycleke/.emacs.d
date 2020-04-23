@@ -30,6 +30,18 @@
   (push '(tool-bar-lines . 0) default-frame-alist)
   (push '(vertical-scroll-bars) default-frame-alist))
 
+(use-package doom-modeline
+  :ensure t
+  :init
+  (setq doom-modeline-major-mode-color-icon t
+        doom-modeline-minor-modes nil
+        doom-modeline-mu4e nil
+	doom-modeline-height 1)
+  (custom-set-faces
+   '(mode-line ((t (:family "Monaco" :height 0.9))))
+   '(mode-line-inactive ((t (:family "Monaco" :height 0.9)))))
+  (doom-modeline-mode 1))
+
 (use-package all-the-icons
   :if (display-graphic-p)
   :init (unless (or sys/win32p (member "all-the-icons" (font-family-list)))
