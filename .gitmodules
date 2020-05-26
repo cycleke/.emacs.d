@@ -10,3 +10,6 @@
 [submodule "awesome-tray"]
   path = site-lisp/awesome-tray
   url = https://github.com/manateelazycat/awesome-tray.git
+[submodule "emacscompanywords"]
+  path = site-lisp/emacscompanywords
+  url = https://github.com/wushuaibuaa/emacscompanywords.git

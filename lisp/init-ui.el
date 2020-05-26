@@ -186,6 +186,7 @@
 (add-to-list 'default-frame-alist (cons 'alpha (list 95 90)))
 (add-to-list 'default-frame-alist '(ns-transparent-titlebar . t))
 
+(use-package tao-theme :ensure :defer)
 (use-package leuven-theme :ensure :defer)
 (use-package gruvbox-theme :ensure :defer)
 (if (display-graphic-p) (load-theme dark-theme t))

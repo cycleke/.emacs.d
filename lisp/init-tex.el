@@ -54,7 +54,7 @@
   (add-hook 'LaTeX-mode-hook 'TeX-source-correlate-mode)
   (add-hook 'LaTeX-mode-hook 'TeX-PDF-mode)
   (add-hook 'LaTeX-mode-hook 'prettify-symbols-mode)
-  (add-hook 'LaTeX-mode-hook '(lambda () (local-set-key (kbd "C-M-\\") 'latex-format-buffer)))
+  ;; (add-hook 'LaTeX-mode-hook '(lambda () (local-set-key (kbd "C-M-\\") 'latex-format-buffer)))
   :config
   (use-package company-math
     :ensure t

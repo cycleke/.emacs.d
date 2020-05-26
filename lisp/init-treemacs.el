@@ -36,8 +36,8 @@
           treemacs-is-never-other-window   t
           treemacs-silent-filewatch        t
           treemacs-silent-refresh          t
-	  treemacs-no-png-images           t
-          treemacs-width                   27)
+	        treemacs-no-png-images           t
+          treemacs-width                   30)
 
     (treemacs-follow-mode t)
     (treemacs-filewatch-mode t)

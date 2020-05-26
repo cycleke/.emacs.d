@@ -65,7 +65,7 @@
            when (font-installed-p font)
            return (set-face-attribute 'default nil
                                       :font font
-                                      :height (cond (sys/mac-x-p 140)
+                                      :height (cond (sys/mac-x-p 150)
                                                     (sys/win32p 110)
                                                     (t 120))))
 
@@ -79,7 +79,7 @@
            when (font-installed-p font)
            return (set-fontset-font t '(#x4e00 . #x9fff) font)))
 
-(defcustom light-theme 'leuven
+(defcustom light-theme 'tao-yang
   "Set light color theme.")
 (defcustom dark-theme 'gruvbox-dark-soft
   "Set light color theme.")

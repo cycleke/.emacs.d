@@ -36,14 +36,16 @@
 (set-terminal-coding-system 'utf-8)
 (set-selection-coding-system 'utf-8)
 (modify-coding-system-alist 'process "*" 'utf-8)
+(setq confirm-kill-emacs
+      (lambda (prompt) (y-or-n-p-with-timeout "Whether to quit Emacs:" 10 "n")))
 
 ;; file edit settings
-(setq tab-width 2
-      sentence-end-double-space nil
-      make-backup-files nil
-      indent-tabs-mode nil
-      make-backup-files nil
-      auto-save-default nil)
+(setq-default tab-width 2
+              sentence-end-double-space nil
+              make-backup-files nil
+              indent-tabs-mode nil
+              make-backup-files nil
+              auto-save-default nil)
 
 (setq locale-coding-system 'utf-8
       default-process-coding-system '(utf-8 . utf-8))
@@ -52,8 +54,8 @@
   (use-package exec-path-from-shell
     :init
     (setq exec-path-from-shell-check-startup-files nil
-	  exec-path-from-shell-variables '("PATH" "MANPATH")
-	  exec-path-from-shell-arguments '("-l"))
+	        exec-path-from-shell-variables '("PATH" "MANPATH")
+	        exec-path-from-shell-arguments '("-l"))
     (exec-path-from-shell-initialize)))
 
 (cond (sys/macp
@@ -95,13 +97,13 @@
   :ensure nil
   :hook (after-init . recentf-mode)
   :init (setq recentf-max-saved-items 300
-	      recentf-save-file (expand-file-name "recentf" user-cache-directory)
-	      recentf-exclude
-	      '("\\.?cache" ".cask" "url" "COMMIT_EDITMSG\\'" "bookmarks"
-		"\\.\\(?:gz\\|gif\\|svg\\|png\\|jpe?g\\|bmp\\|xpm\\)$"
-		"\\.?ido\\.last$" "\\.revive$" "/G?TAGS$" "/.elfeed/"
-		"^/tmp/" "^/var/folders/.+$" ; "^/ssh:"
-		(lambda (file) (file-in-directory-p file package-user-dir))))
+	            recentf-save-file (expand-file-name "recentf" user-cache-directory)
+	            recentf-exclude
+	            '("\\.?cache" ".cask" "url" "COMMIT_EDITMSG\\'" "bookmarks"
+		            "\\.\\(?:gz\\|gif\\|svg\\|png\\|jpe?g\\|bmp\\|xpm\\)$"
+		            "\\.?ido\\.last$" "\\.revive$" "/G?TAGS$" "/.elfeed/"
+		            "^/tmp/" "^/var/folders/.+$" ; "^/ssh:"
+		            (lambda (file) (file-in-directory-p file package-user-dir))))
   :config
   (push (expand-file-name recentf-save-file) recentf-exclude))
 
@@ -110,33 +112,35 @@
   :ensure nil
   :hook (after-init . savehist-mode)
   :init (setq enable-recursive-minibuffers t ; Allow commands in minibuffers
-	      history-length 1000
-	      savehist-file (expand-file-name ".savehist" user-cache-directory)
-	      savehist-additional-variables '(mark-ring
-					      global-mark-ring
-					      search-ring
-					      regexp-search-ring
-					      extended-command-history)
-	      savehist-autosave-interval 300))
+	            history-length 1000
+	            savehist-file (expand-file-name ".savehist" user-cache-directory)
+	            savehist-additional-variables '(mark-ring
+					                                    global-mark-ring
+					                                    search-ring
+					                                    regexp-search-ring
+					                                    extended-command-history)
+	            savehist-autosave-interval 300))
 
 (use-package time
-  :ensure nil
-  :unless (display-graphic-p)
+  :ensure t
+  :if (display-graphic-p)
   :hook (after-init . display-time-mode)
-  :init (setq display-time-24hr-format t
-	      display-time-day-and-date t))
+  :config
+  (setq-default display-time-24hr-format t
+	              display-time-day-and-date t)
+  (display-time-mode 1))
 
 (use-package simple
   :ensure nil
   :hook ((window-setup . size-indication-mode)
-	 ((prog-mode markdown-mode conf-mode) . enable-trailing-whitespace))
+	       ((prog-mode markdown-mode conf-mode) . enable-trailing-whitespace))
   :init
   (setq column-number-mode t
-	line-number-mode t
-	;; kill-whole-line t               ; Kill line including '\n'
-	line-move-visual nil
-	track-eol t                     ; Keep cursor at end of lines. Require line-move-visual is nil.
-	set-mark-command-repeat-pop t)  ; Repeating C-SPC after popping mark pops it again
+	      line-number-mode t
+	      ;; kill-whole-line t               ; Kill line including '\n'
+	      line-move-visual nil
+	      track-eol t                     ; Keep cursor at end of lines. Require line-move-visual is nil.
+	      set-mark-command-repeat-pop t)  ; Repeating C-SPC after popping mark pops it again
 
   ;; Visualize TAB, (HARD) SPACE, NEWLINE
   (setq-default show-trailing-whitespace t) ; Show trailing whitespace by default
@@ -157,7 +161,9 @@
 (menu-bar-mode -1)
 (tool-bar-mode -1)
 (show-paren-mode 1)
-(scroll-bar-mode -1)
+(condition-case nil
+    (scroll-bar-mode -1)
+  (error nil))
 ;; (toggle-scroll-bar -1)
 (display-battery-mode 1)
 

@@ -35,12 +35,12 @@
   (interactive)
   (save-excursion
     (if (region-active-p)
-	(progn
-	  (indent-region (region-beginning) (region-end))
-	  (message "Indented selected region."))
+	      (progn
+	        (indent-region (region-beginning) (region-end))
+	        (message "Indented selected region."))
       (progn
-	(indent-buffer)
-	(message "Indented the buffer.")))))
+	      (indent-buffer)
+	      (message "Indented the buffer.")))))
 (global-set-key (kbd "C-M-\\") 'indent-region-or-buffer)
 
 (defun revert-this-buffer ()
@@ -49,6 +49,7 @@
   (unless (minibuffer-window-active-p (selected-window))
     (revert-buffer t t)
     (message "Reverted this buffer.")))
+(use-package format-all :defer t)
 (global-set-key (kbd "s-r") #'revert-this-buffer)
 
 
@@ -125,8 +126,8 @@
   "Go to the matching paren if on a paren; otherwise insert %. ARG."
   (interactive "p")
   (cond ((looking-at "\\s(") (forward-list 1) (backward-char 1))
-	((looking-at "\\s)") (forward-char 1) (backward-list 1))
-	(t (self-insert-command (or arg 1)))))
+	      ((looking-at "\\s)") (forward-char 1) (backward-list 1))
+	      (t (self-insert-command (or arg 1)))))
 (global-set-key "%" 'match-paren)
 
 ;; LaTeX formatter
@@ -136,12 +137,12 @@
   (interactive)
   (if (executable-find latex-format-binary)
       (progn
-	(shell-command
-	 (concat latex-format-binary " -s "
-		 "-cruft " user-cache-directory " "
-		 buffer-file-name " -o " buffer-file-name " "
-		 "-y=\"defaultIndent: ' ',maximumIndentation:' '\""))
-	(revert-buffer :ignore-auto :noconfirm))
+	      (shell-command
+	       (concat latex-format-binary " -s "
+		             "-cruft " user-cache-directory " "
+		             buffer-file-name " -o " buffer-file-name " "
+		             "-y=\"defaultIndent: ' ',maximumIndentation:' '\""))
+	      (revert-buffer :ignore-auto :noconfirm))
     (error "%s" (concat latex-format-binary " not found."))))
 
 (provide 'init-funcs)

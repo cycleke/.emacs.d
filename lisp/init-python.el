@@ -32,28 +32,25 @@
 
   ;; Env vars
   (with-eval-after-load 'exec-path-from-shell
-    (exec-path-from-shell-copy-env "PYTHONPATH"))
+    (exec-path-from-shell-copy-env "PYTHONPATH")))
 
-  ;; Microsoft python-language-server support
-  (use-package lsp-python-ms
-    :after lsp-mode
-    :hook (python-mode . (lambda ()
-			   (require 'lsp-python-ms)
-			   (lsp-deferred)))
-    :config
-    (setq lsp-python-ms-executable
-	  "~/lsp/python-language-server/output/bin/Release/osx.10.14-x64/publish/Microsoft.Python.LanguageServer"))
+;; Microsoft python-language-server support
+(use-package lsp-python-ms
+  :after lsp-mode
+  :hook (python-mode . (lambda ()
+			                   (require 'lsp-python-ms)
+			                   (lsp-deferred))))
 
-  ;; Live Coding in Python
-  (use-package live-py-mode)
+;; Live Coding in Python
+(use-package live-py-mode)
 
-  ;; Format using YAPF
-  ;; Install: pip install yapf
-  (use-package yapfify
-    :diminish yapf-mode
-    :hook (python-mode . yapf-mode)
-    :bind (:map python-mode-map
-		("C-M-\\" . yapfify-buffer))))
+;; Format using YAPF
+;; Install: pip install yapf
+(use-package yapfify
+  :defer t
+  :hook (python-mode . yapf-mode)
+  :bind (:map python-mode-map
+		          ("C-M-\\" . yapfify-buffer)))
 
 (provide 'init-python)
 

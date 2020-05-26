@@ -98,7 +98,7 @@ decrease this. If you experience stuttering, increase this.")
 ;; (require 'init-w3m)
 (require 'init-awesome-tab)
 ;; (require 'init-awesome-tray)
-(require 'init-rime)
+;; (require 'init-rime)
 
 ;; Programming
 (require 'init-flycheck)
