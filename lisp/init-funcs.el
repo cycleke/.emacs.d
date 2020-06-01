@@ -49,7 +49,6 @@
   (unless (minibuffer-window-active-p (selected-window))
     (revert-buffer t t)
     (message "Reverted this buffer.")))
-(use-package format-all :defer t)
 (global-set-key (kbd "s-r") #'revert-this-buffer)
 
 

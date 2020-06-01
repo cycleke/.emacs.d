@@ -93,6 +93,8 @@
     (which-key-mode)
     (which-key-setup-side-window-bottom)))
 
+(use-package format-all :defer t)
+
 (provide 'init-package)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
