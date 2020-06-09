@@ -7,38 +7,6 @@
 
 ;;; Code:
 
-;; Prettify Symbols
-;; e.g. display “lambda” as “λ”
-(use-package prog-mode
-  :ensure nil
-  :hook (prog-mode . prettify-symbols-mode)
-  :init
-  (when (display-graphic-p)
-    (setq-default prettify-symbols-alist '(("lambda" . ?λ)
-					   ("<-" . ?←)
-					   ("->" . ?→)
-					   ("->>" . ?↠)
-					   ("=>" . ?⇒)
-					   ("map" . ?↦)
-					   ;; ("/=" . ?≠)
-					   ;; ("!=" . ?≠)
-					   ;; ("==" . ?≡)
-					   ("<=" . ?≤)
-					   (">=" . ?≥)
-					   ("=<<" . (?= (Br . Bl) ?≪))
-					   (">>=" . (?≫ (Br . Bl) ?=))
-					   ("<=<" . ?↢)
-					   (">=>" . ?↣)
-					   ("&&" . ?∧)
-					   ("||" . ?∨)
-					   ("not" . ?¬)))
-    (setq prettify-symbols-unprettify-at-point 'right-edge)))
-
-(use-package fira-code-mode
-  :if (display-graphic-p)
-  :custom (fira-code-mode-disabled-ligatures '("x"))
-  :hook prog-mode)
-
 (use-package vimrc-mode)
 
 ;; New `conf-toml-mode' in Emacs 26
