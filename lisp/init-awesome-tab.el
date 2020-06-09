@@ -13,6 +13,9 @@
 (use-package awesome-tab
   :load-path "~/.emacs.d/site-lisp/awesome-tab"
   :config
+  (setq awesome-tab-height 100)
+  (setq awesome-tab-show-tab-index t)
+  (setq awesome-tab-active-bar-width 3)
   (awesome-tab-mode t)
   ;; 切换到左边的标签页
   (global-set-key (kbd "C-9") 'awesome-tab-backward-tab)

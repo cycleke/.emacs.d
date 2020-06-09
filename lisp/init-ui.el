@@ -38,7 +38,7 @@
         doom-modeline-mu4e nil
 	doom-modeline-height 1)
   (custom-set-faces
-   '(mode-line ((t (:family "Monaco" :height 0.9))))
+   '(mode-line ((t (:family "Sarasa Nerd" :height 0.9))))
    '(mode-line-inactive ((t (:family "Monaco" :height 0.9)))))
   (doom-modeline-mode 1))
 
