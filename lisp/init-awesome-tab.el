@@ -24,7 +24,18 @@
   ;; 把当前标签页往右移
   (global-set-key (kbd "C-M-)") 'awesome-tab-move-current-tab-to-right)
   ;; 把当前标签页往左移
-  (global-set-key (kbd "C-M-(") 'awesome-tab-move-current-tab-to-left))
+  (global-set-key (kbd "C-M-(") 'awesome-tab-move-current-tab-to-left)
+  (global-set-key (kbd "M-1") 'awesome-tab-select-visible-tab)
+  (global-set-key (kbd "M-2") 'awesome-tab-select-visible-tab)
+  (global-set-key (kbd "M-3") 'awesome-tab-select-visible-tab)
+  (global-set-key (kbd "M-4") 'awesome-tab-select-visible-tab)
+  (global-set-key (kbd "M-5") 'awesome-tab-select-visible-tab)
+  (global-set-key (kbd "M-6") 'awesome-tab-select-visible-tab)
+  (global-set-key (kbd "M-7") 'awesome-tab-select-visible-tab)
+  (global-set-key (kbd "M-8") 'awesome-tab-select-visible-tab)
+  (global-set-key (kbd "M-9") 'awesome-tab-select-visible-tab)
+  (global-set-key (kbd "M-0") 'awesome-tab-select-visible-tab)
+  )
 
 (provide 'init-awesome-tab)
 
