@@ -24,6 +24,7 @@ python-*-docs-html
 transient/
 eclipse.jdt.ls
 tldr/
+tramp
 workspace
 amx-items
 .dap-breakpoints
