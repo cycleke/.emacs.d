@@ -8,15 +8,19 @@
 
 ;;; Code:
 
+(eval-when-compile
+  (require 'init-const))
+
 (use-package rime
   :custom
   (default-input-method "rime")
-  (rime-librime-root "~/.emacs.d/librime/dist")
   :bind
   (:map rime-mode-map
         ("C-`" . 'rime-send-keybinding))
   :config
-  (setq rime-user-data-dir "~/Library/Rime"))
+  (setq rime-user-data-dir (cond (sys/macp "~/Library/Rime")
+                                 (sys/linuxp "~/.local/share/fcitx5/rime")
+                                 (t ""))))
 
 (provide 'init-rime)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
