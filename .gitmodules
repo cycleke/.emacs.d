@@ -13,3 +13,6 @@
 [submodule "emacscompanywords"]
   path = site-lisp/emacscompanywords
   url = https://github.com/wushuaibuaa/emacscompanywords.git
+[submodule "site-lisp/asymbol"]
+	path = site-lisp/asymbol
+	url = git@github.com:dwuggh/asymbol.git
