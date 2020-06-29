@@ -34,7 +34,7 @@
   (global-set-key (kbd "M-7") 'awesome-tab-select-visible-tab)
   (global-set-key (kbd "M-8") 'awesome-tab-select-visible-tab)
   (global-set-key (kbd "M-9") 'awesome-tab-select-visible-tab)
-  (global-set-key (kbd "M-0") 'awesome-tab-select-visible-tab)
+  ;; (global-set-key (kbd "M-0") 'awesome-tab-select-visible-tab)
   )
 
 (provide 'init-awesome-tab)
