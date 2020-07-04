@@ -69,6 +69,7 @@ decrease this. If you experience stuttering, increase this.")
 (advice-add #'package-initialize :after #'add-subdirs-to-load-path)
 
 (update-load-path)
+(add-subdirs-to-load-path)
 
 ;; Constants
 (require 'init-const)
@@ -100,6 +101,7 @@ decrease this. If you experience stuttering, increase this.")
 ;; (require 'init-awesome-tray)
 (require 'init-rime)
 (require 'init-asymbol)
+(require 'init-site-lisp)
 
 ;; Programming
 (require 'init-flycheck)

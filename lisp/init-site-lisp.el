@@ -8,44 +8,54 @@
 
 ;;; Code:
 
-;; ;; eaf
-;; (require 'eaf)
-;; (use-package eaf
-;;   :load-path "~/.emacs.d/site-lisp/emacs-application-framework"
-;;   :custom
-;;   (eaf-find-alternate-file-in-dired t)
-;;   :config
-;;   (eaf-bind-key scroll_up "RET" eaf-pdf-viewer-keybinding)
-;;   (eaf-bind-key scroll_down_page "DEL" eaf-pdf-viewer-keybinding)
-;;   (eaf-bind-key scroll_up "C-n" eaf-pdf-viewer-keybinding)
-;;   (eaf-bind-key scroll_down "C-p" eaf-pdf-viewer-keybinding)
-;;   (eaf-bind-key take_photo "p" eaf-camera-keybinding)
-;;   (eaf-bind-key undo_action "C-/" eaf-browser-keybinding)
-;;   (eaf-bind-key redo_action "C-?" eaf-browser-keybinding)
-;;   (eaf-bind-key scroll_up "M-j" eaf-browser-keybinding)
-;;   (eaf-bind-key scroll_down "M-k" eaf-browser-keybinding)
-;;   (eaf-bind-key scroll_up_page "M-n" eaf-browser-keybinding)
-;;   (eaf-bind-key scroll_down_page "M-p" eaf-browser-keybinding)
-;;   (eaf-bind-key scroll_to_begin "M->" eaf-browser-keybinding)
-;;   (eaf-bind-key scroll_to_bottom "M-<" eaf-browser-keybinding)
-;;   (eaf-bind-key open_link "M-h" eaf-browser-keybinding)
-;;   (eaf-bind-key open_link_new_buffer "M-H" eaf-browser-keybinding)
+;; eaf
+(require 'eaf)
+(use-package eaf
+  :load-path "~/.emacs.d/site-lisp/emacs-application-framework"
+  :custom
+  (eaf-find-alternate-file-in-dired t)
+  :config
+  (eaf-bind-key scroll_up "RET" eaf-pdf-viewer-keybinding)
+  (eaf-bind-key scroll_down_page "DEL" eaf-pdf-viewer-keybinding)
+  (eaf-bind-key scroll_up "C-n" eaf-pdf-viewer-keybinding)
+  (eaf-bind-key scroll_down "C-p" eaf-pdf-viewer-keybinding)
+  (eaf-bind-key take_photo "p" eaf-camera-keybinding)
+  (eaf-bind-key undo_action "C-/" eaf-browser-keybinding)
+  (eaf-bind-key redo_action "C-?" eaf-browser-keybinding)
+  (eaf-bind-key scroll_up "M-j" eaf-browser-keybinding)
+  (eaf-bind-key scroll_down "M-k" eaf-browser-keybinding)
+  (eaf-bind-key scroll_up_page "M-n" eaf-browser-keybinding)
+  (eaf-bind-key scroll_down_page "M-p" eaf-browser-keybinding)
+  (eaf-bind-key scroll_to_begin "M->" eaf-browser-keybinding)
+  (eaf-bind-key scroll_to_bottom "M-<" eaf-browser-keybinding)
+  (eaf-bind-key open_link "M-h" eaf-browser-keybinding)
+  (eaf-bind-key open_link_new_buffer "M-H" eaf-browser-keybinding)
 
-;;   (setq eaf-grip-token "0048eacd75ec58e1df586dfc95df732ebba3258e")
-;;   (setq eaf-proxy-type "socks5")
-;;   (setq eaf-proxy-host "127.0.0.1")
-;;   (setq eaf-proxy-port "1080"))
+  (setq eaf-grip-token "0048eacd75ec58e1df586dfc95df732ebba3258e")
+  (setq eaf-proxy-type "socks5")
+  (setq eaf-proxy-host "127.0.0.1")
+  (setq eaf-proxy-port "7891")
+  (setq eaf-browser-default-search-engine 'duckduckgo)
+  (eaf-setq eaf-browser-aria2-proxy-host "127.0.0.1")
+  (eaf-setq eaf-browser-aria2-proxy-port "7890")
+  (eaf-setq eaf-pdf-dark-mode "true")
+  (eaf-setq eaf-browse-blank-page-url "https://duckduckgo.com"))
 
-;; (setq browse-url-browser-function 'eaf-open-browser)
-;; (defalias 'browse-web #'eaf-open-browser)
+(setq browse-url-browser-function 'eaf-open-browser)
+(defalias 'browse-web #'eaf-open-browser)
 
-;; ;; fuz.el
-;; (require 'fuz)
-;; (unless (require 'fuz-core nil t)
-;;   (fuz-build-and-load-dymod))
+;; fuz.el
+(use-package fuz
+  :load-path "~/.emacs.d/site-lisp/fuz.el"
+  :config
+  (unless (require 'fuz-core nil t)
+    (fuz-build-and-load-dymod)))
+(require 'fuz)
 
 ;; snails
 (require 'snails)
+(use-package snails
+  :load-path "~/.emacs.d/site-lisp/snails")
 
 (provide 'init-site-lisp)
 

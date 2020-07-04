@@ -1,18 +1,21 @@
-[submodule "awesome-tab"]
-  path = site-lisp/awesome-tab
-  url = https://github.com/manateelazycat/awesome-tab.git
-[submodule "snails"]
-  path = site-lisp/snails
-  url = https://github.com/manateelazycat/snails.git
-[submodule "fuz.el"]
-  path = site-lisp/fuz.el
-  url = https://github.com/cireu/fuz.el.git
-[submodule "awesome-tray"]
-  path = site-lisp/awesome-tray
-  url = https://github.com/manateelazycat/awesome-tray.git
-[submodule "emacscompanywords"]
-  path = site-lisp/emacscompanywords
-  url = https://github.com/wushuaibuaa/emacscompanywords.git
 [submodule "asymbol"]
 	path = site-lisp/asymbol
 	url = https://github.com/dwuggh/asymbol.git
+[submodule "awesome-tab"]
+  path = site-lisp/awesome-tab
+  url = https://github.com/manateelazycat/awesome-tab.git
+[submodule "awesome-tray"]
+  path = site-lisp/awesome-tray
+  url = https://github.com/manateelazycat/awesome-tray.git
+[submodule "emacs-application-framework"]
+  path = site-lisp/emacs-application-framework
+  url = https://github.com/manateelazycat/emacs-application-framework
+[submodule "emacscompanywords"]
+  path = site-lisp/emacscompanywords
+  url = https://github.com/wushuaibuaa/emacscompanywords.git
+[submodule "fuz.el"]
+  path = site-lisp/fuz.el
+  url = https://github.com/cireu/fuz.el.git
+[submodule "snails"]
+  path = site-lisp/snails
+  url = https://github.com/manateelazycat/snails.git
