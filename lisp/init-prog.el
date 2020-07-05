@@ -31,6 +31,11 @@
 (add-hook 'agda2-mode-hook 'highlight-indent-guides-mode)
 (setq highlight-indent-guides-method 'character)
 
+;; 括号匹配
+(use-package smartparens
+  :ensure t
+  :hook (prog-mode . smartparens-global-mode))
+
 (provide 'init-prog)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;

@@ -85,16 +85,15 @@
   (unless (server-running-p)
     (server-start)))
 
-
 ;; History
 (use-package saveplace
-  :ensure nil
+  :ensure t
   :hook (after-init . save-place-mode)
   :init
   (setq save-place-file (expand-file-name "places" user-cache-directory)))
 
 (use-package recentf
-  :ensure nil
+  :ensure t
   :hook (after-init . recentf-mode)
   :init (setq recentf-max-saved-items 300
 	            recentf-save-file (expand-file-name "recentf" user-cache-directory)
@@ -148,6 +147,12 @@
     "Show trailing spaces and delete on saving."
     (setq show-trailing-whitespace t)
     (add-hook 'before-save-hook #'delete-trailing-whitespace nil t)))
+
+(use-package socks
+  :ensure t
+  :custom
+  (url-gateway-method 'socks)
+  (socks-server '("Default server" "localhost" 7891 5)))
 
 ;; Mouse & Smooth Scroll
 ;; Scroll one line at a time (less "jumpy" than defaults)

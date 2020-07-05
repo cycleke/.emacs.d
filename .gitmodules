@@ -7,12 +7,12 @@
 [submodule "awesome-tray"]
   path = site-lisp/awesome-tray
   url = https://github.com/manateelazycat/awesome-tray.git
+[submodule "company-english-helper"]
+	path = company-english-helper
+	url = https://github.com/manateelazycat/company-english-helper
 [submodule "emacs-application-framework"]
   path = site-lisp/emacs-application-framework
   url = https://github.com/manateelazycat/emacs-application-framework
-[submodule "emacscompanywords"]
-  path = site-lisp/emacscompanywords
-  url = https://github.com/wushuaibuaa/emacscompanywords.git
 [submodule "fuz.el"]
   path = site-lisp/fuz.el
   url = https://github.com/cireu/fuz.el.git

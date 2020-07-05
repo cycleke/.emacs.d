@@ -101,6 +101,7 @@ decrease this. If you experience stuttering, increase this.")
 ;; (require 'init-awesome-tray)
 (require 'init-rime)
 (require 'init-asymbol)
+(require 'init-markdown)
 (require 'init-site-lisp)
 
 ;; Programming

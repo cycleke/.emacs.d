@@ -31,14 +31,20 @@
   (eaf-bind-key open_link "M-h" eaf-browser-keybinding)
   (eaf-bind-key open_link_new_buffer "M-H" eaf-browser-keybinding)
 
+  (when (and
+	       (> (car (circadian-now-time)) (car (circadian-sunrise)))
+	       (< (car (circadian-now-time)) (car (circadian-sunset))))
+	  (progn
+	    (eaf-setq eaf-pdf-dark-mode "false")
+	    (eaf-setq eaf-browser-dark-mode "false")
+      (eaf-setq eaf-mindmap-dark-mode "false")))
   (setq eaf-grip-token "0048eacd75ec58e1df586dfc95df732ebba3258e")
   (setq eaf-proxy-type "socks5")
   (setq eaf-proxy-host "127.0.0.1")
   (setq eaf-proxy-port "7891")
-  (setq eaf-browser-default-search-engine 'duckduckgo)
+  (setq eaf-browser-default-search-engine "duckduckgo")
   (eaf-setq eaf-browser-aria2-proxy-host "127.0.0.1")
   (eaf-setq eaf-browser-aria2-proxy-port "7890")
-  (eaf-setq eaf-pdf-dark-mode "true")
   (eaf-setq eaf-browse-blank-page-url "https://duckduckgo.com"))
 
 (setq browse-url-browser-function 'eaf-open-browser)
@@ -55,7 +61,12 @@
 ;; snails
 (require 'snails)
 (use-package snails
-  :load-path "~/.emacs.d/site-lisp/snails")
+  :load-path "~/.emacs.d/site-lisp/snails"
+  :bind ("C-c s" . snails))
+
+(use-package company-english-helper
+  :load-path "~/.emacs.d/site-lisp/company-english-helper"
+  :bind ("C-c h" . toggle-company-english-helper))
 
 (provide 'init-site-lisp)
 

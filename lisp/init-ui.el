@@ -36,9 +36,9 @@
   (setq doom-modeline-major-mode-color-icon t
         doom-modeline-minor-modes nil
         doom-modeline-mu4e nil
-	doom-modeline-height 1)
+        doom-modeline-height 1)
   (custom-set-faces
-   '(mode-line ((t (:family "Sarasa Nerd" :height 0.9))))
+   '(mode-line ((t (:family "Monaco" :height 0.9))))
    '(mode-line-inactive ((t (:family "Monaco" :height 0.9)))))
   (doom-modeline-mode 1))
 
@@ -142,8 +142,7 @@
 (setq use-file-dialog nil
       use-dialog-box nil
       inhibit-startup-screen t
-      inhibit-startup-echo-area-message t
-      initial-scratch-message ";; Happy hacking and Grey ♥ you!\n\n")
+      inhibit-startup-echo-area-message t)
 
 ;; Display dividers between windows
 (setq window-divider-default-places t
@@ -189,16 +188,60 @@
 (use-package tao-theme :ensure :defer)
 (use-package leuven-theme :ensure :defer)
 (use-package gruvbox-theme :ensure :defer)
-(if (display-graphic-p) (load-theme dark-theme t))
-;; (use-package circadian
-;;   :if (display-graphic-p)
-;;   :ensure t
-;;   :config
-;;   (setq calendar-latitude 31.47104)
-;;   (setq calendar-longitude 104.73409)
-;;   (setq circadian-themes '((:sunrise . light-theme)
-;;                            (:sunset  . dark-theme)))
-;;   (circadian-setup))
+(use-package circadian
+  :if (display-graphic-p)
+  :ensure t
+  :config
+  (setq calendar-latitude 31.47104)
+  (setq calendar-longitude 104.73409)
+  (setq circadian-themes '((:sunrise . leuven)
+                           (:sunset  . gruvbox-dark-soft)))
+  (add-hook 'circadian-after-load-theme-hook
+            #'(lambda (theme)
+                ;; Line numbers appearance
+                (setq linum-format 'linum-format-func)
+                ;; Cursor
+                (set-default 'cursor-type 'box)
+                (set-cursor-color "#F52503"))))
+(circadian-setup)
+
+(use-package rainbow-delimiters
+  :ensure t
+  :hook (prog-mode . rainbow-delimiters-mode)
+  :config
+  ;; (set-face-foreground 'rainbow-delimiters-depth-1-face "orange red")
+  ;; (set-face-foreground 'rainbow-delimiters-depth-2-face "gold")
+  ;; (set-face-foreground 'rainbow-delimiters-depth-3-face "yellow")
+  ;; (set-face-foreground 'rainbow-delimiters-depth-4-face "spring green")
+  ;; (set-face-foreground 'rainbow-delimiters-depth-5-face "cyan")
+  ;; (set-face-foreground 'rainbow-delimiters-depth-6-face "magenta")
+  ;; (set-face-foreground 'rainbow-delimiters-depth-7-face "goldenrod")
+  ;; (set-face-foreground 'rainbow-delimiters-depth-8-face "IndianRed1")
+  ;; (set-face-foreground 'rainbow-delimiters-depth-9-face "ivory1")
+  (set-face-bold 'rainbow-delimiters-depth-1-face "t")
+  (set-face-bold 'rainbow-delimiters-depth-2-face "t")
+  (set-face-bold 'rainbow-delimiters-depth-3-face "t")
+  (set-face-bold 'rainbow-delimiters-depth-4-face "t")
+  (set-face-bold 'rainbow-delimiters-depth-5-face "t")
+  (set-face-bold 'rainbow-delimiters-depth-6-face "t")
+  (set-face-bold 'rainbow-delimiters-depth-7-face "t")
+  (set-face-bold 'rainbow-delimiters-depth-8-face "t")
+  (set-face-bold 'rainbow-delimiters-depth-9-face "t"))
+
+;; 切换buffer焦点时高亮动画
+(use-package beacon
+  :ensure t
+  :hook (after-init . beacon-mode))
+
+;; Font
+(use-package cnfonts
+  :ensure t
+  :config
+  (setq cnfonts-profiles
+        '("program" "writing"))
+  (setq cnfonts-use-face-font-rescale t))
+(cnfonts-enable)
+
 (provide 'init-ui)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;

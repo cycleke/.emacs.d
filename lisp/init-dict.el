@@ -50,8 +50,6 @@
         (global-set-key (kbd "C-M-;") 'flyspell-correct-at-point)))
     (setq flyspell-correct-interface #'flyspell-correct-ivy)))
 
-(load "~/.emacs.d/site-lisp/emacscompanywords/company-words.el")
-
 (provide 'init-dict)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; init-dict.el ends here
