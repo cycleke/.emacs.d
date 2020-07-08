@@ -11,16 +11,19 @@
 (eval-when-compile
   (require 'init-const))
 
-(use-package rime
-  :custom
-  (default-input-method "rime")
-  :bind
-  (:map rime-mode-map
-        ("C-`" . 'rime-send-keybinding))
-  :config
-  (setq rime-user-data-dir (cond (sys/macp "~/Library/Rime")
-                                 (sys/linuxp "~/.local/share/fcitx5/rime")
-                                 (t ""))))
+(push '(progn
+         (use-package rime
+           :custom
+           (default-input-method "rime")
+           :bind
+           (:map rime-mode-map
+                 ("C-`" . 'rime-send-keybinding))
+           :config
+           (setq rime-user-data-dir
+                 (cond (sys/macp "~/Library/Rime")
+                       (sys/linuxp "~/.local/share/fcitx5/rime")
+                       (t "")))))
+      graphic-only-plugins-setting)
 
 (provide 'init-rime)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;

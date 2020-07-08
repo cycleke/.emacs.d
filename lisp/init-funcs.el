@@ -51,7 +51,6 @@
     (message "Reverted this buffer.")))
 (global-set-key (kbd "s-r") #'revert-this-buffer)
 
-
 (defun save-buffer-as-utf8 (coding-system)
   "Revert a buffer with `CODING-SYSTEM' and save as UTF-8."
   (interactive "zCoding system for visited file (default nil):")

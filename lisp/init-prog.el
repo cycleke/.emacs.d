@@ -20,21 +20,18 @@
 (use-package nxml-mode
   :ensure nil
   :mode (("\\.xaml$" . xml-mode)))
-
-(use-package highlight-indent-guides
-  :ensure t
-  :hook ((prog-mode . highlight-indent-guides-mode)
-	 (agda2-mode . highlight-indent-guides-mode))
-  :config
-  (setq highlight-indent-guides-method 'character))
-(add-hook 'prog-mode-hook 'highlight-indent-guides-mode)
-(add-hook 'agda2-mode-hook 'highlight-indent-guides-mode)
-(setq highlight-indent-guides-method 'character)
-
-;; 括号匹配
-(use-package smartparens
-  :ensure t
-  :hook (prog-mode . smartparens-global-mode))
+(push
+ '(progn
+    (use-package highlight-indent-guides
+      :ensure t
+      :hook ((prog-mode . highlight-indent-guides-mode)
+             (agda2-mode . highlight-indent-guides-mode))
+      :config
+      (setq highlight-indent-guides-method 'character))
+    (add-hook 'prog-mode-hook 'highlight-indent-guides-mode)
+    (add-hook 'agda2-mode-hook 'highlight-indent-guides-mode)
+    (setq highlight-indent-guides-method 'character))
+ graphic-only-plugins-setting)
 
 (provide 'init-prog)
 

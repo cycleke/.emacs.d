@@ -63,7 +63,7 @@
          ;; modify option and command key
          (setq mac-command-modifier 'super)
          (setq mac-option-modifier 'meta)
-
+n
          ;; batter copy and paste support for mac os x
          (defun copy-from-osx ()
            (shell-command-to-string "pbpaste"))
@@ -163,12 +163,15 @@
       scroll-margin 0
       scroll-conservatively 100000)
 
-(menu-bar-mode -1)
-(tool-bar-mode -1)
-(show-paren-mode 1)
-(condition-case nil
-    (scroll-bar-mode -1)
-  (error nil))
+(push
+ '(condition-case nil
+      (progn
+        (show-paren-mode 1)
+        (menu-bar-mode -1)
+        (tool-bar-mode -1)
+        (scroll-bar-mode -1))
+    (error nil))
+ graphic-only-plugins-setting)
 ;; (toggle-scroll-bar -1)
 (display-battery-mode 1)
 

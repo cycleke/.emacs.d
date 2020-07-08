@@ -33,92 +33,17 @@
 (use-package doom-modeline
   :ensure t
   :init
+  (doom-modeline-mode 1)
+  :config
   (setq doom-modeline-major-mode-color-icon t
         doom-modeline-minor-modes nil
         doom-modeline-mu4e nil
         doom-modeline-height 1)
-  (custom-set-faces
-   '(mode-line ((t (:family "Monaco" :height 0.9))))
-   '(mode-line-inactive ((t (:family "Monaco" :height 0.9)))))
-  (doom-modeline-mode 1))
-
-(use-package all-the-icons
-  :if (display-graphic-p)
-  :init (unless (or sys/win32p (member "all-the-icons" (font-family-list)))
-          (all-the-icons-install-fonts t))
-  :config
-  (with-no-warnings
-    (defun all-the-icons-reset ()
-      "Reset (unmemoize/memoize) the icons."
-      (interactive)
-      (dolist (f '(all-the-icons-icon-for-file
-                   all-the-icons-icon-for-mode
-                   all-the-icons-icon-for-url
-                   all-the-icons-icon-family-for-file
-                   all-the-icons-icon-family-for-mode
-                   all-the-icons-icon-family))
-        (ignore-errors
-          (memoize-restore f)
-          (memoize f)))
-      (message "Reset all-the-icons")))
-
-  (add-to-list 'all-the-icons-mode-icon-alist
-               '(elfeed-search-mode all-the-icons-faicon "rss-square" :v-adjust -0.1 :face all-the-icons-orange))
-  (add-to-list 'all-the-icons-mode-icon-alist
-               '(elfeed-show-mode all-the-icons-octicon "rss" :height 1.1 :v-adjust 0.0 :face all-the-icons-lorange))
-  (add-to-list 'all-the-icons-mode-icon-alist
-               '(newsticker-mode all-the-icons-faicon "rss-square" :v-adjust -0.1 :face all-the-icons-orange))
-  (add-to-list 'all-the-icons-mode-icon-alist
-               '(newsticker-treeview-mode all-the-icons-faicon "rss-square" :v-adjust -0.1 :face all-the-icons-orange))
-  (add-to-list 'all-the-icons-mode-icon-alist
-               '(newsticker-treeview-list-mode all-the-icons-octicon "rss" :height 1.1 :v-adjust 0.0 :face all-the-icons-orange))
-  (add-to-list 'all-the-icons-mode-icon-alist
-               '(newsticker-treeview-item-mode all-the-icons-octicon "rss" :height 1.1 :v-adjust 0.0 :face all-the-icons-lorange))
-  (add-to-list 'all-the-icons-icon-alist
-               '("\\.[bB][iI][nN]$" all-the-icons-octicon "file-binary" :v-adjust 0.0 :face all-the-icons-yellow))
-  (add-to-list 'all-the-icons-icon-alist
-               '("\\.c?make$" all-the-icons-fileicon "gnu" :face all-the-icons-dorange))
-  (add-to-list 'all-the-icons-icon-alist
-               '("\\.conf$" all-the-icons-octicon "settings" :v-adjust 0.0 :face all-the-icons-yellow))
-  (add-to-list 'all-the-icons-icon-alist
-               '("\\.toml$" all-the-icons-octicon "settings" :v-adjust 0.0 :face all-the-icons-yellow))
-  (add-to-list 'all-the-icons-mode-icon-alist
-               '(conf-mode all-the-icons-octicon "settings" :v-adjust 0.0 :face all-the-icons-yellow))
-  (add-to-list 'all-the-icons-mode-icon-alist
-               '(conf-space-mode all-the-icons-octicon "settings" :v-adjust 0.0 :face all-the-icons-yellow))
-  (add-to-list 'all-the-icons-mode-icon-alist
-               '(forge-topic-mode all-the-icons-alltheicon "git" :face all-the-icons-blue))
-  (add-to-list 'all-the-icons-mode-icon-alist
-               '(vterm-mode all-the-icons-octicon "terminal" :v-adjust 0.2))
-  (add-to-list 'all-the-icons-icon-alist
-               '("\\.xpm$" all-the-icons-octicon "file-media" :v-adjust 0.0 :face all-the-icons-dgreen))
-  (add-to-list 'all-the-icons-mode-icon-alist
-               '(help-mode all-the-icons-faicon "info-circle" :height 1.1 :v-adjust -0.1 :face all-the-icons-purple))
-  (add-to-list 'all-the-icons-mode-icon-alist
-               '(helpful-mode all-the-icons-faicon "info-circle" :height 1.1 :v-adjust -0.1 :face all-the-icons-purple))
-  (add-to-list 'all-the-icons-mode-icon-alist
-               '(Info-mode all-the-icons-faicon "info-circle" :height 1.1 :v-adjust -0.1))
-  (add-to-list 'all-the-icons-icon-alist
-               '("NEWS$" all-the-icons-faicon "newspaper-o" :height 0.9 :v-adjust -0.2))
-  (add-to-list 'all-the-icons-icon-alist
-               '("Cask\\'" all-the-icons-fileicon "elisp" :height 1.0 :v-adjust -0.2 :face all-the-icons-blue))
-  (add-to-list 'all-the-icons-mode-icon-alist
-               '(cask-mode all-the-icons-fileicon "elisp" :height 1.0 :v-adjust -0.2 :face all-the-icons-blue))
-  (add-to-list 'all-the-icons-icon-alist
-               '(".*\\.ipynb\\'" all-the-icons-fileicon "jupyter" :height 1.2 :face all-the-icons-orange))
-  (add-to-list 'all-the-icons-mode-icon-alist
-               '(ein:notebooklist-mode all-the-icons-faicon "book" :face all-the-icons-lorange))
-  (add-to-list 'all-the-icons-mode-icon-alist
-               '(ein:notebook-mode all-the-icons-fileicon "jupyter" :height 1.2 :face all-the-icons-orange))
-  (add-to-list 'all-the-icons-mode-icon-alist
-               '(ein:notebook-multilang-mode all-the-icons-fileicon "jupyter" :height 1.2 :face all-the-icons-dorange))
-  (add-to-list 'all-the-icons-icon-alist
-               '("\\.epub\\'" all-the-icons-faicon "book" :height 1.0 :v-adjust -0.1 :face all-the-icons-green))
-  (add-to-list 'all-the-icons-mode-icon-alist
-               '(nov-mode all-the-icons-faicon "book" :height 1.0 :v-adjust -0.1 :face all-the-icons-green))
-  (add-to-list 'all-the-icons-mode-icon-alist
-               '(gfm-mode all-the-icons-octicon "markdown" :face all-the-icons-lblue)))
-
+  (push
+   '(custom-set-faces
+     '(mode-line ((t (:family "Monaco" :height 0.9))))
+     '(mode-line-inactive ((t (:family "Monaco" :height 0.9)))))
+   graphic-only-plugins-setting))
 
 ;; Show native line numbers if possible, otherwise use linum
 (if (fboundp 'display-line-numbers-mode)
@@ -141,8 +66,7 @@
 ;; Suppress GUI features
 (setq use-file-dialog nil
       use-dialog-box nil
-      inhibit-startup-screen t
-      inhibit-startup-echo-area-message t)
+      inhibit-startup-message nil)
 
 ;; Display dividers between windows
 (setq window-divider-default-places t
@@ -156,68 +80,36 @@
   ;; Don't open a file in a new frame
   (setq ns-pop-up-frames nil))
 
-;; Don't use GTK+ tooltip
-(when (boundp 'x-gtk-use-system-tooltips)
-  (setq x-gtk-use-system-tooltips nil))
-
-(defun my/zoom-in ()
-  "Increase font size by 10 points."
-  (interactive)
-  (set-face-attribute 'default nil
-                      :height
-                      (+ (face-attribute 'default :height)
-                         10)))
-
-(defun my/zoom-out ()
-  "Decrease font size by 10 points."
-  (interactive)
-  (set-face-attribute 'default nil
-                      :height
-                      (- (face-attribute 'default :height)
-                         10)))
-
-;; change font size, interactively
-(global-set-key (kbd "C->") 'my/zoom-in)
-(global-set-key (kbd "C-<") 'my/zoom-out)
-
-;; transparent
-(set-frame-parameter (selected-frame) 'alpha (list 95 90))
-(add-to-list 'default-frame-alist (cons 'alpha (list 95 90)))
-(add-to-list 'default-frame-alist '(ns-transparent-titlebar . t))
-
-(use-package tao-theme :ensure :defer)
-(use-package leuven-theme :ensure :defer)
+(use-package spacemacs-theme :ensure :defer)
 (use-package gruvbox-theme :ensure :defer)
 (use-package circadian
-  :if (display-graphic-p)
   :ensure t
-  :config
+  :init
   (setq calendar-latitude 31.47104)
   (setq calendar-longitude 104.73409)
-  (setq circadian-themes '((:sunrise . leuven)
+  (setq circadian-themes '((:sunrise . spacemacs-light)
                            (:sunset  . gruvbox-dark-soft)))
+  (circadian-setup)
   (add-hook 'circadian-after-load-theme-hook
-            #'(lambda (theme)
-                ;; Line numbers appearance
-                (setq linum-format 'linum-format-func)
+            #'(lambda (_)
                 ;; Cursor
                 (set-default 'cursor-type 'box)
-                (set-cursor-color "#F52503"))))
-(circadian-setup)
+                ;; Line numbers appearance
+                (setq linum-format 'linum-format-func))))
 
 (use-package rainbow-delimiters
   :ensure t
   :hook (prog-mode . rainbow-delimiters-mode)
   :config
-  ;; (set-face-foreground 'rainbow-delimiters-depth-1-face "orange red")
-  ;; (set-face-foreground 'rainbow-delimiters-depth-2-face "gold")
-  ;; (set-face-foreground 'rainbow-delimiters-depth-3-face "yellow")
-  ;; (set-face-foreground 'rainbow-delimiters-depth-4-face "spring green")
-  ;; (set-face-foreground 'rainbow-delimiters-depth-5-face "cyan")
-  ;; (set-face-foreground 'rainbow-delimiters-depth-6-face "magenta")
-  ;; (set-face-foreground 'rainbow-delimiters-depth-7-face "goldenrod")
-  ;; (set-face-foreground 'rainbow-delimiters-depth-8-face "IndianRed1")
-  ;; (set-face-foreground 'rainbow-delimiters-depth-9-face "ivory1")
+  (set-face-foreground 'rainbow-delimiters-depth-1-face "orange red")
+  (set-face-foreground 'rainbow-delimiters-depth-2-face "gold")
+  (set-face-foreground 'rainbow-delimiters-depth-3-face "yellow")
+  (set-face-foreground 'rainbow-delimiters-depth-4-face "spring green")
+  (set-face-foreground 'rainbow-delimiters-depth-5-face "cyan")
+  (set-face-foreground 'rainbow-delimiters-depth-6-face "magenta")
+  (set-face-foreground 'rainbow-delimiters-depth-7-face "goldenrod")
+  (set-face-foreground 'rainbow-delimiters-depth-8-face "IndianRed1")
+  (set-face-foreground 'rainbow-delimiters-depth-9-face "ivory1")
   (set-face-bold 'rainbow-delimiters-depth-1-face "t")
   (set-face-bold 'rainbow-delimiters-depth-2-face "t")
   (set-face-bold 'rainbow-delimiters-depth-3-face "t")
@@ -233,14 +125,67 @@
   :ensure t
   :hook (after-init . beacon-mode))
 
-;; Font
-(use-package cnfonts
+(use-package page-break-lines
   :ensure t
+  :config (turn-on-page-break-lines-mode))
+
+(use-package dashboard
+  :ensure t
+  :init
+  (dashboard-setup-startup-hook)
   :config
-  (setq cnfonts-profiles
-        '("program" "writing"))
-  (setq cnfonts-use-face-font-rescale t))
-(cnfonts-enable)
+  (setq dashboard-items '((recents  . 10)
+                        (projects . 5)))
+  ;; 设置标题
+  (setq dashboard-banner-logo-title
+        (concat "Happy hacking, " user-login-name " - Emacs ♥ you!"))
+  ;; 设置banner
+  (setq dashboard-center-content t)
+  (setq dashboard-set-heading-icons t)
+  (setq dashboard-set-file-icons t)
+  (setq dashboard-set-navigator t))
+
+;; Don't use GTK+ tooltip
+(push
+ '(progn
+    (when (boundp 'x-gtk-use-system-tooltips)
+      (setq x-gtk-use-system-tooltips nil))
+
+    (defun my/zoom-in ()
+      "Increase font size by 10 points."
+      (interactive)
+      (set-face-attribute 'default nil
+                          :height
+                          (+ (face-attribute 'default :height) 10)))
+
+    (defun my/zoom-out ()
+      "Decrease font size by 10 points."
+      (interactive)
+      (set-face-attribute 'default nil
+                          :height
+                          (- (face-attribute 'default :height) 10)))
+
+    ;; change font size, interactively
+    (global-set-key (kbd "C->") 'my/zoom-in)
+    (global-set-key (kbd "C-<") 'my/zoom-out)
+
+    ;; transparent
+    (set-frame-parameter (selected-frame) 'alpha (list 95 90))
+    (add-to-list 'default-frame-alist (cons 'alpha (list 95 90)))
+    (add-to-list 'default-frame-alist '(ns-transparent-titlebar . t))
+
+    (use-package all-the-icons
+      :ensure t)
+
+    ;; Font
+    (use-package cnfonts
+      :ensure t
+      :config
+      (setq cnfonts-profiles
+            '("program" "writing"))
+      (setq cnfonts-use-face-font-rescale t))
+    (cnfonts-enable))
+ graphic-only-plugins-setting)
 
 (provide 'init-ui)
 

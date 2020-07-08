@@ -155,7 +155,7 @@
                      (replace-regexp-in-string "^.*Swiper: " ""
                                                (thing-at-point 'line t)))))))
         (ivy-quit-and-run
-	  (counsel-rg text default-directory))))
+          (counsel-rg text default-directory))))
     (bind-key "<C-return>" #'my-swiper-toggle-counsel-rg swiper-map)
 
     (with-eval-after-load 'rg
@@ -170,9 +170,9 @@
       "Toggle `swiper' and `swiper-isearch' with the current input."
       (interactive)
       (ivy-quit-and-run
-	(if (eq (ivy-state-caller ivy-last) 'swiper-isearch)
-	    (swiper ivy-text)
-	  (swiper-isearch ivy-text))))
+        (if (eq (ivy-state-caller ivy-last) 'swiper-isearch)
+            (swiper ivy-text)
+          (swiper-isearch ivy-text))))
     (bind-key "<s-return>" #'my-swiper-toggle-swiper-isearch swiper-map)
 
     ;; Integration with `projectile'
@@ -218,7 +218,7 @@
                                   (insert-char . ivy-prescient-non-fuzzy)
                                   (t . ivy-prescient-re-builder))
           ivy-prescient-sort-commands '(:not swiper swiper-isearch ivy-switch-buffer
-					     counsel-grep counsel-ag counsel-yank-pop))
+                                             counsel-grep counsel-ag counsel-yank-pop))
 
     (ivy-prescient-mode 1))
 
@@ -248,7 +248,7 @@
   (use-package flyspell-correct-ivy
     :after flyspell
     :bind (:map flyspell-mode-map
-		([remap flyspell-correct-word-before-point] . flyspell-correct-previous-word-generic)))
+                ([remap flyspell-correct-word-before-point] . flyspell-correct-previous-word-generic)))
 
   ;; Quick launch apps
   (cond
@@ -257,17 +257,17 @@
    (sys/macp
     (use-package counsel-osx-app
       :bind (:map counsel-mode-map
-		  ("s-<f6>" . counsel-osx-app)))))
+                  ("s-<f6>" . counsel-osx-app)))))
 
   ;; Display world clock using Ivy
   (use-package counsel-world-clock
     :bind (:map counsel-mode-map
-		("C-c c k" . counsel-world-clock)))
+                ("C-c c k" . counsel-world-clock)))
 
   ;; Tramp ivy interface
   (use-package counsel-tramp
     :bind (:map counsel-mode-map
-		("C-c c v" . counsel-tramp)))
+                ("C-c c v" . counsel-tramp)))
 
   ;; Support pinyin in Ivy
   ;; Input prefix ':' to match pinyin

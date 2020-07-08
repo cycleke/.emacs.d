@@ -41,8 +41,9 @@
   (setq use-package-expand-minimally t)
   (setq use-package-enable-imenu-support t))
 
-(eval-when-compile
-  (require 'use-package))
+(unless (package-installed-p 'use-package)
+  (package-refresh-contents)
+  (package-install 'use-package))
 
 ;; Required by `use-package'
 (use-package diminish)

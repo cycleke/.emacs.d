@@ -71,6 +71,9 @@ decrease this. If you experience stuttering, increase this.")
 (update-load-path)
 (add-subdirs-to-load-path)
 
+;; 图形界面插件的设置
+(setq graphic-only-plugins-setting ())
+
 ;; Constants
 (require 'init-const)
 
@@ -116,6 +119,7 @@ decrease this. If you experience stuttering, increase this.")
 (require 'init-web)
 (require 'init-graphviz)
 (require 'init-haskell)
+(require 'init-graphic)
 
 (run-with-idle-timer
  1 nil

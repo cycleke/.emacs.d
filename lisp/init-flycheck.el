@@ -26,18 +26,20 @@
       [16 48 112 240 112 48 16] nil nil 'center))
 
   ;; Display Flycheck errors in GUI tooltips
-  (if (display-graphic-p)
+  (push '(progn
       (if emacs/>=26p
           (use-package flycheck-posframe
             :hook (flycheck-mode . flycheck-posframe-mode)
-            :config (add-to-list 'flycheck-posframe-inhibit-functions
-                                 #'(lambda () (bound-and-true-p company-backend))))
+            :config (add-to-list
+                     'flycheck-posframe-inhibit-functions
+                     #'(lambda () (bound-and-true-p company-backend))))
         (use-package flycheck-pos-tip
           :defines flycheck-pos-tip-timeout
           :hook (global-flycheck-mode . flycheck-pos-tip-mode)
           :config (setq flycheck-pos-tip-timeout 30)))
     (use-package flycheck-popup-tip
-      :hook (flycheck-mode . flycheck-popup-tip-mode))))
+      :hook (flycheck-mode . flycheck-popup-tip-mode)))
+        graphic-only-plugins-setting))
 
 (provide 'init-flycheck)
 
