@@ -121,12 +121,9 @@ decrease this. If you experience stuttering, increase this.")
 (require 'init-haskell)
 (require 'init-graphic)
 
-(run-with-idle-timer
- 1 nil
- #'(lambda ()
-     (load "server")
-     (unless (server-running-p) (server-start))))
+(load "server")
+(unless (server-running-p) (server-start))
+(put 'narrow-to-region 'disabled nil)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; init.el ends here
-(put 'narrow-to-region 'disabled nil)

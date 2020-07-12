@@ -40,7 +40,8 @@
   :interpreter (("node" . js2-mode)
                 ("node" . js2-jsx-mode))
   :hook ((js2-mode . js2-imenu-extras-mode)
-         (js2-mode . js2-highlight-unused-variables-mode))
+         (js2-mode . js2-highlight-unused-variables-mode)
+         (js2-mode . (lambda () (setq tab-widtth 2))))
   :config
   (setq js-indent-level 2
         js2-basic-offset 2
@@ -104,8 +105,7 @@
   (setq web-mode-markup-indent-offset 2))
 
 (use-package prettier-js
-  :hook ((js2-mode      . prettier-js-mode)
-         (rjsx-mode     . prettier-js-mode)
+  :hook ((rjsx-mode     . prettier-js-mode)
 	       (markdown-mode . prettier-js-mode))
   :config
   (setq prettier-js-args '("--trailing-comma" "all"
