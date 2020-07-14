@@ -12,8 +12,13 @@
 (require 'awesome-tray)
 (use-package awesome-tray
   :load-path "~/.emacs.d/site-lisp/awesome-tray"
+  :init
+  (awesome-tray-mode 1)
   :config
-  (awesome-tray-mode 1))
+  (add-hook 'circadian-after-load-theme-hook
+            #'(lambda (_)
+                (awesome-tray-mode 1)))
+  )
 
 (provide 'init-awesome-tray)
 

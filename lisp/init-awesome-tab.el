@@ -25,6 +25,7 @@
   (global-set-key (kbd "C-M-)") 'awesome-tab-move-current-tab-to-right)
   ;; 把当前标签页往左移
   (global-set-key (kbd "C-M-(") 'awesome-tab-move-current-tab-to-left)
+
   (global-set-key (kbd "M-1") 'awesome-tab-select-visible-tab)
   (global-set-key (kbd "M-2") 'awesome-tab-select-visible-tab)
   (global-set-key (kbd "M-3") 'awesome-tab-select-visible-tab)
