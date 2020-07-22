@@ -1,9 +1,10 @@
 # -*- mode: snippet -*-
-# name: codeforces
-# key: cf
+# name: algorithm
+# key: algo
 # --
 #include <algorithm>
 #include <bitset>
+#include <cassert>
 #include <climits>
 #include <cmath>
 #include <cstdio>
@@ -11,6 +12,7 @@
 #include <ctime>
 #include <fstream>
 #include <iostream>
+#include <limits>
 #include <map>
 #include <numeric>
 #include <queue>
@@ -29,6 +31,8 @@ typedef pair<int, int> pii;
 typedef vector<int> vi;
 typedef vector<pii> vpii;
 
+void prework() {}
+
 void solve() {
   $0
 }
@@ -36,8 +40,15 @@ void solve() {
 int main(int argc, char *argv[]) {
   ios::sync_with_stdio(false);
   cin.tie(nullptr);
+
+  prework();
+
   int o_o = ${1:1};
-  if (!o_o) cin >> o_o;
-  for (; o_o; --o_o) solve();
+  if (!o_o) {
+    cin >> o_o;
+  }
+  for (!o_o ? (cin >> o_o, 1) : 0; o_o; --o_o) {
+    solve();
+  }
   return 0;
 }
