@@ -1,0 +1,10 @@
+;;;; Emacs Bookmark Format Version 1;;;; -*- coding: utf-8-emacs; mode: lisp-data -*-
+;;; This format is meant to be slightly human-readable;
+;;; nevertheless, you probably don't want to edit it.
+;;; -*- End Of Bookmark File Format Version Stamp -*-
+(("org-refile-last-stored"
+ (filename . "~/Documents/OrgNote/emacs/OrgModeLearn.org")
+ (front-context-string . "** 结构编辑\n   | C-R")
+ (rear-context-string . "              |\n")
+ (position . 1763))
+)

@@ -15,33 +15,35 @@
 ;; C/C++ Mode
 (use-package cc-mode
   :ensure nil
-  :bind (:map c-mode-base-map
-	      ("C-c c" . compile))
+  :bind (:map
+         c-mode-base-map
+	       ("C-c c" . compile))
   :hook (c-mode-common . (lambda ()
                            (setq tab-width 2)
-                           (setq c-basic-offset 2)))
-  :config
-  (use-package modern-cpp-font-lock
-    :diminish
-    :init (modern-c++-font-lock-global-mode t)))
+                           (setq c-basic-offset 2))))
+
+(use-package modern-cpp-font-lock
+  :diminish
+  :init (modern-c++-font-lock-global-mode t))
 
 ;; C/C++/Objective-C support
 (use-package ccls
   :after lsp-mode
   :defines projectile-project-root-files-top-down-recurring
   :hook ((c-mode c++-mode objc-mode cuda-mode) . (lambda ()
-						   (require 'ccls)
-						   (lsp)))
+						                                       (require 'ccls)
+						                                       (lsp)))
   :config
   (setq ccls-executable "/usr/bin/ccls")
   (with-eval-after-load 'projectile
     (setq projectile-project-root-files-top-down-recurring
-	  (append '("compile_commands.json"
-		    ".ccls")
-		  projectile-project-root-files-top-down-recurring))))
+	        (append '("compile_commands.json" ".ccls")
+		              projectile-project-root-files-top-down-recurring)))
+  (setq ccls-sem-highlight-method 'font-lock))
 
 (use-package cmake-mode
-  :mode (("CMakeLists\\.txt\\'" . cmake-mode) ("\\.cmake\\'" . cmake-mode)))
+  :mode (("CMakeLists\\.txt\\'" . cmake-mode)
+         ("\\.cmake\\'" . cmake-mode)))
 
 (provide 'init-c)
 

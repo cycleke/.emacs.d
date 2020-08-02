@@ -1,6 +1,6 @@
 # -*- mode: snippet -*-
-# name: algorithm
-# key: algo
+# name: codeforces
+# key: cf
 # --
 #include <algorithm>
 #include <bitset>
@@ -32,12 +32,19 @@ typedef pair<int, int> pii;
 typedef vector<int> vi;
 typedef vector<pii> vpii;
 
+void prework() {}
+
+void solve() {
+  $0
+}
+
 int main(int argc, char *argv[]) {
   ios::sync_with_stdio(false);
   cin.tie(nullptr);
   cout << fixed << setprecision(10);
 
-  $0
-
+  prework();
+  int o_o;
+  for (cin >> o_o; o_o; --o_o) solve();
   return 0;
 }

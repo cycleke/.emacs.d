@@ -41,7 +41,7 @@
         doom-modeline-height 1)
   (push
    '(custom-set-faces
-     '(mode-line ((t (:family "Monaco" :height 0.9))))
+     '(mode-line ((t (:family "Monaco" :height 0.9 :width condensed :weight light))))
      '(mode-line-inactive ((t (:family "Monaco" :height 0.9)))))
    graphic-only-plugins-setting))
 
@@ -85,12 +85,12 @@
 (use-package circadian
   :ensure t
   :init
-  ;; (setq calendar-latitude 31.47104)
-  ;; (setq calendar-longitude 104.73409)
-  ;; (setq circadian-themes '((:sunrise . spacemacs-light)
-  ;;                          (:sunset  . gruvbox-dark-soft)))
-  (setq circadian-themes '(("8:00" . spacemacs-light)
-                           ("18:00" . gruvbox-dark-soft)))
+  (setq calendar-latitude 31.47104)
+  (setq calendar-longitude 104.73409)
+  (setq circadian-themes '((:sunrise . spacemacs-light)
+                           (:sunset  . gruvbox-dark-soft)))
+  ;; (setq circadian-themes '(("8:00" . spacemacs-light)
+  ;;                          ("18:00" . gruvbox-dark-soft)))
   (circadian-setup)
   (add-hook 'circadian-after-load-theme-hook
             #'(lambda (_)
