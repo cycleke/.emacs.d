@@ -2,35 +2,16 @@
 # name: algorithm
 # key: algo
 # --
-#include <algorithm>
-#include <bitset>
-#include <cassert>
-#include <climits>
-#include <cmath>
-#include <cstdio>
-#include <cstring>
-#include <ctime>
-#include <fstream>
-#include <iomanip>
-#include <iostream>
-#include <limits>
-#include <map>
-#include <numeric>
-#include <queue>
-#include <set>
-#include <sstream>
-#include <stack>
-#include <string>
-#include <typeinfo>
-#include <unordered_map>
-#include <unordered_set>
-#include <vector>
+#include <bits/stdc++.h>
 using namespace std;
 
 typedef long long ll;
 typedef pair<int, int> pii;
 typedef vector<int> vi;
 typedef vector<pii> vpii;
+
+const int MOD = 1e9 + 7;
+const int MAXN = 1e5 + 3;
 
 int main(int argc, char *argv[]) {
   ios::sync_with_stdio(false);

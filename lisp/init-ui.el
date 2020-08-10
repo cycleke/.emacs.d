@@ -82,7 +82,9 @@
 
 (use-package spacemacs-theme :ensure :defer)
 (use-package gruvbox-theme :ensure :defer)
+(load-theme 'gruvbox-dark-soft)
 (use-package circadian
+  :disabled
   :ensure t
   :init
   (setq calendar-latitude 31.47104)
@@ -136,8 +138,8 @@
   :init
   (dashboard-setup-startup-hook)
   :config
-  (setq dashboard-items '((recents  . 10)
-                        (projects . 5)))
+  (setq dashboard-items '((recents  . 15)
+                        (projects . 7)))
   ;; 设置标题
   (setq dashboard-banner-logo-title
         (concat "Happy hacking, " user-login-name " - Emacs ♥ you!"))
@@ -168,8 +170,9 @@
                           (- (face-attribute 'default :height) 10)))
 
     ;; change font size, interactively
-    (global-set-key (kbd "C->") 'my/zoom-in)
-    (global-set-key (kbd "C-<") 'my/zoom-out)
+    (general-define-key
+     "C->" 'my/zoom-in
+     "C-<" 'my/zoom-out)
 
     ;; transparent
     (set-frame-parameter (selected-frame) 'alpha (list 95 90))
@@ -184,7 +187,7 @@
       :ensure t
       :config
       (setq cnfonts-profiles
-            '("program" "writing"))
+            '("program"))
       (setq cnfonts-use-face-font-rescale t))
     (cnfonts-enable))
  graphic-only-plugins-setting)

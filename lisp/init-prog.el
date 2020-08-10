@@ -20,6 +20,13 @@
 (use-package nxml-mode
   :ensure nil
   :mode (("\\.xaml$" . xml-mode)))
+
+(use-package hl-fill-column
+  :ensure t
+  :hook
+  ((prog-mode . hl-fill-column-mode)
+  (agda2-mode . hl-fill-column-mode)))
+
 (push
  '(progn
     (use-package highlight-indent-guides

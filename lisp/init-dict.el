@@ -47,7 +47,7 @@
     :config
     (when (eq system-type 'darwin)
       (progn
-        (global-set-key (kbd "C-M-;") 'flyspell-correct-at-point)))
+        (general-define-key "C-M-;" 'flyspell-correct-at-point)))
     (setq flyspell-correct-interface #'flyspell-correct-ivy)))
 
 (provide 'init-dict)

@@ -15,9 +15,6 @@
 ;; C/C++ Mode
 (use-package cc-mode
   :ensure nil
-  :bind (:map
-         c-mode-base-map
-	       ("C-c c" . compile))
   :hook (c-mode-common . (lambda ()
                            (setq tab-width 2)
                            (setq c-basic-offset 2))))
@@ -44,6 +41,11 @@
 (use-package cmake-mode
   :mode (("CMakeLists\\.txt\\'" . cmake-mode)
          ("\\.cmake\\'" . cmake-mode)))
+
+(my-leader-def
+  :keymaps '(c++-mode-map c-mode-map)
+  "g" 'compile-with-debug
+  "C-c" 'compile-without-debug)
 
 (provide 'init-c)
 

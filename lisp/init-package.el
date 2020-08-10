@@ -56,8 +56,8 @@
 (use-package paradox
   :init
   (setq paradox-execute-asynchronously t
-	paradox-github-token t
-	paradox-display-star-count nil)
+	      paradox-github-token t
+	      paradox-display-star-count nil)
 
   ;; Replace default `list-packages'
   (defun my-paradox-enable (&rest _)
@@ -95,6 +95,11 @@
     (which-key-setup-side-window-bottom)))
 
 (use-package format-all :defer t)
+
+(use-package general :defer t
+  :config
+  (general-create-definer my-leader-def
+    :prefix "C-c"))
 
 (provide 'init-package)
 
