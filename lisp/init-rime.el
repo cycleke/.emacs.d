@@ -9,7 +9,7 @@
 ;;; Code:
 
 (eval-when-compile
-  (require 'init-const))
+  (require 'init-variables))
 
 (push '(progn
          (use-package rime

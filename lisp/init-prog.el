@@ -21,22 +21,17 @@
   :ensure nil
   :mode (("\\.xaml$" . xml-mode)))
 
-(use-package hl-fill-column
+(use-package rainbow-mode
   :ensure t
-  :hook
-  ((prog-mode . hl-fill-column-mode)
-  (agda2-mode . hl-fill-column-mode)))
+  :hook (prog-mode . rainbow-mode))
 
 (push
  '(progn
     (use-package highlight-indent-guides
       :ensure t
-      :hook ((prog-mode . highlight-indent-guides-mode)
-             (agda2-mode . highlight-indent-guides-mode))
+      :hook (prog-mode . highlight-indent-guides-mode)
       :config
       (setq highlight-indent-guides-method 'character))
-    (add-hook 'prog-mode-hook 'highlight-indent-guides-mode)
-    (add-hook 'agda2-mode-hook 'highlight-indent-guides-mode)
     (setq highlight-indent-guides-method 'character))
  graphic-only-plugins-setting)
 

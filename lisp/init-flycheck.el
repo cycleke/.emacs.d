@@ -8,7 +8,7 @@
 ;;; Code:
 
 (eval-when-compile
-  (require 'init-const))
+  (require 'init-variables))
 
 (use-package flycheck
   :diminish flycheck-mode

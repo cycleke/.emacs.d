@@ -34,10 +34,9 @@
 ;; Rectangle
 (use-package rect
   :ensure nil
-  :bind (("M-RET r" . rect-hydra/body))
   :pretty-hydra
   ((:title (pretty-hydra-title "Rectangle" 'material "border_all" :height 1.1 :v-adjust -0.225)
-	   :color amaranth :body-pre (rectangle-mark-mode) :post (deactivate-mark) :quit-key "q")
+	         :color amaranth :body-pre (rectangle-mark-mode) :post (deactivate-mark) :quit-key "q")
    ("Move"
     (("h" backward-char "←")
      ("j" next-line "↓")
@@ -66,7 +65,7 @@
   :hook (after-init . global-auto-revert-mode)
   :config
   (setq global-auto-revert-non-file-buffers t
-	auto-revert-verbose nil)
+	      auto-revert-verbose nil)
   (add-to-list 'global-auto-revert-ignore-modes 'Buffer-menu-mode))
 
 ;; Pass a URL to a WWW browser
@@ -184,17 +183,18 @@
 
 ;; Hideshow
 (use-package hideshow
-  :ensure nil
+  :ensure t
   :diminish hs-minor-mode
   :bind (:map hs-minor-mode-map
-	      ("C-`" . hs-toggle-hiding)))
-
+	            ("C-c TAB" . hs-toggle-hiding)
+              ("C-c p +" . hs-show-all))
+  :hook (prog-mode . hs-minor-mode))
 
 ;; Flexible text folding
 (use-package origami
   :pretty-hydra
   ((:title (pretty-hydra-title "Origami" 'octicon "fold")
-	   :color blue :quit-key "q")
+	         :color blue :quit-key "q")
    ("Node"
     ((":" origami-recursively-toggle-node "toggle recursively")
      ("a" origami-toggle-all-nodes "toggle all")
@@ -204,8 +204,6 @@
     (("u" origami-undo "undo")
      ("d" origami-redo "redo")
      ("r" origami-reset "reset"))))
-  :bind (:map origami-mode-map
-	      ("M-RET o" . origami-hydra/body))
   :hook (prog-mode . origami-mode)
   :init (setq origami-show-fold-header t)
   :config
@@ -214,8 +212,8 @@
   ;; Support LSP
   (use-package lsp-origami
     :hook (origami-mode . (lambda ()
-			    (if (bound-and-true-p lsp-mode)
-				(lsp-origami-mode))))))
+			                      (if (bound-and-true-p lsp-mode)
+				                        (lsp-origami-mode))))))
 
 ;; Open files as another user
 (unless sys/win32p
@@ -240,13 +238,47 @@
     (interactive)
     (fic-mode 1))
   :hook
-  ((prog-mode . turn-on-fic-mode)
-  (agda2-mode . turn-on-fic-mode)))
+  ((prog-mode . turn-on-fic-mode)))
 
 ;; Switch window
 (use-package ace-window
   :bind
-  ("M-o" . ace-window))
+  ("M-o" . ace-window)
+  :init
+  (progn
+    (global-set-key [remap other-window] 'ace-window)
+	  ;; 设置标记
+    (custom-set-faces
+     '(aw-leading-char-face
+       ((t (:inherit ace-jump-face-foreground :height 3.0 :foreground "magenta")))))))
+
+(use-package windmove
+  :ensure t
+  :init (windmove-default-keybindings)
+  :config
+  :bind
+  (:map leader-key
+        ("w f" . #'windmove-right)
+        ("w b" . #'windmove-left)
+        ("w p" . #'windmove-up)
+        ("w n" . #'windmove-down)
+        ("w F" . #'window-move-right)
+        ("w B" . #'window-move-left)
+        ("w P" . #'window-move-up)
+        ("w N" . #'window-move-down)
+        ("w h" . #'enlarge-window-horizontally)
+        ("w l" . #'shrink-window-horizontally)
+        ("w j" . #'enlarge-window)
+        ("w k" . #'shrink-window)))
+
+;; 工作区
+(use-package perspeen
+  :diminish
+  :ensure t
+  :init
+  ;; (setq perspeen-use-tab t)
+  (setq perspeen-keymap-prefix [C-tab])
+  :config (perspeen-mode))
 
 (provide 'init-edit)
 

@@ -1,8 +1,8 @@
-;; init-const.el --- Define constants.	-*- lexical-binding: t -*-
+;; init-variables.el --- Define constants.	-*- lexical-binding: t -*-
 
 ;;; Commentary:
 ;;
-;; Define constants.
+;; Define variables.
 ;;
 
 ;;; Code:
@@ -59,11 +59,14 @@
 
 (defconst user-cache-directory
   (file-name-as-directory (concat user-emacs-directory ".cache"))
-  "My emacs storage area for persistent files.")
+  "My Emacs storage area for persistent files.")
 ;; create the `user-cache-directory' if not exists
 (make-directory user-cache-directory t)
 
-(provide 'init-const)
+;; 图形界面插件的设置
+(defvar graphic-only-plugins-setting ())
+
+(provide 'init-variables)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;; init-const.el ends here
+;;; init-variables.el ends here

@@ -89,17 +89,16 @@
     (auto-compile-on-save-mode)))
 
 (use-package which-key
+  :ensure t
+  :custom
+  (which-key-popup-type 'side-window)
   :config
-  (progn
-    (which-key-mode)
-    (which-key-setup-side-window-bottom)))
+  (which-key-mode)
+  (setq which-key-idle-delay 0.3))
 
 (use-package format-all :defer t)
-
-(use-package general :defer t
-  :config
-  (general-create-definer my-leader-def
-    :prefix "C-c"))
+(use-package general :defer t)
+(use-package try :ensure t)
 
 (provide 'init-package)
 

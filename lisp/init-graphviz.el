@@ -14,7 +14,7 @@
   :config
   (setq graphviz-dot-indent-width 2))
 
-  (provide 'init-graphviz)
+(provide 'init-graphviz)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; init-graphviz.el ends here

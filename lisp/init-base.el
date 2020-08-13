@@ -9,7 +9,7 @@
 ;;; Code:
 
 (eval-when-compile
-  (require 'init-const)
+  (require 'init-variables)
   (require 'init-custom))
 
 (setq user-full-name "cycleke")
@@ -26,6 +26,8 @@
     (setenv "LC_ALL" "en_US.UTF-8")
     (setenv "LC_CTYPE" "en_US.UTF-8")))
 
+;; 任何地方都使用 UTF-8
+(set-charset-priority 'unicode)
 (prefer-coding-system 'utf-8)
 (set-language-environment 'utf-8)
 (set-default-coding-systems 'utf-8)
@@ -36,8 +38,26 @@
 (set-terminal-coding-system 'utf-8)
 (set-selection-coding-system 'utf-8)
 (modify-coding-system-alist 'process "*" 'utf-8)
+(setq locale-coding-system 'utf-8
+      default-process-coding-system '(utf-8-unix . utf-8-unix))
 (setq confirm-kill-emacs
-      (lambda (prompt) (y-or-n-p-with-timeout "Whether to quit Emacs:" 10 "n")))
+      (lambda (_) (y-or-n-p-with-timeout "Whether to quit Emacs? " 10 "n")))
+
+;; 更友好及平滑的滚动
+(setq scroll-step 2
+      scroll-margin 2
+      hscroll-step 2
+      hscroll-margin 2
+      scroll-conservatively 101
+      scroll-up-aggressively 0.01
+      scroll-down-aggressively 0.01
+      scroll-preserve-screen-position 'always)
+
+;; 关闭自动调节行高
+(setq auto-window-vscroll nil)
+
+(menu-bar-mode -1)
+(tool-bar-mode -1)
 
 ;; file edit settings
 (setq-default tab-width 2
@@ -47,8 +67,16 @@
               make-backup-files nil
               auto-save-default nil)
 
-(setq locale-coding-system 'utf-8
-      default-process-coding-system '(utf-8 . utf-8))
+(setq auto-save-list-file-prefix
+      (expand-file-name "auto-save-list/.saves-" user-cache-directory)
+      eshell-history-file-name
+      (expand-file-name "eshell/history" user-cache-directory))
+
+(add-hook 'after-change-major-mode-hook (lambda ()
+                                          (modify-syntax-entry ?_ "w")))
+;; "-" 同上)
+(add-hook 'after-change-major-mode-hook (lambda ()
+                                          (modify-syntax-entry ?- "w")))
 
 (when (or sys/mac-x-p sys/linux-x-p)
   (use-package exec-path-from-shell
@@ -63,7 +91,6 @@
          ;; modify option and command key
          (setq mac-command-modifier 'super)
          (setq mac-option-modifier 'meta)
-n
          ;; batter copy and paste support for mac os x
          (defun copy-from-osx ()
            (shell-command-to-string "pbpaste"))
@@ -167,8 +194,6 @@ n
  '(condition-case nil
       (progn
         (show-paren-mode 1)
-        (menu-bar-mode -1)
-        (tool-bar-mode -1)
         (scroll-bar-mode -1))
     (error nil))
  graphic-only-plugins-setting)
@@ -178,7 +203,9 @@ n
 (setq-default fill-column 80)
 (fset 'yes-or-no-p 'y-or-n-p)
 (setq visible-bell t
-      inhibit-compacting-font-caches t) ; Don’t compact font caches during GC.
+      inhibit-compacting-font-caches nil
+      ring-bell-function 'ignore
+      blink-cursor-mode nil)
 
 (provide 'init-base)
 

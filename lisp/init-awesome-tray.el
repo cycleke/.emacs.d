@@ -17,8 +17,7 @@
   :config
   (add-hook 'circadian-after-load-theme-hook
             #'(lambda (_)
-                (awesome-tray-mode 1)))
-  )
+                (awesome-tray-mode 1))))
 
 (provide 'init-awesome-tray)
 

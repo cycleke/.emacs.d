@@ -8,7 +8,7 @@
 ;;; Code:
 
 (eval-when-compile
-  (require 'init-const)
+  (require 'init-variables)
   (require 'init-custom)
   (require 'init-company)
   (require 'init-funcs))

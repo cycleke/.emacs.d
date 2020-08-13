@@ -8,15 +8,16 @@
 ;;; Code:
 
 (eval-when-compile
-  (require 'init-const)
+  (require 'init-variables)
   (require 'init-funcs))
 
-(setq frame-title-format '("Emacs - %b")
+(setq frame-title-format '("" "[%b] - Emacs@" user-full-name)
       icon-title-format frame-title-format)
+(set-default 'cursor-type 'box)
 
 (when (display-graphic-p)
   (add-to-list 'default-frame-alist '(ns-transparent-titlebar . t))
-  (add-to-list 'default-frame-alist '(ns-appearance . dark))
+  (add-to-list 'default-frame-alist '(ns-appearance . light))
   (add-hook 'after-load-theme-hook
             (lambda ()
               (let ((bg (frame-parameter nil 'background-mode)))
@@ -82,7 +83,8 @@
 
 (use-package spacemacs-theme :ensure :defer)
 (use-package gruvbox-theme :ensure :defer)
-(load-theme 'gruvbox-dark-soft)
+(use-package leuven-theme :ensure :defer)
+(load-theme 'leuven)
 (use-package circadian
   :disabled
   :ensure t
@@ -105,15 +107,15 @@
   :ensure t
   :hook (prog-mode . rainbow-delimiters-mode)
   :config
-  ;; (set-face-foreground 'rainbow-delimiters-depth-1-face "orange red")
-  ;; (set-face-foreground 'rainbow-delimiters-depth-2-face "gold")
-  ;; (set-face-foreground 'rainbow-delimiters-depth-3-face "yellow")
-  ;; (set-face-foreground 'rainbow-delimiters-depth-4-face "spring green")
-  ;; (set-face-foreground 'rainbow-delimiters-depth-5-face "cyan")
-  ;; (set-face-foreground 'rainbow-delimiters-depth-6-face "magenta")
-  ;; (set-face-foreground 'rainbow-delimiters-depth-7-face "goldenrod")
-  ;; (set-face-foreground 'rainbow-delimiters-depth-8-face "IndianRed1")
-  ;; (set-face-foreground 'rainbow-delimiters-depth-9-face "ivory1")
+  (set-face-foreground 'rainbow-delimiters-depth-1-face "orange red")
+  (set-face-foreground 'rainbow-delimiters-depth-2-face "gold")
+  (set-face-foreground 'rainbow-delimiters-depth-3-face "chartreuse")
+  (set-face-foreground 'rainbow-delimiters-depth-4-face "SpringGreen")
+  (set-face-foreground 'rainbow-delimiters-depth-5-face "cyan")
+  (set-face-foreground 'rainbow-delimiters-depth-6-face "magenta")
+  (set-face-foreground 'rainbow-delimiters-depth-7-face "goldenrod")
+  (set-face-foreground 'rainbow-delimiters-depth-8-face "IndianRed1")
+  (set-face-foreground 'rainbow-delimiters-depth-9-face "ivory1")
   (set-face-bold 'rainbow-delimiters-depth-1-face "t")
   (set-face-bold 'rainbow-delimiters-depth-2-face "t")
   (set-face-bold 'rainbow-delimiters-depth-3-face "t")
@@ -131,7 +133,7 @@
 
 (use-package page-break-lines
   :ensure t
-  :config (turn-on-page-break-lines-mode))
+  :config (page-break-lines-mode))
 
 (use-package dashboard
   :ensure t
@@ -139,7 +141,9 @@
   (dashboard-setup-startup-hook)
   :config
   (setq dashboard-items '((recents  . 15)
-                        (projects . 7)))
+                          (projects . 7)))
+  (dashboard-modify-heading-icons '((recents . "file-text")
+                                    (bookmarks . "book")))
   ;; 设置标题
   (setq dashboard-banner-logo-title
         (concat "Happy hacking, " user-login-name " - Emacs ♥ you!"))
@@ -148,6 +152,14 @@
   (setq dashboard-set-heading-icons t)
   (setq dashboard-set-file-icons t)
   (setq dashboard-set-navigator t))
+
+(use-package info-colors
+  :ensure t
+  :hook ('Info-selection-hook . 'info-colors-fontify-node))
+
+(use-package nyan-mode
+  :ensure t
+  :hook (after-init . nyan-mode))
 
 ;; Don't use GTK+ tooltip
 (push
@@ -179,8 +191,19 @@
     (add-to-list 'default-frame-alist (cons 'alpha (list 95 90)))
     (add-to-list 'default-frame-alist '(ns-transparent-titlebar . t))
 
-    (use-package all-the-icons
-      :ensure t)
+    (use-package all-the-icons :ensure t)
+
+		(use-package  all-the-icons-dired
+		  :ensure t
+		  :hook ('dired-mode . 'all-the-icons-dired-mode))
+
+    (use-package emojify
+		  :after telega
+		  :custom (emojify-emojis-dir (concat user-cache-directory "emojis"))
+		  :config
+		  (global-emojify-mode))
+
+    (use-package posframe :ensure t)
 
     ;; Font
     (use-package cnfonts

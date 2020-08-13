@@ -9,7 +9,11 @@
 ;;; Code:
 
 (use-package youdao-dictionary
-  :bind ("C-c d" . youdao-dictionary-search-at-point)
+  :bind
+  (("C-c d t" . 'youdao-dictionary-search-at-point-tooltip)
+   ("C-c d p" . 'youdao-dictionary-play-voice-at-point)
+   ("C-c d r" . 'youdao-dictionary-search-and-replace)
+   ("C-c d i" . 'youdao-dictionary-search-from-input))
   :config
   (setq url-automatic-caching t))
 

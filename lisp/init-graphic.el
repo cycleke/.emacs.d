@@ -6,7 +6,7 @@
 ;;; Code:
 
 (eval-when-compile
-  (require 'init-const))
+  (require 'init-variables))
 
 ;; 图形化插件特殊设置
 (if (not (display-graphic-p))

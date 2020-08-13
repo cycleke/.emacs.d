@@ -8,8 +8,8 @@
 ;;; Code:
 
 (eval-when-compile
-  (require 'init-const)
-  (require 'cl))
+  (require 'init-variables)
+  (require 'cl-lib))
 
 (defcustom my-package-archives-alist
   (let* ((no-ssl (and (memq system-type '(windows-nt ms-dos))
@@ -36,7 +36,8 @@
   "The package archives group list."
   :type '(alist :key-type (symbol :tag "Archive group name")
                 :value-type (alist :key-type (string :tag "Archive name")
-                                   :value-type (string :tag "URL or directory name"))))
+                                   :value-type (string :tag "URL or directory name")))
+  :group 'local)
 
 (defcustom my-package-archives 'tuna
   "Set package archives from which to fetch."
@@ -51,7 +52,8 @@
                         (list 'const
                               :tag (capitalize (symbol-name name))
                               name)))
-                    my-package-archives-alist)))
+                    my-package-archives-alist))
+  :group 'local)
 
 (setq custom-file (expand-file-name "custom.el" user-cache-directory))
 

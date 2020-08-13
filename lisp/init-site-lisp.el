@@ -8,6 +8,9 @@
 
 ;;; Code:
 
+(eval-when-compile
+  (require 'init-variables))
+
 ;; eaf
 (push
  '(progn

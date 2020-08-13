@@ -7,11 +7,15 @@
 ;;; Code:
 
 (eval-when-compile
-  (require 'init-const)
+  (require 'init-variables)
   (require 'init-custom)
-  (require 'cl))
+  (require 'cl-lib))
 
-(defun open-init-file()
+(defun open-init-dir ()
+  "Open .emacs.d directory."
+  (interactive)
+  (dired user-emacs-directory))
+(defun open-init-file ()
   "Open init.el file."
   (interactive)
   (find-file (expand-file-name "init.el" user-emacs-directory)))
@@ -141,6 +145,87 @@
 		             "-y=\"defaultIndent: ' ',maximumIndentation:' '\""))
 	      (revert-buffer :ignore-auto :noconfirm))
     (error "%s" (concat latex-format-binary " not found."))))
+
+(defun make-progress (width percent has-number?)
+  "Make a progress bar with WIDTH and PERCENT.
+HAS-NUMBER? tells whether to show the percent number."
+  (let* ((done (/ percent 100.0))
+         (done-width (floor (* width done))))
+    (concat
+     "["
+     (make-string done-width ?/)
+     (make-string (- width done-width) ? )
+     "]"
+     (if has-number? (concat " " (number-to-string percent) "%")))))
+
+(defun insert-day-progress ()
+  "Insert a day progress bar."
+  (interactive)
+  (let* ((today (time-to-day-in-year (current-time)))
+         (percent (floor (* 100 (/ today 365.0)))))
+    (insert (make-progress 30 percent t))))
+
+(defun window-move (way)
+  "移动窗口. WAY 是方向，可选值为 p,n,f,b，分别对应上下左右."
+  (interactive "s 方向 (p-n-f-b): ")
+  (let ((old-window-buffer (window-buffer))
+        (old-window (get-buffer-window)))
+    (pcase way ("p" (windmove-up))
+           ("n" (windmove-down))
+           ("f" (windmove-right))
+           ("b" (windmove-left)))
+    (let ((new-window-buffer (get-buffer-window)))
+      (if (not (eql old-window-buffer new-window-buffer))
+          (progn (set-window-buffer old-window (window-buffer))
+                 (set-window-buffer (get-buffer-window) old-window-buffer))))))
+
+(defun window-move-right ()
+  "移动窗口到右方."
+  (interactive)
+  (let ((old-window-buffer (window-buffer))
+        (old-window (get-buffer-window)))
+    (if (windmove-right)
+        (progn (set-window-buffer old-window (window-buffer))
+               (set-window-buffer (get-buffer-window) old-window-buffer)))))
+
+(defun window-move-left ()
+  "移动窗口到左方."
+  (interactive)
+  (let ((old-window-buffer (window-buffer))
+        (old-window (get-buffer-window)))
+    (if (windmove-left)
+        (progn (set-window-buffer old-window (window-buffer))
+               (set-window-buffer (get-buffer-window) old-window-buffer)))))
+
+(defun window-move-up ()
+  "移动窗口到上方."
+  (interactive)
+  (let ((old-window-buffer (window-buffer))
+        (old-window (get-buffer-window)))
+    (if (windmove-up)
+        (progn (set-window-buffer old-window (window-buffer))
+               (set-window-buffer (get-buffer-window) old-window-buffer)))))
+
+(defun window-move-down ()
+  "移动窗口到下方."
+  (interactive)
+  (let ((old-window-buffer (window-buffer))
+        (old-window (get-buffer-window)))
+    (if (windmove-down)
+        (progn (set-window-buffer old-window (window-buffer))
+               (set-window-buffer (get-buffer-window) old-window-buffer)))))
+
+(defun toggle-proxy ()
+  "切换代理."
+  (interactive)
+  (if (null url-proxy-services)
+      (progn
+        (setq url-proxy-services
+              '(("http" . "127.0.0.1:7890")
+                ("https" ."127.0.0.1:7890")))
+        (message " 代理已开启."))
+    (setq url-proxy-services nil)
+    (message " 代理已关闭.")))
 
 (provide 'init-funcs)
 

@@ -1,4 +1,5 @@
-;;; init.el -*- lexical-binding: t no-byte-compile: t; -*-
+;;; package --- Summary
+;; init.el -*- lexical-binding: t no-byte-compile: t; -*-
 
 ;;; Commentary:
 ;;
@@ -13,8 +14,9 @@
 
 ;; Speed up startup, copy from Centaur Emacs
 (defvar my-gc-cons-threshold (if (display-graphic-p) 8000000 800000)
-  "The default value to use for `gc-cons-threshold'. If you experience freezing,
-decrease this. If you experience stuttering, increase this.")
+  "The default value to use for `gc-cons-threshold'.
+If you experience freezing, decrease this.
+If you experience stuttering, increase this.")
 
 (defvar my-gc-cons-upper-limit (if (display-graphic-p) 400000000 100000000)
   "The temporary value for `gc-cons-threshold' to defer it.")
@@ -29,17 +31,17 @@ decrease this. If you experience stuttering, increase this.")
 (add-hook 'emacs-startup-hook
           (lambda ()
             "Restore defalut values after startup."
-            (setq file-name-handler-alist default-file-name-handler-alist)
             (setq gc-cons-threshold my-gc-cons-threshold)
+            (setq file-name-handler-alist default-file-name-handler-alist)
 
             ;; GC automatically while unfocusing the frame
             ;; `focus-out-hook' is obsolete since 27.1
             (if (boundp 'after-focus-change-function)
                 (add-function :after after-focus-change-function
-			      (lambda ()
-				(unless (frame-focus-state)
-				  (garbage-collect))))
-              (add-hook 'focus-out-hook 'garbage-collect))
+			                        (lambda ()
+				                        (unless (frame-focus-state)
+				                          (garbage-collect))))
+              (add-hook 'after-focus-change-function 'garbage-collect))
 
             ;; Avoid GCs while using `ivy'/`counsel'/`swiper' and `helm', etc.
             ;; @see http://bling.github.io/blog/2016/01/18/why-are-you-changing-gc-cons-threshold/
@@ -71,11 +73,8 @@ decrease this. If you experience stuttering, increase this.")
 (update-load-path)
 (add-subdirs-to-load-path)
 
-;; 图形界面插件的设置
-(setq graphic-only-plugins-setting ())
-
 ;; Constants
-(require 'init-const)
+(require 'init-variables)
 
 ;; Customization
 (require 'init-custom)
@@ -88,7 +87,6 @@ decrease this. If you experience stuttering, increase this.")
 
 ;; Preferences
 (require 'init-base)
-(require 'init-hydra)
 (require 'init-ui)
 (require 'init-edit)
 (require 'init-ivy)
@@ -105,7 +103,9 @@ decrease this. If you experience stuttering, increase this.")
 (require 'init-rime)
 (require 'init-asymbol)
 (require 'init-markdown)
+(require 'init-org)
 (require 'init-site-lisp)
+(require 'init-keybind)
 
 ;; Programming
 (require 'init-flycheck)
