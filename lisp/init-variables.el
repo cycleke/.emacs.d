@@ -66,6 +66,8 @@
 ;; 图形界面插件的设置
 (defvar graphic-only-plugins-setting ())
 
+(define-prefix-command 'leader-key)
+
 (provide 'init-variables)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;

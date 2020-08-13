@@ -5,7 +5,6 @@
 
 ;;; Code:
 
-(define-prefix-command 'leader-key)
 (which-key-add-key-based-replacements
   "M-SPC o" " 开启 "
   "M-SPC t" " 切换 "
