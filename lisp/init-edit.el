@@ -32,31 +32,7 @@
   :hook (after-init . delete-selection-mode))
 
 ;; Rectangle
-(use-package rect
-  :ensure nil
-  :pretty-hydra
-  ((:title (pretty-hydra-title "Rectangle" 'material "border_all" :height 1.1 :v-adjust -0.225)
-	         :color amaranth :body-pre (rectangle-mark-mode) :post (deactivate-mark) :quit-key "q")
-   ("Move"
-    (("h" backward-char "←")
-     ("j" next-line "↓")
-     ("k" previous-line "↑")
-     ("l" forward-char "→"))
-    "Action"
-    (("w" copy-rectangle-as-kill "copy") ; C-x r M-w
-     ("y" yank-rectangle "yank")         ; C-x r y
-     ("t" string-rectangle "string")     ; C-x r t
-     ("d" kill-rectangle "kill")         ; C-x r d
-     ("c" clear-rectangle "clear")       ; C-x r c
-     ("o" open-rectangle "open"))        ; C-x r o
-    "Misc"
-    (("N" rectangle-number-lines "number lines")        ; C-x r N
-     ("e" rectangle-exchange-point-and-mark "exchange") ; C-x C-x
-     ("u" undo "undo")
-     ("r" (if (region-active-p)
-              (deactivate-mark)
-            (rectangle-mark-mode 1))
-      "reset")))))
+(use-package rect+ :ensure t)
 
 ;; Automatically reload files was modified by external program
 (use-package autorevert
@@ -192,18 +168,6 @@
 
 ;; Flexible text folding
 (use-package origami
-  :pretty-hydra
-  ((:title (pretty-hydra-title "Origami" 'octicon "fold")
-	         :color blue :quit-key "q")
-   ("Node"
-    ((":" origami-recursively-toggle-node "toggle recursively")
-     ("a" origami-toggle-all-nodes "toggle all")
-     ("t" origami-toggle-node "toggle current")
-     ("o" origami-show-only-node "only show current"))
-    "Actions"
-    (("u" origami-undo "undo")
-     ("d" origami-redo "redo")
-     ("r" origami-reset "reset"))))
   :hook (prog-mode . origami-mode)
   :init (setq origami-show-fold-header t)
   :config
@@ -246,7 +210,7 @@
   ("M-o" . ace-window)
   :init
   (progn
-    (global-set-key [remap other-window] 'ace-window)
+    ;; (global-set-key [remap other-window] 'ace-window)
 	  ;; 设置标记
     (custom-set-faces
      '(aw-leading-char-face
@@ -278,7 +242,12 @@
   :init
   ;; (setq perspeen-use-tab t)
   (setq perspeen-keymap-prefix [C-tab])
-  :config (perspeen-mode))
+  (perspeen-mode))
+
+(use-package
+  howdoyou
+  :ensure t
+  :hook (after-init . howdoyou-mode))
 
 (provide 'init-edit)
 

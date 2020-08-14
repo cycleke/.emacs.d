@@ -19,3 +19,6 @@
 [submodule "snails"]
   path = site-lisp/snails
   url = https://github.com/manateelazycat/snails.git
+[submodule "hydra-posframe"]
+  path = site-lisp/hydra-posframe
+  url = https://github.com/Ladicle/hydra-posframe.git

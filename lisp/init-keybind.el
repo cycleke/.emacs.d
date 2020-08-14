@@ -115,7 +115,44 @@
   ("C-S-k" awesome-tab-kill-other-buffers-in-current-group)
   ("q" nil "quit"))
 
- (defhydra hydra-window-menu ()
+(pretty-hydra-define rect-hydra
+  (
+   :color amaranth :body-pre (rectangle-mark-mode) :post (deactivate-mark) :quit-key "q"
+   :title (pretty-hydra-title "Rectangle" 'material "border_all" :height 1.1 :v-adjust -0.225))
+  ("Move"
+   (("h" backward-char "←")
+    ("j" next-line "↓")
+    ("k" previous-line "↑")
+    ("l" forward-char "→"))
+   "Action"
+   (("w" copy-rectangle-as-kill "copy") ; C-x r M-w
+    ("y" yank-rectangle "yank")         ; C-x r y
+    ("t" string-rectangle "string")     ; C-x r t
+    ("d" kill-rectangle "kill")         ; C-x r d
+    ("c" clear-rectangle "clear")       ; C-x r c
+    ("o" open-rectangle "open"))        ; C-x r o
+   "Misc"
+   (("N" rectangle-number-lines "number lines")        ; C-x r N
+    ("e" rectangle-exchange-point-and-mark "exchange") ; C-x C-x
+    ("u" undo "undo")
+    ("r" (if (region-active-p)
+             (deactivate-mark)
+           (rectangle-mark-mode 1))
+     "reset"))))
+
+(pretty-hydra-define origami-hydra
+  (:title (pretty-hydra-title "Origami" 'octicon "fold") :color blue :quit-key "q")
+  ("Node"
+   ((":" origami-recursively-toggle-node "toggle recursively")
+    ("a" origami-toggle-all-nodes "toggle all")
+    ("t" origami-toggle-node "toggle current")
+    ("o" origami-show-only-node "only show current"))
+   "Actions"
+   (("u" origami-undo "undo")
+    ("d" origami-redo "redo")
+    ("r" origami-reset "reset"))))
+
+(defhydra hydra-window-menu ()
   "
 							^ 窗口管理器 ^
 -----------------------------------------------------------------
@@ -182,7 +219,7 @@
   ("q" nil "QUIT" :color blue))
 
 (general-define-key
- :prefix "M-RET"
+ :prefix "M-SPC h"
  "g" 'toggles-hydra/body
  "t" 'awesome-fast-switch/body
  "r" 'rect-hydra/body

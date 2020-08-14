@@ -8,7 +8,8 @@
 ;;; Code:
 
 (eval-when-compile
-  (require 'init-custom))
+  (require 'init-custom)
+  (require 'init-variables))
 
 
 ;; 增强了搜索功能
@@ -17,7 +18,7 @@
   (("C-s" . swiper)
    ("C-r" . counsel-rg)
    ("C-c C-r" . ivy-resume)
-   ("M-x" . counsel-M-x)
+   ;; ("M-x" . counsel-M-x)
    ("C-x C-f" . counsel-find-file))
   :config
   (setq swiper-action-recenter t)
@@ -78,6 +79,106 @@
          ("M-g f" . 'avy-goto-line)
          ("M-g w" . 'avy-goto-word-1)
          ("M-g e" . 'avy-goto-word-0)))
+
+;; 美化ivy(swiper和counsel)
+(push
+ '(progn
+		;;美化
+		(use-package all-the-icons-ivy-rich
+		  :ensure t
+		  :init
+      (all-the-icons-ivy-rich-mode 1))
+
+		(use-package ivy-rich
+		  :ensure t
+		  :init
+      (ivy-rich-mode 1)
+		  (setcdr (assq t ivy-format-functions-alist) #'ivy-format-function-line)
+		  :config
+      (setq ivy-rich-display-transformers-list
+            '(ivy-switch-buffer
+							(:columns ((ivy-rich-switch-buffer-icon
+													(:width 2))
+												 (ivy-rich-candidate
+													(:width 30))
+												 (ivy-rich-switch-buffer-size
+													(:width 7))
+												 (ivy-rich-switch-buffer-indicators
+													(:width 4 :face error :align right))
+												 (ivy-rich-switch-buffer-major-mode
+													(:width 12 :face warning))
+												 (ivy-rich-switch-buffer-project
+													(:width 15 :face success))
+												 (ivy-rich-switch-buffer-path
+													(:width (lambda (x)
+																		(ivy-rich-switch-buffer-shorten-path
+																		 x
+																		 (ivy-rich-minibuffer-width
+																			0.3))))))
+							          :predicate (lambda (cand)
+														         (get-buffer cand)))
+							counsel-find-file
+							(:columns ((ivy-read-file-transformer)
+												 (ivy-rich-counsel-find-file-truename
+													(:face font-lock-doc-face))))
+							counsel-M-x
+							(:columns ((counsel-M-x-transformer
+													(:width 40))
+												 (ivy-rich-counsel-function-docstring
+													(:face font-lock-doc-face)))) ; return docstring of the command
+							counsel-recentf
+							(:columns ((ivy-rich-candidate
+													(:width 0.8))
+												 (ivy-rich-file-last-modified-time
+													(:face font-lock-comment-face)))) ; return last modified time of the file
+							counsel-describe-function
+							(:columns
+							 ((counsel-describe-function-transformer
+								 (:width 40))
+								(ivy-rich-counsel-function-docstring
+								 (:face font-lock-doc-face)))) ; return docstring of the function
+							counsel-describe-variable
+							(:columns
+							 ((counsel-describe-variable-transformer
+								 (:width 40))
+								(ivy-rich-counsel-variable-docstring
+								 (:face font-lock-doc-face)))) ; return docstring of the variable
+							))))
+ graphic-only-plugins-setting)
+
+;; counsel提供对项目管理的支持
+(use-package counsel-projectile
+  :ensure t
+  :hook ((counsel-mode . counsel-projectile-mode))
+  :init (setq counsel-projectile-grep-initial-input '(ivy-thing-at-point))
+  :bind (:map leader-key ("p" . #'projectile-command-map)))
+
+;;;###autoload
+(defun ivy-telega-chat-highlight (chat)
+  (let ((unread (funcall (telega--tl-prop :unread_count) chat))
+        (title (telega-chat-title chat 'with-identity))
+        (not-muted-p (not (telega-chat-muted-p chat)))
+        (mentions (funcall (telega--tl-prop :unread_mention_count) chat)))
+
+    (if (and not-muted-p (> (+ unread mentions) 0))
+        (ivy-append-face (format "%s %d@%d" title unread mentions) 'ivy-highlight-face)
+      title)))
+
+;;;###autoload
+(defun ivy-telega-chat-with ()
+  "Starts chat with defined peer."
+  (interactive)
+
+  (telega t)
+  (let ((chats (mapcar
+                (lambda (x) (cons (ivy-telega-chat-highlight x) x))
+                (telega-filter-chats telega--ordered-chats 'all))))
+    (ivy-read "chat: " chats
+              :action (lambda (x) (telega-chat--pop-to-buffer (cdr x)))
+              :caller 'ivy-telega-chat-with)))
+(bind-key "t c" #'ivy-telega-chat-with leader-key)
+
+(setq telega-completing-read-function 'ivy-completing-read)
 
 (provide 'init-ivy)
 

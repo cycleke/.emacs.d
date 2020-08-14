@@ -20,23 +20,48 @@
                treemacs-git-mode)
     :bind (([f8]        . treemacs)
            ("M-0"       . treemacs-select-window)
-           ("C-x 1"     . treemacs-delete-other-windows)
-           ("C-x t 1"   . treemacs-delete-other-windows)
-           ("C-x t t"   . treemacs)
-           ("C-x t b"   . treemacs-bookmark)
-           ("C-x t C-t" . treemacs-find-file)
-           ("C-x t M-t" . treemacs-find-tag)
            :map treemacs-mode-map
            ([mouse-1]   . treemacs-single-click-expand-action))
     :config
     (setq treemacs-collapse-dirs           (if treemacs-python-executable 3 0)
-          ;; treemacs-sorting                 'alphabetic-case-insensitive-desc
-          treemacs-follow-after-init       t
-          treemacs-is-never-other-window   t
-          treemacs-silent-filewatch        t
-          treemacs-silent-refresh          t
-	        treemacs-no-png-images           t
-          treemacs-width                   30)
+          treemacs-deferred-git-apply-delay      0.5
+          treemacs-directory-name-transformer    #'identity
+          treemacs-display-in-side-window        t
+          treemacs-eldoc-display                 t
+          treemacs-file-event-delay              5000
+          treemacs-file-extension-regex          treemacs-last-period-regex-value
+          treemacs-file-follow-delay             0.2
+          treemacs-file-name-transformer         #'identity
+          treemacs-follow-after-init             t
+          treemacs-git-command-pipe              ""
+          treemacs-goto-tag-strategy             'refetch-index
+          treemacs-indentation                   2
+          treemacs-indentation-string            " "
+          treemacs-is-never-other-window         t
+          treemacs-max-git-entries               5000
+          treemacs-missing-project-action        'ask
+          treemacs-move-forward-on-expand        nil
+          treemacs-no-png-images                 nil
+          treemacs-no-delete-other-windows       t
+          treemacs-project-follow-cleanup        nil
+          treemacs-persist-file                  (expand-file-name "treemacs-persist" user-cache-directory)
+          treemacs-position                      'left
+          treemacs-recenter-distance             0.1
+          treemacs-recenter-after-file-follow    nil
+          treemacs-recenter-after-tag-follow     nil
+          treemacs-recenter-after-project-jump   'always
+          treemacs-recenter-after-project-expand 'on-distance
+          treemacs-show-cursor                   nil
+          treemacs-show-hidden-files             t
+          treemacs-silent-filewatch              nil
+          treemacs-silent-refresh                nil
+          treemacs-sorting                       'alphabetic-asc
+          treemacs-space-between-root-nodes      t
+          treemacs-tag-follow-cleanup            t
+          treemacs-tag-follow-delay              1.5
+          treemacs-user-mode-line-format         nil
+          treemacs-user-header-line-format       nil
+          treemacs-width                         25)
 
     (treemacs-follow-mode t)
     (treemacs-filewatch-mode t)
@@ -51,7 +76,7 @@
     (use-package treemacs-projectile
       :after projectile
       :bind (:map projectile-command-map
-		  ("h" . treemacs-projectile)))
+		              ("h" . treemacs-projectile)))
 
     (use-package treemacs-magit
       :after magit

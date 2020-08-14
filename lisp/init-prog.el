@@ -7,6 +7,9 @@
 
 ;;; Code:
 
+(eval-when-compile
+  (require 'init-variables))
+
 (use-package vimrc-mode)
 
 ;; New `conf-toml-mode' in Emacs 26

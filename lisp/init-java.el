@@ -21,7 +21,7 @@
 		       (lsp-deferred))))
 
 (general-def java-mode-map
-  "C-c" 'compile-without-debug)
+  "C-c C-c" 'compile-without-debug)
 
 (provide 'init-java)
 
