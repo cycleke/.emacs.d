@@ -8,7 +8,7 @@
 ;;; Code:
 
 (use-package telega
- :ensure nil
+ :ensure t
  :commands telega
  :init
  (setq telega-proxies

@@ -5,18 +5,29 @@
 
 ;;; Code:
 
+(eval-when-compile
+  (require 'init-variables)
+  (require 'init-funcs))
+
 (which-key-add-key-based-replacements
+  "M-SPC m" " 音乐 "
   "M-SPC o" " 开启 "
   "M-SPC t" " 切换 "
   "M-SPC w" " 窗口 "
   "M-SPC c" " 代码 "
   "M-SPC p" " 项目 "
+  "M-SPC h" " Hydra  "
   "M-SPC w P" " 交换窗口 - 上 "
   "M-SPC w N" " 交换窗口 - 下 "
   "M-SPC w F" " 交换窗口 - 右 "
   "M-SPC w B" " 交换窗口 - 左 ")
-(general-define-key "M-SPC" 'leader-key)
+(general-define-key
+ "M-SPC" 'leader-key
+ "C-(" 'backward-sexp
+ "C-)" 'forward-sexp
+ "C-%" 'match-paren)
 (bind-key "t p" 'toggle-proxy leader-key)
+(bind-key "t T" 'toggle-transparency leader-key)
 
 ;; Global toggles
 (pretty-hydra-define toggles-hydra
@@ -116,9 +127,8 @@
   ("q" nil "quit"))
 
 (pretty-hydra-define rect-hydra
-  (
-   :color amaranth :body-pre (rectangle-mark-mode) :post (deactivate-mark) :quit-key "q"
-   :title (pretty-hydra-title "Rectangle" 'material "border_all" :height 1.1 :v-adjust -0.225))
+  (:color amaranth :body-pre (rectangle-mark-mode) :post (deactivate-mark) :quit-key "q"
+          :title (pretty-hydra-title "Rectangle" 'material "border_all" :height 1.1 :v-adjust -0.225))
   ("Move"
    (("h" backward-char "←")
     ("j" next-line "↓")
@@ -152,6 +162,54 @@
     ("d" origami-redo "redo")
     ("r" origami-reset "reset"))))
 
+;; 音乐播放器
+(defhydra hydra-music-menu (:color blue)
+  "
+								^音乐^
+----------------------------------------------------------------------
+[_RET_] ^播放曲目	[_i_] ^一键播放^		[_x_] ^删除曲目(区域)^	[_d_] ^删除曲目(行内)^
+[_\__] ^撤回操作		[_SPC_] ^暂停/播放^	[_TAB_] ^收起专辑^		[_h_] ^回退10s^
+[_l_] ^前进10s		[_a_] ^加入列表^		[_n_] ^下一首^			[_p_] ^上一首^
+[_r_] ^随机播放		[_k_] ^关闭播放器^
+"
+  ("RET" bongo-dwim nil)
+  ("i" bongo-init nil)
+  ("x" bongo-kill-region nil)
+  ("d" bongo-kill-line nil)
+  ("_" bongo-undo nil)
+  ("SPC" bongo-pause/resume nil)
+  ("TAB" bongo-toggle-collapsed nil)
+  ("h" bongo-seek-backward-10 nil :color red)
+  ("l" bongo-seek-forward-10 nil :color red)
+  ("a" bongo-insert-enqueue nil)
+  ("n" bongo-play-next nil)
+  ("p" bongo-play-previous nil)
+  ("r" bongo-play-random nil)
+  ("k" bongo-stop nil)
+  ("q" nil "QUIT" :color blue))
+
+;; 各种插件的键绑定
+(pretty-hydra-define hydra-app-menu (:color blue)
+  ("EAF"
+   (("e" eaf-hydra/body "EAF"))
+   "Telega"
+   (("t" telega "启动Telega")
+	  ("c" ivy-telega-chat-with "选择联系人"))
+   "Vterm"
+   (("v" vterm "启动vterm"))))
+;; 开关
+(defhydra hydra-toggle-menu ()
+  "
+							^开关^
+-----------------------------------------------------------------
+[_T_] ^透明^		[_p_] ^代理^		[_f_] ^FlyCheck^
+"
+  ("T" toggle-transparency nil)
+  ("p" toggle-proxy nil)
+  ("f" global-flycheck-mode nil)
+  ("h" toggle-company-english-helper nil)
+  ("q" nil "QUIT" :color blue))
+
 (defhydra hydra-window-menu ()
   "
 							^ 窗口管理器 ^
@@ -177,6 +235,22 @@
   ("j" windmove-down nil)
   ("k" windmove-up nil)
   ("l" windmove-right nil)
+  ("q" nil "QUIT" :color blue))
+
+(defhydra hydra-code-menu ()
+  "
+				^代码^
+----------------------------------
+[_r_] ^quickrun^  [_i_] ^quickrun-shell^
+[_s_] ^company-yasnippet^
+"
+  ("s" company-yasnippet nil :color blue)
+  ("r" quickrun nil :color blue)
+  ("i" quickrun-shell nil :color blue)
+  ("q" nil "QUIT" :color blue))
+;; 项目
+(defhydra hydra-project-menu ()
+  ""
   ("q" nil "QUIT" :color blue))
 
 (pretty-hydra-define eaf-hydra (:color blue)
@@ -226,7 +300,13 @@
  "o" 'origami-hydra/body
  "e" 'eaf-hydra/body
  "c" 'hydra-common-menu/body
- "w" 'hydra-window-menu/body)
+ "w" 'hydra-window-menu/body
+ "s" 'hydra-toggle-menu/body
+ "C" 'hydra-code-menu/body
+ "p" 'hydra-project-menu/body
+ "a" 'hydra-app-menu/body
+ "d" 'dap-hydra/body
+ "m" 'hydra-music-menu/body)
 
 (provide 'init-keybind)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;

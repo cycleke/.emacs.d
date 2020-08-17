@@ -124,12 +124,11 @@
         (compile (concat "g++ " filename " -o " progname " -g -Wall -lm -std=gnu++14")))))
 
 (defun match-paren (arg)
-  "Go to the matching paren if on a paren; otherwise insert %. ARG."
+  "Go to the matching paren if on a paren; otherwise insert the ARG."
   (interactive "p")
   (cond ((looking-at "\\s(") (forward-list 1) (backward-char 1))
 	      ((looking-at "\\s)") (forward-char 1) (backward-list 1))
 	      (t (self-insert-command (or arg 1)))))
-(global-set-key "%" 'match-paren)
 
 ;; LaTeX formatter
 (defvar latex-format-binary "latexindent")
@@ -214,6 +213,19 @@ HAS-NUMBER? tells whether to show the percent number."
     (if (windmove-down)
         (progn (set-window-buffer old-window (window-buffer))
                (set-window-buffer (get-buffer-window) old-window-buffer)))))
+
+(defun toggle-transparency ()
+  "切换透明."
+  (interactive)
+  (let ((alpha (frame-parameter nil 'alpha)))
+    (set-frame-parameter
+     nil 'alpha
+     (if (eql (cond ((numberp alpha) alpha)
+                    ((numberp (cdr alpha)) (cdr alpha))
+                    ;; Also handle undocumented (<active> <inactive>) form.
+                    ((numberp (cadr alpha)) (cadr alpha)))
+              100)
+         '(87 . 87) '(100 . 100)))))
 
 (defun toggle-proxy ()
   "切换代理."

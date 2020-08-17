@@ -10,7 +10,6 @@ typedef pair<int, int> pii;
 typedef vector<int> vi;
 typedef vector<pii> vpii;
 
-
 const int MOD = 1e9 + 7;
 const int MAXN = 1e5 + 3;
 mt19937 rnd(chrono::high_resolution_clock::now().time_since_epoch().count());

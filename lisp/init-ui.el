@@ -124,15 +124,6 @@
   :ensure t
   :hook (prog-mode . rainbow-delimiters-mode)
   :config
-  (set-face-foreground 'rainbow-delimiters-depth-1-face "orange red")
-  (set-face-foreground 'rainbow-delimiters-depth-2-face "gold")
-  (set-face-foreground 'rainbow-delimiters-depth-3-face "chartreuse")
-  (set-face-foreground 'rainbow-delimiters-depth-4-face "SpringGreen")
-  (set-face-foreground 'rainbow-delimiters-depth-5-face "cyan")
-  (set-face-foreground 'rainbow-delimiters-depth-6-face "magenta")
-  (set-face-foreground 'rainbow-delimiters-depth-7-face "goldenrod")
-  (set-face-foreground 'rainbow-delimiters-depth-8-face "IndianRed1")
-  (set-face-foreground 'rainbow-delimiters-depth-9-face "ivory1")
   (set-face-bold 'rainbow-delimiters-depth-1-face "t")
   (set-face-bold 'rainbow-delimiters-depth-2-face "t")
   (set-face-bold 'rainbow-delimiters-depth-3-face "t")
@@ -208,8 +199,8 @@
      "C-<" 'my/zoom-out)
 
     ;; transparent
-    (set-frame-parameter (selected-frame) 'alpha (list 95 90))
-    (add-to-list 'default-frame-alist (cons 'alpha (list 95 90)))
+    (set-frame-parameter (selected-frame) 'alpha (list 85 85))
+    (add-to-list 'default-frame-alist (cons 'alpha (list 85 85)))
     (add-to-list 'default-frame-alist '(ns-transparent-titlebar . t))
 
     (use-package all-the-icons :ensure t)
@@ -225,8 +216,7 @@
 		  (global-emojify-mode))
 
     (use-package posframe :ensure t)
-		(use-package
-		  ivy-posframe
+		(use-package ivy-posframe
 		  :ensure t
 		  :init (ivy-posframe-mode 1)
 		  :custom

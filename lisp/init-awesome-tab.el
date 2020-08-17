@@ -12,6 +12,32 @@
 (require 'awesome-tab)
 (use-package awesome-tab
   :load-path "~/.emacs.d/site-lisp/awesome-tab"
+  :init
+  (defun awesome-tab-buffer-groups ()
+    (list
+     (cond
+      ((memq major-mode '(telega-chat-mode telega-root-mode))
+       "Telega")
+      ((or (string-equal "*" (substring (buffer-name) 0 1))
+           (memq major-mode '(magit-process-mode
+                              magit-status-mode
+                              magit-diff-mode
+                              magit-log-mode
+                              magit-file-mode
+                              magit-blob-mode
+                              magit-blame-mode
+                              )))
+       "Emacs")
+      ((derived-mode-p 'eshell-mode)
+       "EShell")
+      ((derived-mode-p 'emacs-lisp-mode)
+       "Elisp")
+      ((derived-mode-p 'dired-mode)
+       "Dired")
+      ((memq major-mode '(org-mode org-agenda-mode diary-mode))
+       "OrgMode")
+      (t
+       (awesome-tab-get-group-name (current-buffer))))))
   :config
   (setq awesome-tab-height 100)
   (setq awesome-tab-show-tab-index t)

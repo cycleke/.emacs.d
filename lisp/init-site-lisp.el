@@ -84,7 +84,7 @@
 
 (use-package company-english-helper
   :load-path "~/.emacs.d/site-lisp/company-english-helper"
-  :bind ("C-c h" . toggle-company-english-helper))
+  :bind (:map leader-key ("t h" . toggle-company-english-helper)))
 
 (provide 'init-site-lisp)
 
