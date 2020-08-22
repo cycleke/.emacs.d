@@ -68,7 +68,9 @@
 			                   company-backends)))))
 (use-package cdlatex
   :defer t
-  :init (add-hook 'LaTeX-mode-hook #'cdlatex-mode))
+  :init (add-hook 'LaTeX-mode-hook #'cdlatex-mode)
+  :config
+  (general-unbind cdlatex-mode-map "TAB"))
 (use-package auctex-latexmk
   :defer t
   :init (setq auctex-latexmk-inherit-TeX-PDF-mode t))

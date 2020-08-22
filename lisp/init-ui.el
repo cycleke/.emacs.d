@@ -215,8 +215,9 @@
 		  :config
 		  (global-emojify-mode))
 
-    (use-package posframe :ensure t)
+    (use-package posframe :disabled :ensure t)
 		(use-package ivy-posframe
+      :disabled
 		  :ensure t
 		  :init (ivy-posframe-mode 1)
 		  :custom
@@ -225,6 +226,7 @@
 		  (ivy-posframe-display-functions-alist '((t . ivy-posframe-display-at-frame-center))))
 
     (use-package hydra-posframe
+      :disabled
       :load-path "~/.emacs.d/site-lisp/hydra-posframe"
       :hook (after-init . hydra-posframe-enable))
 
