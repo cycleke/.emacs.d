@@ -81,7 +81,6 @@
       :bind ("C-c s" . snails)))
  graphic-only-plugins-setting)
 
-
 (use-package company-english-helper
   :load-path "~/.emacs.d/site-lisp/company-english-helper"
   :bind (:map leader-key ("t h" . toggle-company-english-helper)))

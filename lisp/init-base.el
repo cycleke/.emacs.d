@@ -26,9 +26,16 @@
     (setenv "LC_ALL" "en_US.UTF-8")
     (setenv "LC_CTYPE" "en_US.UTF-8")))
 
+(prefer-coding-system 'cp950)
+(prefer-coding-system 'gb2312)
+(prefer-coding-system 'cp936)
+(prefer-coding-system 'gb18030)
+(prefer-coding-system 'utf-16)
+(prefer-coding-system 'utf-8-dos)
+(prefer-coding-system 'utf-8-unix)
+
 ;; 任何地方都使用 UTF-8
 (set-charset-priority 'unicode)
-(prefer-coding-system 'utf-8)
 (set-language-environment 'utf-8)
 (set-default-coding-systems 'utf-8)
 (set-buffer-file-coding-system 'utf-8)
