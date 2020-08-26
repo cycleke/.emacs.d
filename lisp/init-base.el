@@ -26,14 +26,6 @@
     (setenv "LC_ALL" "en_US.UTF-8")
     (setenv "LC_CTYPE" "en_US.UTF-8")))
 
-(prefer-coding-system 'cp950)
-(prefer-coding-system 'gb2312)
-(prefer-coding-system 'cp936)
-(prefer-coding-system 'gb18030)
-(prefer-coding-system 'utf-16)
-(prefer-coding-system 'utf-8-dos)
-(prefer-coding-system 'utf-8-unix)
-
 ;; 任何地方都使用 UTF-8
 (set-charset-priority 'unicode)
 (set-language-environment 'utf-8)
@@ -47,6 +39,13 @@
 (modify-coding-system-alist 'process "*" 'utf-8)
 (setq locale-coding-system 'utf-8
       default-process-coding-system '(utf-8-unix . utf-8-unix))
+(prefer-coding-system 'cp950)
+(prefer-coding-system 'gb2312)
+(prefer-coding-system 'cp936)
+(prefer-coding-system 'gb18030)
+(prefer-coding-system 'utf-16)
+(prefer-coding-system 'utf-8-dos)
+(prefer-coding-system 'utf-8-unix)
 (setq confirm-kill-emacs
       (lambda (_) (y-or-n-p-with-timeout "Whether to quit Emacs? " 10 "n")))
 

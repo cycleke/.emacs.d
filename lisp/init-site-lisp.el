@@ -85,6 +85,8 @@
   :load-path "~/.emacs.d/site-lisp/company-english-helper"
   :bind (:map leader-key ("t h" . toggle-company-english-helper)))
 
+(require 'unicad)
+
 (provide 'init-site-lisp)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
