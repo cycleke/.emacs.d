@@ -89,7 +89,7 @@
   ;; Global settings (defaults)
   (setq doom-themes-enable-bold t    ; if nil, bold is universally disabled
         doom-themes-enable-italic t) ; if nil, italics is universally disabled
-  (load-theme 'doom-opera-light t)
+  (load-theme 'doom-one t)
 
   ;; Enable flashing mode-line on errors
   (doom-themes-visual-bell-config)
@@ -231,13 +231,34 @@
       :hook (after-init . hydra-posframe-enable))
 
     ;; Font
-    (use-package cnfonts
-      :ensure t
-      :config
-      (setq cnfonts-profiles
-            '("program"))
-      (setq cnfonts-use-face-font-rescale t))
-    (cnfonts-enable))
+    ;; (use-package cnfonts
+    ;;   :ensure t
+    ;;   :config
+    ;;   (setq cnfonts-profiles
+    ;;         '("program"))
+    ;;   (setq cnfonts-use-face-font-rescale t))
+    ;; (cnfonts-enable))
+    (setq font-name "Sarasa Mono SC Nerd"
+	        font-style "Regular"
+          font-size 18)
+    (if (fontp (font-spec
+				        ;; :name "Fira Code Nerd Font"
+				        ;; :style "Retina"
+				        :name font-name
+				        :style font-style
+				        ;; :name "Sarasa Mono SC"
+				        ;; :style "Regular"
+				        :size font-size))
+		    (set-face-attribute 'default nil
+							              :font (font-spec
+									                 ;; :name "Fira Code Nerd Font"
+									                 ;; :style "Retina"
+									                 :name font-name
+									                 :style font-style
+									                 ;; :name "Sarasa Mono SC"
+									                 ;; :style "Regular"
+									                 :size font-size))
+		  (message "无法找到%s字体，你可以更换其他字体或安装它让这条消息消失." font-name)))
  graphic-only-plugins-setting)
 
 (provide 'init-ui)
