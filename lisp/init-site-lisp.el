@@ -87,6 +87,14 @@
 
 ;; (require 'unicad)
 
+(use-package flywrap
+  :load-path "~/.emacs.d/site-lisp/flywrap.el"
+  :hook
+  ((org-mode . flywrap-mode)
+   (plain-TeX-mode . flywrap-mode)
+   (plain-TeX-mode . flywrap-mode)))
+(require 'flywrap)
+
 (provide 'init-site-lisp)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
