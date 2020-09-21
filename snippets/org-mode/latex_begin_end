@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: latex_begin_end
+# key: labg
+# --
+\begin{$1}
+  $0
+\end{$1}

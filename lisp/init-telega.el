@@ -18,7 +18,6 @@
                   :type (:@type "proxyTypeSocks5"))))
  (setq telega-chat-fill-column 65)
  (setq telega-emoji-use-images nil)
- :config
  (set-fontset-font t 'unicode (font-spec :family "Symbola") nil 'prepend)
  (with-eval-after-load 'company
    (add-hook 'telega-chat-mode-hook

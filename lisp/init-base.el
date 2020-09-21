@@ -78,11 +78,11 @@
       eshell-history-file-name
       (expand-file-name "eshell/history" user-cache-directory))
 
-(add-hook 'after-change-major-mode-hook (lambda ()
-                                          (modify-syntax-entry ?_ "w")))
-;; "-" 同上)
-(add-hook 'after-change-major-mode-hook (lambda ()
-                                          (modify-syntax-entry ?- "w")))
+;; (add-hook 'after-change-major-mode-hook (lambda ()
+;;                                           (modify-syntax-entry ?_ "w")))
+;; ;; "-" 同上)
+;; (add-hook 'after-change-major-mode-hook (lambda ()
+;;                                           (modify-syntax-entry ?- "w")))
 
 (when (or sys/mac-x-p sys/linux-x-p)
   (use-package exec-path-from-shell

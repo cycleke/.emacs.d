@@ -7,7 +7,11 @@
 
 ;;; Code:
 
+(require 'org-tempo)
 (require 'org-capture)
+(require 'ox-md)
+(require 'ox-beamer)
+(require 'ox-latex)
 
 (use-package org
   :ensure t
@@ -84,6 +88,10 @@
           "-[:space:].。,，:；!！?？;；'\")}\\")
   (org-set-emph-re 'org-emphasis-regexp-components
                    org-emphasis-regexp-components))
+
+(use-package org-special-block-extras
+  :ensure t
+  :hook (org-mode . org-special-block-extras-mode))
 
 (use-package org-superstar
   :hook (org-mode . org-superstar-mode)

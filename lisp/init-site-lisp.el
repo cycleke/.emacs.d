@@ -88,12 +88,17 @@
 ;; (require 'unicad)
 
 (use-package flywrap
+  :disabled
   :load-path "~/.emacs.d/site-lisp/flywrap.el"
   :hook
   ((org-mode . flywrap-mode)
    (plain-TeX-mode . flywrap-mode)
-   (plain-TeX-mode . flywrap-mode)))
-(require 'flywrap)
+   (plain-TeX-mode . flywrap-mode)
+   (markdown-mode . flywrap-mode)
+   (latex-mode . flywrap-mode)
+   (LaTeX-mode . flywrap-mode)
+   (tex-mode . flywrap-mode)))
+;; (require 'flywrap)
 
 (provide 'init-site-lisp)
 
