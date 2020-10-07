@@ -75,6 +75,7 @@
 (require 'init-asymbol)
 (require 'init-markdown)
 (require 'init-org)
+(require 'init-hugo)
 (require 'init-site-lisp)
 (require 'init-keybind)
 

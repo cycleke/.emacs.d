@@ -6,22 +6,21 @@
 ;; ox-hugo: 编写博客
 ;; east-hugo: 管理博客
 
-(eval-when-compile
-  (require 'ox))
-
+(require 'ox)
 (use-package ox-hugo
-  :ensure t            ;Auto-install the package from Melpa (optional)
-  :after ox)
+  :ensure t
+  :init (require 'ox-hugo))
 
 (use-package easy-hugo
   :init
   (setq easy-hugo-basedir "~/Blog/")
-  (setq easy-hugo-postdir "content/posts")
+  (setq easy-hugo-postdir "content/post")
   (setq easy-hugo-url "https://cycleke.github.com")
   (setq easy-hugo-previewtime "300")
   (setq easy-hugo-default-ext ".org")
   :bind ("C-c C-e" . easy-hugo))
 
+(provide 'init-hugo)
 ;;; Code:
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;

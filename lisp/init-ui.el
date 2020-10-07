@@ -11,7 +11,7 @@
   (require 'init-variables)
   (require 'init-funcs))
 
-(setq frame-title-format '("" "[%b] - Emacs@" user-full-name)
+(setq frame-title-format '("" "%b[%m] - Emacs@" user-full-name)
       icon-title-format frame-title-format)
 (set-default 'cursor-type 'box)
 
@@ -33,8 +33,7 @@
 
 (use-package doom-modeline
   :ensure t
-  :init
-  (doom-modeline-mode 1)
+  :init (doom-modeline-mode 1)
   :config
   (setq doom-modeline-major-mode-color-icon t
         doom-modeline-minor-modes nil
@@ -42,8 +41,8 @@
         doom-modeline-height 1)
   (push
    '(custom-set-faces
-     '(mode-line ((t (:family "Monaco" :height 0.9 :width condensed :weight light))))
-     '(mode-line-inactive ((t (:family "Monaco" :height 0.9)))))
+     '(mode-line ((t (:family "Monaco" :height 0.7 :width condensed :weight light))))
+     '(mode-line-inactive ((t (:family "Monaco" :height 0.7)))))
    graphic-only-plugins-setting))
 
 ;; Show native line numbers if possible, otherwise use linum
@@ -240,7 +239,7 @@
     ;; (cnfonts-enable))
     (setq font-name "Sarasa Mono SC Nerd"
 	        font-style "Regular"
-          font-size 18)
+          font-size 21)
     (if (fontp (font-spec
 				        ;; :name "Fira Code Nerd Font"
 				        ;; :style "Retina"

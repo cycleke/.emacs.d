@@ -17,7 +17,7 @@
   (bongo-mode-line-icon-size 10)
   :config
   (setq bongo-header-line-mode t)
-  (setq bongo-mode-line-indicator-mode t)
+  (setq bongo-mode-line-indicator-mode nil)
   (setq bongo-global-lastfm-mode nil)
   (setq bongo-enabled-backends '(vlc mpv))
   (defun bongo-init ()
