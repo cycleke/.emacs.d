@@ -2,7 +2,6 @@
 # name: codeforces
 # key: cf
 # --
-#pragma GCC optimize(2)
 #include <bits/stdc++.h>
 using namespace std;
 

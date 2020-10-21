@@ -8,8 +8,7 @@
 ;;; Code:
 
 (eval-when-compile
-  (require 'init-variables)
-  (require 'cl-lib))
+  (require 'init-variables))
 
 (defcustom my-package-archives-alist
   (let* ((no-ssl (and (memq system-type '(windows-nt ms-dos))

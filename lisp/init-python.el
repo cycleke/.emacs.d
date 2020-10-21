@@ -16,7 +16,7 @@
 ;;   pip install pyflakes
 ;;   pip install autopep8
 (use-package python
-  :ensure nil
+  :ensure t
   :hook (inferior-python-mode . (lambda ()
                                   (process-query-on-exit-flag
                                    (get-process "Python"))))
@@ -51,6 +51,12 @@
   :hook (python-mode . yapf-mode)
   :bind (:map python-mode-map
 		          ("C-M-\\" . yapfify-buffer)))
+
+(use-package conda
+  :ensure t
+  :config
+  (setq conda-anaconda-home (expand-file-name "/opt/miniconda3")
+        conda-env-home-directory (expand-file-name "~/.conda")))
 
 (provide 'init-python)
 

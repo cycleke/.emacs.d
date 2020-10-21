@@ -159,7 +159,7 @@
   :hook (after-init . display-time-mode)
   :config
   (setq-default display-time-24hr-format t
-	              display-time-day-and-date t)
+	              display-time-day-and-date nil)
   (display-time-mode 1))
 
 (use-package simple
@@ -204,7 +204,7 @@
     (error nil))
  graphic-only-plugins-setting)
 ;; (toggle-scroll-bar -1)
-(display-battery-mode 1)
+;; (display-battery-mode 1)
 
 (setq-default fill-column 80)
 (fset 'yes-or-no-p 'y-or-n-p)

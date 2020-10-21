@@ -106,9 +106,9 @@
     (setq progname (file-name-sans-extension filename))
     (setq suffix (file-name-extension filename))
     (if (string= suffix "c")
-        (compile (concat "gcc " filename " -o " progname " -O2 -Wall -lm -std=gnu11")))
+        (compile (concat "gcc " filename " -o " progname " -O2 -Wall -Wextra -Wshadow -lm -std=gnu11")))
     (if (or (string= suffix "cc") (string= suffix "cpp"))
-        (compile (concat "g++ " filename " -o " progname " -O2 -Wall -lm -std=gnu++14")))
+        (compile (concat "g++ " filename " -o " progname " -O2 -Wall -Wextra -Wshadow -lm -std=gnu++14")))
     (if (string= suffix "java")
         (compile (concat "javac -encoding UTF-8 -sourcepath . -d . " filename)))))
 (defun compile-with-debug ()
@@ -119,9 +119,9 @@
     (setq progname (file-name-sans-extension filename))
     (setq suffix (file-name-extension filename))
     (if (string= suffix "c")
-        (compile (concat "gcc " filename " -o " progname " -g -Wall -lm -std=gnu11")))
+        (compile (concat "gcc " filename " -o " progname " -g -Wall -Wextra -Wshadow -lm -std=gnu11")))
     (if (or (string= suffix "cc") (string= suffix "cpp"))
-        (compile (concat "g++ " filename " -o " progname " -g -Wall -lm -std=gnu++14")))))
+        (compile (concat "g++ " filename " -o " progname " -g -Wall -Wextra -Wshadow -lm -std=gnu++14")))))
 
 (defun match-paren (arg)
   "Go to the matching paren if on a paren; otherwise insert the ARG."

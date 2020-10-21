@@ -12,7 +12,7 @@
 
 ;; Haskell Mode
 (use-package haskell-mode
-  :ensure nil
+  :ensure t
   :mode ("\\.hs\\'")
   :hook ((haskell-mode . haskell-mode-startup))
   :bind (:map haskell-mode-map ("C-M-\\" . haskell-mode-stylish-buffer))

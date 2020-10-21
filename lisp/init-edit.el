@@ -244,8 +244,7 @@
   (setq perspeen-keymap-prefix [C-tab])
   (perspeen-mode))
 
-(use-package
-  howdoyou
+(use-package howdoyou
   :ensure t
   :hook (after-init . howdoyou-mode))
 

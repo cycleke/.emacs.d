@@ -15,9 +15,13 @@
   :load-path "~/.emacs.d/site-lisp/asymbol"
   :init
   ;; add keybindings
-  (asymbol-global-input-unicode-symbol-on)
-  (asymbol-latex-input-symbol-on)
-  (asymbol-org-input-symbol-on))
+  ;; a little customization
+  (setq asymbol-help-symbol-linewidth 110
+	      asymbol-help-tag-linewidth 110)
+
+  ;; enable in org-mode and tex-mode
+  (add-hook 'org-mode-hook #'asymbol-mode)
+  (add-hook 'tex-mode-hook #'asymbol-mode))
 
 (provide 'init-asymbol)
 

@@ -20,7 +20,7 @@
          :map company-active-map
          ("C-p" . company-select-previous)
          ("C-n" . company-select-next)
-	 ("<tab>" . company-complete-common-or-cycle)
+	       ("<tab>" . company-complete-common-or-cycle)
          ("<backtab>" . my-company-yasnippet)
          ;; ("C-c C-y" . my-company-yasnippet)
          :map company-search-map
@@ -41,18 +41,23 @@
         company-minimum-prefix-length 2
         company-require-match nil
         company-dabbrev-ignore-case nil
-        company-dabbrev-downcase nil)
+        company-dabbrev-downcase nil
+        company-show-numbers t)
 
   ;; Better sorting and filtering
   (use-package company-prescient
     :init (company-prescient-mode 1))
+
+  (use-package company-tabnine :ensure t
+    :init
+    (add-to-list 'company-backends #'company-tabnine))
 
   ;; Popup documentation for completion candidates
   (when (and (not emacs/>=26p) (display-graphic-p))
     (use-package company-quickhelp
       :defines company-quickhelp-delay
       :bind (:map company-active-map
-		  ([remap company-show-doc-buffer] . company-quickhelp-manual-begin))
+		              ([remap company-show-doc-buffer] . company-quickhelp-manual-begin))
       :hook (global-company-mode . company-quickhelp-mode)
       :init (setq company-quickhelp-delay 0.5))))
 

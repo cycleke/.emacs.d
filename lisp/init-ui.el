@@ -9,7 +9,8 @@
 
 (eval-when-compile
   (require 'init-variables)
-  (require 'init-funcs))
+  (require 'init-funcs)
+  (require 'cl-lib))
 
 (setq frame-title-format '("" "%b[%m] - Emacs@" user-full-name)
       icon-title-format frame-title-format)
@@ -41,8 +42,8 @@
         doom-modeline-height 1)
   (push
    '(custom-set-faces
-     '(mode-line ((t (:family "Monaco" :height 0.7 :width condensed :weight light))))
-     '(mode-line-inactive ((t (:family "Monaco" :height 0.7)))))
+     '(mode-line ((t (:family "Monaco" :height 0.72 :width condensed :weight light))))
+     '(mode-line-inactive ((t (:family "Monaco" :height 0.72)))))
    graphic-only-plugins-setting))
 
 ;; Show native line numbers if possible, otherwise use linum
@@ -230,34 +231,28 @@
       :hook (after-init . hydra-posframe-enable))
 
     ;; Font
-    ;; (use-package cnfonts
-    ;;   :ensure t
-    ;;   :config
-    ;;   (setq cnfonts-profiles
-    ;;         '("program"))
-    ;;   (setq cnfonts-use-face-font-rescale t))
-    ;; (cnfonts-enable))
-    (setq font-name "Sarasa Mono SC Nerd"
-	        font-style "Regular"
-          font-size 21)
-    (if (fontp (font-spec
-				        ;; :name "Fira Code Nerd Font"
-				        ;; :style "Retina"
-				        :name font-name
-				        :style font-style
-				        ;; :name "Sarasa Mono SC"
-				        ;; :style "Regular"
-				        :size font-size))
-		    (set-face-attribute 'default nil
-							              :font (font-spec
-									                 ;; :name "Fira Code Nerd Font"
-									                 ;; :style "Retina"
-									                 :name font-name
-									                 :style font-style
-									                 ;; :name "Sarasa Mono SC"
-									                 ;; :style "Regular"
-									                 :size font-size))
-		  (message "无法找到%s字体，你可以更换其他字体或安装它让这条消息消失." font-name)))
+    (defun font-installed-p (font-name)
+      "Check if font with FONT-NAME is available."
+      (find-font (font-spec :name font-name)))
+
+    (cl-loop for font in '("Sarasa Mono SC Nerd" "SF Mono" "Hack" "Source Code Pro")
+             when (font-installed-p font)
+             return (set-face-attribute
+                     'default nil
+                     :font font
+                     :height (cond (sys/mac-x-p 150)
+                                   (sys/win32p 110)
+                                   (t 120))))
+
+    ;; Specify font for all unicode characters
+    (cl-loop for font in '("Symbola" "Apple Symbols" "Symbol" "icons-in-terminal")
+             when (font-installed-p font)
+             return (set-fontset-font t 'unicode font nil 'prepend))
+
+    ;; Specify font for Chinese characters
+    (cl-loop for font in '("Sarasa Mono SC Nerd" "WenQuanYi Micro Hei" "Microsoft Yahei")
+             when (font-installed-p font)
+             return (set-fontset-font t '(#x4e00 . #x9fff) font)))
  graphic-only-plugins-setting)
 
 (provide 'init-ui)
