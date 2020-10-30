@@ -18,7 +18,12 @@
   :hook (prog-mode . lsp-deferred)
   :bind (:map lsp-mode-map
               ("C-c C-d" . lsp-describe-thing-at-point))
-  :init (setq lsp-auto-guess-root t)       ; Detect project root
+  :custom
+  (lsp-auto-guess-root nil)
+  (lsp-prefer-flymake nil)
+  (lsp-file-watch-threshold 2000)
+  (read-process-output-max (* 1024 1024))
+  (lsp-eldoc-hook nil)
   :config
   ;; Configure LSP clients
   (use-package lsp-clients
@@ -35,7 +40,7 @@
 (push
  '(progn
     (use-package lsp-ui
-      :after (lsp-mode)
+      :after lsp-mode
       :functions my-lsp-ui-imenu-hide-mode-line
       :commands lsp-ui-doc-hide
       :custom-face
@@ -103,7 +108,7 @@
 
 ;; Debug
 (use-package dap-mode
-  :after (lsp-mode)
+  :after lsp-mode
   :diminish
   :functions dap-hydra/nil
   :bind (("<f5>" . dap-debug)

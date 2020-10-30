@@ -13,7 +13,7 @@
   (error "This requires Emacs 25.1 and above!"))
 
 (setq gc-cons-threshold-original gc-cons-threshold)
-(setq gc-cons-threshold (* 1024 1024 200))
+(setq gc-cons-threshold (* 1024 1024 256))
 (setq file-name-handler-alist-original file-name-handler-alist)
 (setq file-name-handler-alist nil)
 (run-with-idle-timer 5 nil (lambda ()

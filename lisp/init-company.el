@@ -48,7 +48,9 @@
   (use-package company-prescient
     :init (company-prescient-mode 1))
 
-  (use-package company-tabnine :ensure t
+  (use-package company-tabnine
+    :disabled
+    :ensure t
     :init
     (add-to-list 'company-backends #'company-tabnine))
 
