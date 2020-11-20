@@ -51,8 +51,7 @@
   (use-package company-tabnine
     :disabled
     :ensure t
-    :init
-    (add-to-list 'company-backends #'company-tabnine))
+    :init (add-to-list 'company-backends #'company-tabnine))
 
   ;; Popup documentation for completion candidates
   (when (and (not emacs/>=26p) (display-graphic-p))
