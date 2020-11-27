@@ -89,7 +89,7 @@
   ;; Global settings (defaults)
   (setq doom-themes-enable-bold t    ; if nil, bold is universally disabled
         doom-themes-enable-italic t) ; if nil, italics is universally disabled
-  (load-theme 'doom-opera-light t)
+  (load-theme 'doom-nord t)
 
   ;; Enable flashing mode-line on errors
   (doom-themes-visual-bell-config)
@@ -124,6 +124,15 @@
   :ensure t
   :hook (prog-mode . rainbow-delimiters-mode)
   :config
+  (set-face-foreground 'rainbow-delimiters-depth-1-face "orange red")
+  (set-face-foreground 'rainbow-delimiters-depth-2-face "gold")
+  (set-face-foreground 'rainbow-delimiters-depth-3-face "yellow")
+  (set-face-foreground 'rainbow-delimiters-depth-4-face "spring green")
+  (set-face-foreground 'rainbow-delimiters-depth-5-face "cyan")
+  (set-face-foreground 'rainbow-delimiters-depth-6-face "magenta")
+  (set-face-foreground 'rainbow-delimiters-depth-7-face "goldenrod")
+  (set-face-foreground 'rainbow-delimiters-depth-8-face "IndianRed1")
+  (set-face-foreground 'rainbow-delimiters-depth-9-face "ivory1")
   (set-face-bold 'rainbow-delimiters-depth-1-face "t")
   (set-face-bold 'rainbow-delimiters-depth-2-face "t")
   (set-face-bold 'rainbow-delimiters-depth-3-face "t")

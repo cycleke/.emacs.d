@@ -8,31 +8,35 @@
 ;;; Code:
 
 (eval-when-compile
-  (require 'init-custom))
+  (require 'init-custom)
+  (require 'init-funcs)
+  (require 'init-flycheck)
+  (require 'init-lsp))
 
 ;; Haskell Mode
 (use-package haskell-mode
   :ensure t
   :mode ("\\.hs\\'")
-  :hook ((haskell-mode . haskell-mode-startup))
   :bind (:map haskell-mode-map ("C-M-\\" . haskell-mode-stylish-buffer))
-  :config
-  (setq haskell-stylish-on-save t)
-  (setq haskell-mode-stylish-haskell-path "brittany"))
-
-(use-package dante
-  :ensure t
-  :after haskell-mode
-  :commands 'dante-mode
   :init
-  (add-hook 'haskell-mode-hook 'flycheck-mode)
-  (add-hook 'haskell-mode-hook 'dante-mode)
-  (add-hook 'dante-mode-hook
-	    '(lambda () (flycheck-add-next-checker 'haskell-dante
-					      '(warning . haskell-hlint))))
+  (add-hook 'haskell-mode-hook 'turn-on-haskell-doc-mode)
+  (add-hook 'haskell-mode-hook 'turn-on-haskell-indentation)
+  (add-hook 'haskell-mode-hook 'hlint-refactor-mode)
+  (add-hook 'haskell-mode-hook 'interactive-haskell-mode)
+  (add-hook 'haskell-mode-hook 'haskell-doc-mode)
+  (add-hook 'haskell-mode-hook 'haskell-indentation-mode))
+
+(use-package lsp-haskell
+  :after lsp-mode
   :config
-  (auto-save-visited-mode 1)
-  (setq auto-save-visited-interval 1))
+  (add-hook 'haskell-mode-hook #'lsp)
+  (add-hook 'haskell-literate-mode-hook #'lsp))
+
+(use-package hasky-stack :ensure t)
+(use-package flycheck-haskell
+  :ensure t :init
+  (add-hook 'haskell-mode-hook 'flycheck-mode)
+  (add-hook 'haskell-mode-hook #'flycheck-haskell-setup))
 
 ;; Agda-mode
 (load-file (let ((coding-system-for-read 'utf-8))
