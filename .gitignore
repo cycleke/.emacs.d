@@ -38,5 +38,7 @@ projects/
 
 librime/
 pyim/
+games/
 /.last-package-update-day
 .extension
+*.log

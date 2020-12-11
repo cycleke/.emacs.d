@@ -24,6 +24,8 @@
   :ensure nil
   :mode (("\\.xaml$" . xml-mode)))
 
+(use-package fish-mode)
+
 (use-package rainbow-mode
   :ensure t
   :hook (prog-mode . rainbow-mode))
@@ -58,9 +60,11 @@
     (use-package highlight-indent-guides
       :ensure t
       :hook (prog-mode . highlight-indent-guides-mode)
-      :config
-      (setq highlight-indent-guides-method 'character))
-    (setq highlight-indent-guides-method 'character))
+      :init
+      (setq highlight-indent-guides-method 'bitmap))
+    (use-package fira-code-mode
+      :custom (fira-code-mode-disabled-ligatures '("[]" "x"))
+      :hook prog-mode))
  graphic-only-plugins-setting)
 
 (provide 'init-prog)

@@ -42,8 +42,8 @@
         doom-modeline-height 1)
   (push
    '(custom-set-faces
-     '(mode-line ((t (:family "Monaco" :height 0.72 :width condensed :weight light))))
-     '(mode-line-inactive ((t (:family "Monaco" :height 0.72)))))
+     '(mode-line ((t (:family "Go Mono for Powerline" :height 0.72 :width condensed :weight light))))
+     '(mode-line-inactive ((t (:family "Go Mono for Powerline" :height 0.72)))))
    graphic-only-plugins-setting))
 
 ;; Show native line numbers if possible, otherwise use linum
@@ -244,7 +244,8 @@
       "Check if font with FONT-NAME is available."
       (find-font (font-spec :name font-name)))
 
-    (cl-loop for font in '("Sarasa Mono SC Nerd" "SF Mono" "Hack" "Source Code Pro")
+    (cl-loop for font in '("Ricty Diminished Discord with Fira Code" "Fira Code"
+                           "Sarasa Mono SC Nerd" "SF Mono" "Hack" "Source Code Pro")
              when (font-installed-p font)
              return (set-face-attribute
                      'default nil
@@ -252,14 +253,14 @@
                      :height (cond (sys/mac-x-p 150)
                                    (sys/win32p 110)
                                    (t 120))))
-
     ;; Specify font for all unicode characters
     (cl-loop for font in '("Symbola" "Apple Symbols" "Symbol" "icons-in-terminal")
              when (font-installed-p font)
              return (set-fontset-font t 'unicode font nil 'prepend))
 
     ;; Specify font for Chinese characters
-    (cl-loop for font in '("Sarasa Mono SC Nerd" "WenQuanYi Micro Hei" "Microsoft Yahei")
+    (cl-loop for font in '("FiraCode QiHei NF" "Ricty Diminished Discord with Fira Code"
+                           "Sarasa Mono SC Nerd" "WenQuanYi Micro Hei" "Microsoft Yahei")
              when (font-installed-p font)
              return (set-fontset-font t '(#x4e00 . #x9fff) font)))
  graphic-only-plugins-setting)
