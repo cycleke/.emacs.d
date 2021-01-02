@@ -14,6 +14,7 @@
 (when emacs/>=25.2p
   ;; A tree layout file explorer
   (use-package treemacs
+    :ensure t
     :commands (treemacs-follow-mode
                treemacs-filewatch-mode
                treemacs-fringe-indicator-mode

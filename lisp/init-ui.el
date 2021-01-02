@@ -89,7 +89,7 @@
   ;; Global settings (defaults)
   (setq doom-themes-enable-bold t    ; if nil, bold is universally disabled
         doom-themes-enable-italic t) ; if nil, italics is universally disabled
-  (load-theme 'doom-nord t)
+  (load-theme 'doom-opera-light t)
 
   ;; Enable flashing mode-line on errors
   (doom-themes-visual-bell-config)
@@ -103,13 +103,11 @@
   ;; Corrects (and improves) org-mode's native fontification.
   (doom-themes-org-config))
 (use-package circadian
-  :disabled
-  :ensure t
-  :init
-  (setq calendar-latitude 31.47104)
-  (setq calendar-longitude 104.73409)
-  (setq circadian-themes '((:sunrise . spacemacs-light)
-                           (:sunset  . gruvbox-dark-soft)))
+  :disabled :ensure t :init
+  (setq calendar-latitude 45.75)
+  (setq calendar-longitude 126.63)
+  (setq circadian-themes '((:sunrise . doom-opera-light)
+                           (:sunset  . doom-nord)))
   ;; (setq circadian-themes '(("8:00" . spacemacs-light)
   ;;                          ("18:00" . gruvbox-dark-soft)))
   (circadian-setup)
@@ -124,15 +122,15 @@
   :ensure t
   :hook (prog-mode . rainbow-delimiters-mode)
   :config
-  (set-face-foreground 'rainbow-delimiters-depth-1-face "orange red")
-  (set-face-foreground 'rainbow-delimiters-depth-2-face "gold")
-  (set-face-foreground 'rainbow-delimiters-depth-3-face "yellow")
-  (set-face-foreground 'rainbow-delimiters-depth-4-face "spring green")
-  (set-face-foreground 'rainbow-delimiters-depth-5-face "cyan")
-  (set-face-foreground 'rainbow-delimiters-depth-6-face "magenta")
-  (set-face-foreground 'rainbow-delimiters-depth-7-face "goldenrod")
-  (set-face-foreground 'rainbow-delimiters-depth-8-face "IndianRed1")
-  (set-face-foreground 'rainbow-delimiters-depth-9-face "ivory1")
+  ;; (set-face-foreground 'rainbow-delimiters-depth-1-face "orange red")
+  ;; (set-face-foreground 'rainbow-delimiters-depth-2-face "gold")
+  ;; (set-face-foreground 'rainbow-delimiters-depth-3-face "yellow")
+  ;; (set-face-foreground 'rainbow-delimiters-depth-4-face "spring green")
+  ;; (set-face-foreground 'rainbow-delimiters-depth-5-face "cyan")
+  ;; (set-face-foreground 'rainbow-delimiters-depth-6-face "magenta")
+  ;; (set-face-foreground 'rainbow-delimiters-depth-7-face "goldenrod")
+  ;; (set-face-foreground 'rainbow-delimiters-depth-8-face "IndianRed1")
+  ;; (set-face-foreground 'rainbow-delimiters-depth-9-face "ivory1")
   (set-face-bold 'rainbow-delimiters-depth-1-face "t")
   (set-face-bold 'rainbow-delimiters-depth-2-face "t")
   (set-face-bold 'rainbow-delimiters-depth-3-face "t")
@@ -157,12 +155,12 @@
   :config (page-break-lines-mode))
 
 (use-package dashboard
-  :ensure t
-  :init
+  :ensure t :init
   (dashboard-setup-startup-hook)
   :config
   (setq dashboard-items '((recents  . 15)
-                          (projects . 7)))
+                          (projects . 7)
+                          (agenda . 5)))
   (dashboard-modify-heading-icons '((recents . "file-text")
                                     (bookmarks . "book")))
   ;; 设置标题
@@ -172,7 +170,9 @@
   (setq dashboard-center-content t)
   (setq dashboard-set-heading-icons t)
   (setq dashboard-set-file-icons t)
-  (setq dashboard-set-navigator t))
+  (setq dashboard-set-navigator t)
+  ;; Org Agenda
+  (setq dashboard-week-agenda t))
 
 (use-package info-colors
   :ensure t
@@ -188,24 +188,39 @@
     (when (boundp 'x-gtk-use-system-tooltips)
       (setq x-gtk-use-system-tooltips nil))
 
-    (defun my/zoom-in ()
+    (defvar cycleke/zoom-count 0)
+
+    (defun cycleke/zoom-in ()
       "Increase font size by 10 points."
       (interactive)
-      (set-face-attribute 'default nil
-                          :height
-                          (+ (face-attribute 'default :height) 10)))
+      (set-face-attribute
+       'default nil
+       :height
+       (+ (face-attribute 'default :height) 10))
+      (setq cycleke/zoom-count (1+ cycleke/zoom-count)))
 
-    (defun my/zoom-out ()
+    (defun cycleke/zoom-out ()
       "Decrease font size by 10 points."
       (interactive)
-      (set-face-attribute 'default nil
-                          :height
-                          (- (face-attribute 'default :height) 10)))
+      (set-face-attribute
+       'default nil
+       :height
+       (- (face-attribute 'default :height) 10))
+      (setq cycleke/zoom-count (1- cycleke/zoom-count)))
+
+    (defun cycleke/zoom-reset ()
+      "Reset the font size."
+      (interactive)
+      (while (> cycleke/zoom-count 0)
+        (cycleke/zoom-out))
+      (while (< cycleke/zoom-count 0)
+        (cycleke/zoom-in)))
 
     ;; change font size, interactively
     (general-define-key
-     "C->" 'my/zoom-in
-     "C-<" 'my/zoom-out)
+     "C->" 'cycleke/zoom-in
+     "C-<" 'cycleke/zoom-out
+     "C-'" 'cycleke/zoom-reset)
 
     ;; transparent
     (set-frame-parameter (selected-frame) 'alpha (list 85 85))
@@ -214,7 +229,7 @@
 
     (use-package all-the-icons :ensure t)
 
-		(use-package  all-the-icons-dired
+		(use-package all-the-icons-dired
 		  :ensure t
 		  :hook ('dired-mode . 'all-the-icons-dired-mode))
 
@@ -252,7 +267,7 @@
                      :font font
                      :height (cond (sys/mac-x-p 150)
                                    (sys/win32p 110)
-                                   (t 120))))
+                                   (t 100))))
     ;; Specify font for all unicode characters
     (cl-loop for font in '("Symbola" "Apple Symbols" "Symbol" "icons-in-terminal")
              when (font-installed-p font)

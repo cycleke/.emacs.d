@@ -12,13 +12,12 @@
  :commands telega
  :init
  (setq telega-proxies
-       '((:server "localhost"
-                  :port 7891
-                  :enable t
+       '((:server "localhost" :port 7891 :enable t
                   :type (:@type "proxyTypeSocks5"))))
  (setq telega-chat-fill-column 65)
  (setq telega-emoji-use-images nil)
  (set-fontset-font t 'unicode (font-spec :family "Symbola") nil 'prepend)
+ (setq telega-symbol-unread "🄌")
  (with-eval-after-load 'company
    (add-hook 'telega-chat-mode-hook
              (lambda ()
