@@ -26,23 +26,26 @@
   "C-c" 'compile-without-debug)
 
 (use-package modern-cpp-font-lock
-  :diminish
+  :ensure t
+  :diminish t
   :init (modern-c++-font-lock-global-mode t))
 
 ;; C/C++/Objective-C support
 (use-package ccls
+  :ensure t
+  :defer t
   :after lsp-mode
   :defines projectile-project-root-files-top-down-recurring
-  :hook ((c-mode c++-mode objc-mode cuda-mode) . (lambda ()
-						                                       (require 'ccls)
-						                                       (lsp)))
+  :hook ((c-mode c++-mode objc-mode cuda-mode) . (lambda () (require 'ccls) (lsp)))
+  :custom
+  (ccls-executable (executable-find "ccls"))
+  (ccls-sem-highlight-method 'font-lock)
+  (ccls-enable-skipped-ranges nil)
   :config
-  (setq ccls-executable "/usr/bin/ccls")
   (with-eval-after-load 'projectile
     (setq projectile-project-root-files-top-down-recurring
 	        (append '("compile_commands.json" ".ccls")
-		              projectile-project-root-files-top-down-recurring)))
-  (setq ccls-sem-highlight-method 'font-lock))
+		              projectile-project-root-files-top-down-recurring))))
 
 (use-package cmake-mode
   :mode (("CMakeLists\\.txt\\'" . cmake-mode)
