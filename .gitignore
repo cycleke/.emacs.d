@@ -42,3 +42,4 @@ games/
 /.last-package-update-day
 .extension
 *.log
+eln-cache/

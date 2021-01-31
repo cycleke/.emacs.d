@@ -38,10 +38,10 @@
   (add-hook 'haskell-mode-hook 'flycheck-mode)
   (add-hook 'haskell-mode-hook #'flycheck-haskell-setup))
 
-;; ;; Agda-mode
-;; (load-file (let ((coding-system-for-read 'utf-8))
-;;              (shell-command-to-string "agda-mode locate")))
-;; (add-hook 'agda2-mode-hook 'prog-mode)
+;; Agda-mode
+(load-file (let ((coding-system-for-read 'utf-8))
+             (shell-command-to-string "agda-mode locate")))
+(add-hook 'agda2-mode-hook 'prog-mode)
 
 
 (provide 'init-haskell)

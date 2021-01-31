@@ -24,6 +24,7 @@
   (lsp-file-watch-threshold 2000)
   (read-process-output-max (* 1024 1024))
   (lsp-eldoc-hook nil)
+  (lsp-log-io nil)
   :config
   ;; Configure LSP clients
   (use-package lsp-clients
