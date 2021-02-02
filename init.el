@@ -72,7 +72,7 @@
 (require 'init-dict)
 ;; (require 'init-w3m)
 (require 'init-awesome-tab)
-;; (require 'init-awesome-tray)
+(require 'init-awesome-tray)
 (require 'init-rime)
 (require 'init-asymbol)
 (require 'init-markdown)

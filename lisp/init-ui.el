@@ -33,6 +33,7 @@
   (push '(vertical-scroll-bars) default-frame-alist))
 
 (use-package doom-modeline
+  :disabled
   :ensure t
   :init (doom-modeline-mode 1)
   :config
@@ -179,6 +180,7 @@
   :hook ('Info-selection-hook . 'info-colors-fontify-node))
 
 (use-package nyan-mode
+  :disabled
   :ensure t
   :hook (after-init . nyan-mode))
 
@@ -254,6 +256,10 @@
       :load-path "~/.emacs.d/site-lisp/hydra-posframe"
       :hook (after-init . hydra-posframe-enable))
 
+
+    ;; calculate the font size based on display-pixel-height
+    (setq resolution-factor (eval (/ (x-display-pixel-height) 1080.0)))
+
     ;; Font
     (defun font-installed-p (font-name)
       "Check if font with FONT-NAME is available."
@@ -265,9 +271,10 @@
              return (set-face-attribute
                      'default nil
                      :font font
-                     :height (cond (sys/mac-x-p 150)
-                                   (sys/win32p 110)
-                                   (t 100))))
+                     :height (round (* (cond (sys/mac-x-p 150)
+                                             (sys/win32p 110)
+                                             (t 110)))
+                                    resolution-factor)))
     ;; Specify font for all unicode characters
     (cl-loop for font in '("Symbola" "Apple Symbols" "Symbol" "icons-in-terminal")
              when (font-installed-p font)

@@ -14,6 +14,11 @@
   :load-path "~/.emacs.d/site-lisp/awesome-tray"
   :init
   (awesome-tray-mode 1)
+  :custom
+  (awesome-tray-active-modules
+   '("awesome-tab" "mode-name"
+     "file-path" "buffer-name" "git"
+     "location" "battery" "date"))
   :config
   (add-hook 'circadian-after-load-theme-hook
             #'(lambda (_)

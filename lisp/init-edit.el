@@ -237,6 +237,7 @@
 
 ;; 工作区
 (use-package perspeen
+  :disabled
   :diminish
   :ensure t
   :init
