@@ -17,9 +17,16 @@
     (require 'eaf)
     (use-package eaf
       :load-path "~/.emacs.d/site-lisp/emacs-application-framework"
+      :init
+      (use-package epc :defer t)
+      (use-package ctable :defer t)
+      (use-package deferred :defer t)
+      (use-package s :defer t :ensure t)
       :custom
       (eaf-find-alternate-file-in-dired t)
+      (eaf-browser-continue-where-left-off t)
       :config
+      (eaf-setq eaf-browser-enable-adblocker "true")
       (eaf-bind-key scroll_up "RET" eaf-pdf-viewer-keybinding)
       (eaf-bind-key scroll_down_page "DEL" eaf-pdf-viewer-keybinding)
       (eaf-bind-key scroll_up "C-n" eaf-pdf-viewer-keybinding)

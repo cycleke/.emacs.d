@@ -258,7 +258,7 @@
    (("s" eaf-search-it " 立即搜索 ")
 	  ("b" eaf-open-browser " 打开网页 ")
 	  ("h" eaf-open-browser-with-history " 历史记录 ")
-	  ("e" eaf-proxy-open_download_manage_page " 下载管理 ")
+	  ("e" eaf-proxy-open_downloads_setting " 下载管理 ")
 	  ("m" eaf-open-bookmark " 打开书签 "))
    "Application"
    (("o" eaf-open " 智能 Open")
