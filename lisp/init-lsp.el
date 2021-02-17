@@ -8,14 +8,17 @@
 ;;; Code:
 
 (eval-when-compile
-  (require 'init-custom))
+  (require 'init-custom)
+  (require 'init-variables))
 
 ;; Emacs client for the Language Server Protocol
 ;; https://github.com/emacs-lsp/lsp-mode#supported-languages
 (use-package lsp-mode
-  :commands lsp
-  :diminish lsp-mode
-  :hook (prog-mode . lsp-deferred)
+  :ensure t :defer 2
+  :commands (lsp)
+  :hook ((js-mode js2-mode web-mode python-mode java-mode
+                  scala-mode c-mode c++-mode objc-mode rust-mode
+                  haskell-mode) . lsp)
   :bind (:map lsp-mode-map
               ("C-c C-d" . lsp-describe-thing-at-point))
   :custom
@@ -24,19 +27,7 @@
   (lsp-file-watch-threshold 2000)
   (read-process-output-max (* 1024 1024))
   (lsp-eldoc-hook nil)
-  (lsp-log-io nil)
-  :config
-  ;; Configure LSP clients
-  (use-package lsp-clients
-    :ensure nil
-    :hook (go-mode . (lambda ()
-                       "Format and add/delete imports."
-                       (add-hook 'before-save-hook #'lsp-format-buffer t t)
-                       (add-hook 'before-save-hook #'lsp-organize-imports t t)))
-    :init
-    (setq lsp-clients-python-library-directories '("/usr/local/" "/usr/"))
-    (unless (executable-find "rls")
-      (setq lsp-rust-rls-server-command '("rustup" "run" "stable" "rls")))))
+  (lsp-session-file (expand-file-name ".lsp-session-v1" user-cache-directory)))
 
 (push
  '(progn
@@ -127,6 +118,8 @@
          (php-mode . (lambda () (require 'dap-php)))
          (elixir-mode . (lambda () (require 'dap-elixir)))
          ((js-mode js2-mode) . (lambda () (require 'dap-firefox))))
+  :custom
+  (dap-breakpoints-file (expand-file-name ".dap-breakpoints" user-cache-directory))
   :config
   (dap-auto-configure-mode)
   (setq dap-auto-configure-features '(sessions locals controls tooltip)))

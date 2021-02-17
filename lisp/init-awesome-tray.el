@@ -13,12 +13,25 @@
 (use-package awesome-tray
   :load-path "~/.emacs.d/site-lisp/awesome-tray"
   :init
+  (defface awesome-tray-module-rime-face
+    '((((background light))
+       :foreground "#008080" :bold t)
+      (t
+       :foreground "#00ced1" :bold t))
+    "Rime ㄓ state face."
+    :group 'awesome-tray)
+  (defvar awesome-tray-rime-status-last-time 0)
+  (defvar awesome-tray-rime-status-cache "")
+  (defun awesome-tray-module-rime-info () (rime-lighter))
+  (add-to-list 'awesome-tray-module-alist
+               '("rime" . (awesome-tray-module-rime-info awesome-tray-module-rime-face)))
+
   (awesome-tray-mode 1)
   :custom
   (awesome-tray-active-modules
    '("awesome-tab" "mode-name"
      "file-path" "buffer-name" "git"
-     "location" "battery" "date"))
+     "rime" "location" "battery" "date"))
   :config
   (add-hook 'circadian-after-load-theme-hook
             #'(lambda (_)

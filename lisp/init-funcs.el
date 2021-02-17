@@ -225,7 +225,7 @@ HAS-NUMBER? tells whether to show the percent number."
                     ;; Also handle undocumented (<active> <inactive>) form.
                     ((numberp (cadr alpha)) (cadr alpha)))
               100)
-         '(87 . 87) '(100 . 100)))))
+         '(90 . 90) '(100 . 100)))))
 
 (defun toggle-proxy ()
   "切换代理."

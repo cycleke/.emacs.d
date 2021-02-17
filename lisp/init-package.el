@@ -8,7 +8,8 @@
 ;;; Code:
 
 (eval-when-compile
-  (require 'init-custom))
+  (require 'init-custom)
+  (require 'init-variables))
 
 ;; Suppress warnings
 (declare-function set-package-archives 'init-funcs)
@@ -76,6 +77,9 @@
 
 ;; Auto update packages
 (use-package auto-package-update
+  :custom
+  (auto-package-update-last-update-day-filename
+   (expand-file-name ".last-package-update-day" user-cache-directory))
   :init
   (setq auto-package-update-delete-old-versions t
 	      auto-package-update-hide-results t)

@@ -14,7 +14,6 @@
 ;; eaf
 (push
  '(progn
-    (require 'eaf)
     (use-package eaf
       :load-path "~/.emacs.d/site-lisp/emacs-application-framework"
       :init
@@ -56,9 +55,9 @@
                         (eaf-setq eaf-pdf-dark-mode "true")
                         (eaf-setq eaf-browser-dark-mode "true")
                         (eaf-setq eaf-mindmap-dark-mode "true")))))
+
       (setq eaf-config-location
             (file-name-as-directory (concat user-cache-directory "eaf")))
-      (setq eaf-grip-token "0048eacd75ec58e1df586dfc95df732ebba3258e")
       (setq eaf-proxy-type "socks5")
       (setq eaf-proxy-host "127.0.0.1")
       (setq eaf-proxy-port "7891")

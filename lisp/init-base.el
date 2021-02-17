@@ -67,11 +67,13 @@
 
 ;; file edit settings
 (setq-default tab-width 2
+              fill-column 80
               sentence-end-double-space nil
               make-backup-files nil
               indent-tabs-mode nil
               make-backup-files nil
-              auto-save-default nil)
+              auto-save-default nil
+              major-mode 'text-mode)
 
 (setq auto-save-list-file-prefix
       (expand-file-name "auto-save-list/.saves-" user-cache-directory)
@@ -139,7 +141,6 @@
   :config
   (push (expand-file-name recentf-save-file) recentf-exclude))
 
-
 (use-package savehist
   :ensure nil
   :hook (after-init . savehist-mode)
@@ -153,6 +154,26 @@
 					                                    extended-command-history)
 	            savehist-autosave-interval 300))
 
+(use-package simple
+  :ensure nil
+  :hook ((after-init . size-indication-mode)
+         (text-mode . visual-line-mode)
+         ((prog-mode markdown-mode conf-mode) . enable-trailing-whitespace))
+  :init
+  (setq column-number-mode t
+        line-number-mode t
+        ;; kill-whole-line t               ; Kill line including '\n'
+        line-move-visual nil
+        track-eol t                     ; Keep cursor at end of lines. Require line-move-visual is nil.
+        set-mark-command-repeat-pop t)  ; Repeating C-SPC after popping mark pops it again
+
+  ;; Visualize TAB, (HARD) SPACE, NEWLINE
+  (setq-default show-trailing-whitespace nil) ; Don't show trailing whitespace by default
+  (defun enable-trailing-whitespace ()
+    "Show trailing spaces and delete on saving."
+    (setq show-trailing-whitespace t)
+    (add-hook 'before-save-hook #'delete-trailing-whitespace nil t)))
+
 (use-package time
   :ensure t
   :if (display-graphic-p)
@@ -161,25 +182,6 @@
   (setq-default display-time-24hr-format t
 	              display-time-day-and-date nil)
   (display-time-mode 1))
-
-(use-package simple
-  :ensure nil
-  :hook ((window-setup . size-indication-mode)
-	       ((prog-mode markdown-mode conf-mode) . enable-trailing-whitespace))
-  :init
-  (setq column-number-mode t
-	      line-number-mode t
-	      ;; kill-whole-line t               ; Kill line including '\n'
-	      line-move-visual nil
-	      track-eol t                     ; Keep cursor at end of lines. Require line-move-visual is nil.
-	      set-mark-command-repeat-pop t)  ; Repeating C-SPC after popping mark pops it again
-
-  ;; Visualize TAB, (HARD) SPACE, NEWLINE
-  (setq-default show-trailing-whitespace t) ; Show trailing whitespace by default
-  (defun enable-trailing-whitespace ()
-    "Show trailing spaces and delete on saving."
-    (setq show-trailing-whitespace t)
-    (add-hook 'before-save-hook #'delete-trailing-whitespace nil t)))
 
 (use-package socks
   :ensure t
@@ -206,7 +208,6 @@
 ;; (toggle-scroll-bar -1)
 ;; (display-battery-mode 1)
 
-(setq-default fill-column 80)
 (fset 'yes-or-no-p 'y-or-n-p)
 (setq visible-bell t
       inhibit-compacting-font-caches nil

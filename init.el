@@ -74,6 +74,7 @@
 (require 'init-awesome-tab)
 (require 'init-awesome-tray)
 (require 'init-rime)
+(require 'init-telega)
 (require 'init-asymbol)
 (require 'init-markdown)
 (require 'init-org)

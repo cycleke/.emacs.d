@@ -9,6 +9,7 @@
 ;;; Code:
 
 (use-package youdao-dictionary
+  :ensure t
   :bind
   (("C-c d t" . 'youdao-dictionary-search-at-point-tooltip)
    ("C-c d p" . 'youdao-dictionary-play-voice-at-point)

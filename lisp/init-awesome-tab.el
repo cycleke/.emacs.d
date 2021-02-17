@@ -40,13 +40,13 @@
        (awesome-tab-get-group-name (current-buffer))))))
   :config
   (setq awesome-tab-height 100)
-  (setq awesome-tab-show-tab-index t)
+  (setq awesome-tab-show-tab-index nil)
   (setq awesome-tab-active-bar-width 3)
   (awesome-tab-mode t)
 
   (general-define-key
-   "C-9" 'awesome-tab-backward-tab
-   "C-0" 'awesome-tab-forward-tab
+   "C-," 'awesome-tab-backward-tab
+   "C-." 'awesome-tab-forward-tab
    "C-M-(" 'awesome-tab-move-current-tab-to-left
    "C-M-)" 'awesome-tab-move-current-tab-to-right
    "M-1" 'awesome-tab-select-visible-tab

@@ -5,21 +5,35 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-typedef long long ll;
-typedef pair<int, int> pii;
+using ll = long long;
+using pii = pair<int, int>;
 
 void debug_out() { cerr << endl; }
-
-template <typename Head, typename... Tail>
-void debug_out(Head H, Tail... T) {
+template <typename T> string to_string(const vector<T> &vec) {
+  string res = "[";
+  bool first = true;
+  for (const T &x : vec) {
+    if (first) {
+      first = false;
+    } else {
+      res += ",";
+    }
+    res += to_string(x);
+  }
+  return res + "]";
+}
+template <typename Head, typename... Tail> void debug_out(Head H, Tail... T) {
   cerr << " " << to_string(H);
   debug_out(T...);
 }
-
+#ifdef ONLINE_JUDGE
+#define debug(...)
+#else
 #define debug(...) cerr << "[" << #__VA_ARGS__ << "]:", debug_out(__VA_ARGS__)
+#endif
 
-const int MOD = 1e9 + 7;
-const int MAXN = 1e5 + 3;
+constexpr int MOD = 1e9 + 7;
+constexpr int MAXN = 1e5 + 3;
 // mt19937 rnd(chrono::high_resolution_clock::now().time_since_epoch().count());
 
 int main() {

@@ -1,45 +1,27 @@
-auto-save-list/
-elpa/
-export/
-ac-comphist.dat
-eproject.lst
-.smex-items
-\#*
-.places
-.cache
-.recentf
-projectile.cache
-projectile-bookmarks.eld
-var/
+*~
 *.elc
-*.pyc
-/*.zip
-*.db
-python-*-docs-html
-/.cask/
-/session.*
-/srecode-map.el
-/recentf*
-.mc-lists.el
-transient/
-eclipse.jdt.ls
-tldr/
+.\#*
+\#*\#
+/.emacs.desktop
+/.emacs.desktop.lock
+*.elc
 tramp
-workspace
-amx-items
-bookmarks
-.dap-breakpoints
-.lsp-session*
-emms/
-eaf/
-url/
-bookmarks/
-projects/
 
-librime/
-pyim/
+url/
+transient/
 games/
-/.last-package-update-day
-.extension
-*.log
-eln-cache/
+
+# packages and caches
+.cache/
+elpa/
+eln-cache
+
+# Rime
+pyim/
+
+# Flycheck
+flycheck_*.el
+
+;; Local Variables:
+;; mode: gitignore
+;; End:

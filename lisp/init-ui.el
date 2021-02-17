@@ -12,7 +12,7 @@
   (require 'init-funcs)
   (require 'cl-lib))
 
-(setq frame-title-format '("" "%b[%m] - Emacs@" user-full-name)
+(setq frame-title-format '("" "%b - Emacs@" user-full-name)
       icon-title-format frame-title-format)
 (set-default 'cursor-type 'box)
 
@@ -84,13 +84,15 @@
 
 (use-package spacemacs-theme :ensure :defer)
 (use-package gruvbox-theme :ensure :defer)
-(use-package leuven-theme :ensure :defer)
+(use-package leuven-theme :ensure :defer
+  :init (load-theme 'leuven t))
+(use-package tao-theme :ensure :defer)
 (use-package doom-themes
   :init
   ;; Global settings (defaults)
   (setq doom-themes-enable-bold t    ; if nil, bold is universally disabled
         doom-themes-enable-italic t) ; if nil, italics is universally disabled
-  (load-theme 'doom-one t)
+  ;; (load-theme 'doom-opera-light t)
 
   ;; Enable flashing mode-line on errors
   (doom-themes-visual-bell-config)
@@ -119,29 +121,6 @@
                 ;; Line numbers appearance
                 (setq linum-format 'linum-format-func))))
 
-(use-package rainbow-delimiters
-  :ensure t
-  :hook (prog-mode . rainbow-delimiters-mode)
-  :config
-  ;; (set-face-foreground 'rainbow-delimiters-depth-1-face "orange red")
-  ;; (set-face-foreground 'rainbow-delimiters-depth-2-face "gold")
-  ;; (set-face-foreground 'rainbow-delimiters-depth-3-face "yellow")
-  ;; (set-face-foreground 'rainbow-delimiters-depth-4-face "spring green")
-  ;; (set-face-foreground 'rainbow-delimiters-depth-5-face "cyan")
-  ;; (set-face-foreground 'rainbow-delimiters-depth-6-face "magenta")
-  ;; (set-face-foreground 'rainbow-delimiters-depth-7-face "goldenrod")
-  ;; (set-face-foreground 'rainbow-delimiters-depth-8-face "IndianRed1")
-  ;; (set-face-foreground 'rainbow-delimiters-depth-9-face "ivory1")
-  (set-face-bold 'rainbow-delimiters-depth-1-face "t")
-  (set-face-bold 'rainbow-delimiters-depth-2-face "t")
-  (set-face-bold 'rainbow-delimiters-depth-3-face "t")
-  (set-face-bold 'rainbow-delimiters-depth-4-face "t")
-  (set-face-bold 'rainbow-delimiters-depth-5-face "t")
-  (set-face-bold 'rainbow-delimiters-depth-6-face "t")
-  (set-face-bold 'rainbow-delimiters-depth-7-face "t")
-  (set-face-bold 'rainbow-delimiters-depth-8-face "t")
-  (set-face-bold 'rainbow-delimiters-depth-9-face "t"))
-
 ;; 切换buffer焦点时高亮动画
 (use-package beacon
   :ensure t
@@ -159,21 +138,22 @@
   :ensure t :init
   (dashboard-setup-startup-hook)
   :config
-  (setq dashboard-items '((recents  . 15)
+  (setq dashboard-center-content t
+        dashboard-set-heading-icons t
+        dashboard-set-file-icons t
+        dashboard-set-navigator t
+        dashboard-set-footer t
+        dashboard-week-agenda t
+
+        dashboard-items '((recents  . 15)
                           (projects . 7)
-                          (agenda . 5)))
-  (dashboard-modify-heading-icons '((recents . "file-text")
-                                    (bookmarks . "book")))
-  ;; 设置标题
-  (setq dashboard-banner-logo-title
-        (concat "Happy hacking, " user-login-name " - Emacs ♥ you!"))
-  ;; 设置banner
-  (setq dashboard-center-content t)
-  (setq dashboard-set-heading-icons t)
-  (setq dashboard-set-file-icons t)
-  (setq dashboard-set-navigator t)
-  ;; Org Agenda
-  (setq dashboard-week-agenda t))
+                          (agenda . 5))
+        dashboard-heading-icons '((recents   . "file-text")
+                                  (bookmarks . "bookmark")
+                                  (agenda    . "calendar")
+                                  (projects  . "briefcase")
+                                  (registers . "database"))
+        dashboard-banner-logo-title (concat "Happy hacking, " user-login-name " - Emacs ♥ you!")))
 
 (use-package info-colors
   :ensure t
@@ -225,8 +205,8 @@
      "C-'" 'cycleke/zoom-reset)
 
     ;; transparent
-    (set-frame-parameter (selected-frame) 'alpha (list 85 85))
-    (add-to-list 'default-frame-alist (cons 'alpha (list 85 85)))
+    (set-frame-parameter (selected-frame) 'alpha (list 90 90))
+    (add-to-list 'default-frame-alist (cons 'alpha (list 90 90)))
     (add-to-list 'default-frame-alist '(ns-transparent-titlebar . t))
 
     (use-package all-the-icons :ensure t)
@@ -265,8 +245,7 @@
       "Check if font with FONT-NAME is available."
       (find-font (font-spec :name font-name)))
 
-    (cl-loop for font in '("Ricty Diminished Discord with Fira Code" "Fira Code"
-                           "Sarasa Mono SC Nerd" "SF Mono" "Hack" "Source Code Pro")
+    (cl-loop for font in '("Sarasa Mono SC Nerd" "Fira Code" "SF Mono" "Hack" "Source Code Pro")
              when (font-installed-p font)
              return (set-face-attribute
                      'default nil
@@ -281,8 +260,8 @@
              return (set-fontset-font t 'unicode font nil 'prepend))
 
     ;; Specify font for Chinese characters
-    (cl-loop for font in '("FiraCode QiHei NF" "Ricty Diminished Discord with Fira Code"
-                           "Sarasa Mono SC Nerd" "WenQuanYi Micro Hei" "Microsoft Yahei")
+    (cl-loop for font in '("Sarasa Mono SC Nerd" "Source Han Sans CN"
+                           "FiraCode QiHei NF" "WenQuanYi Micro Hei" "Microsoft Yahei")
              when (font-installed-p font)
              return (set-fontset-font t '(#x4e00 . #x9fff) font)))
  graphic-only-plugins-setting)
