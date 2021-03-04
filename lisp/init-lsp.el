@@ -24,6 +24,8 @@
   :custom
   (lsp-auto-guess-root nil)
   (lsp-prefer-flymake nil)
+  (lsp-log-io nil)
+  (lsp-idle-delay 0.500)
   (lsp-file-watch-threshold 2000)
   (read-process-output-max (* 1024 1024))
   (lsp-eldoc-hook nil)
@@ -214,13 +216,13 @@
              :icon (format "%s\t" (all-the-icons-material "format_align_center"))
              :extensions (template))
             (treemacs-create-icon
-             :icon (format "%s\t" (all-the-icons-octicon "chevron-right" :height 0.75 :v-adjust 0.1 :face 'font-lock-doc-face))
+             :icon (format "%s\t" (all-the-icons-octicon "chevron-right" :height 0.75 :v-adjust 0.1))
              :extensions (collapsed) :fallback "+")
             (treemacs-create-icon
-             :icon (format "%s\t" (all-the-icons-octicon "chevron-down" :height 0.75 :v-adjust 0.1 :face 'font-lock-doc-face))
+             :icon (format "%s\t" (all-the-icons-octicon "chevron-down" :height 0.75 :v-adjust 0.1))
              :extensions (expanded) :fallback "-")
             (treemacs-create-icon
-             :icon (format "%s\t" (all-the-icons-octicon "file-binary" :v-adjust 0 :face 'font-lock-doc-face))
+             :icon (format "%s\t" (all-the-icons-octicon "file-binary" :v-adjust 0))
              :extensions (classfile))
             (treemacs-create-icon
              :icon (format "%s\t" (all-the-icons-faicon "folder-open" :face 'all-the-icons-blue))
@@ -235,16 +237,16 @@
              :icon (format "%s\t" (all-the-icons-octicon "file-directory" :v-adjust 0 :face 'all-the-icons-green))
              :extensions (default-root-folder))
             (treemacs-create-icon
-             :icon (format "%s\t" (all-the-icons-octicon "file-binary" :v-adjust 0 :face 'font-lock-doc-face))
+             :icon (format "%s\t" (all-the-icons-octicon "file-binary" :v-adjust 0))
              :extensions ("class"))
             (treemacs-create-icon
-             :icon (format "%s\t" (all-the-icons-octicon "file-zip" :face 'font-lock-doc-face))
+             :icon (format "%s\t" (all-the-icons-octicon "file-zip"))
              :extensions (file-type-jar))
             (treemacs-create-icon
-             :icon (format "%s\t" (all-the-icons-faicon "folder-open" :face 'font-lock-doc-face))
+             :icon (format "%s\t" (all-the-icons-faicon "folder-open"))
              :extensions (folder-open))
             (treemacs-create-icon
-             :icon (format "%s\t" (all-the-icons-octicon "file-directory" :v-adjust 0 :face 'font-lock-doc-face))
+             :icon (format "%s\t" (all-the-icons-octicon "file-directory" :v-adjust 0))
              :extensions (folder))
             (treemacs-create-icon
              :icon (format "%s\t" (all-the-icons-faicon "folder-open" :face 'all-the-icons-orange))
@@ -265,28 +267,28 @@
              :icon (format "%s\t" (all-the-icons-octicon "file-directory" :v-adjust 0 :face 'all-the-icons-pink))
              :extensions (folder-type-maven))
             (treemacs-create-icon
-             :icon (format "%s\t" (all-the-icons-faicon "folder-open" :face 'font-lock-type-face))
+             :icon (format "%s\t" (all-the-icons-faicon "folder-open"))
              :extensions (folder-type-package-opened))
             (treemacs-create-icon
-             :icon (format "%s\t" (all-the-icons-octicon "file-directory" :v-adjust 0 :face 'font-lock-type-face))
+             :icon (format "%s\t" (all-the-icons-octicon "file-directory" :v-adjust 0))
              :extensions (folder-type-package))
             (treemacs-create-icon
-             :icon (format "%s\t" (all-the-icons-faicon "plus" :face 'font-lock-doc-face))
+             :icon (format "%s\t" (all-the-icons-faicon "plus"))
              :extensions (icon-create))
             (treemacs-create-icon
-             :icon (format "%s\t" (all-the-icons-faicon "list" :face 'font-lock-doc-face))
+             :icon (format "%s\t" (all-the-icons-faicon "list"))
              :extensions (icon-flat))
             (treemacs-create-icon
              :icon (format "%s\t" (all-the-icons-material "share" :face 'all-the-icons-lblue))
              :extensions (icon-hierarchical))
             (treemacs-create-icon
-             :icon (format "%s\t" (all-the-icons-faicon "link" :face 'font-lock-doc-face))
+             :icon (format "%s\t" (all-the-icons-faicon "link"))
              :extensions (icon-link))
             (treemacs-create-icon
-             :icon (format "%s\t" (all-the-icons-faicon "refresh" :face 'font-lock-doc-face))
+             :icon (format "%s\t" (all-the-icons-faicon "refresh"))
              :extensions (icon-refresh))
             (treemacs-create-icon
-             :icon (format "%s\t" (all-the-icons-faicon "chain-broken" :face 'font-lock-doc-face))
+             :icon (format "%s\t" (all-the-icons-faicon "chain-broken"))
              :extensions (icon-unlink))
             (treemacs-create-icon
              :icon (format "%s\t" (all-the-icons-alltheicon "java" :face 'all-the-icons-orange))
@@ -301,7 +303,7 @@
              :icon (format "%s\t" (all-the-icons-octicon "file-directory" :v-adjust 0 :face 'all-the-icons-lblue))
              :extensions (packagefolder))
             (treemacs-create-icon
-             :icon (format "%s\t" (all-the-icons-octicon "package" :v-adjust 0 :face 'font-lock-doc-face))
+             :icon (format "%s\t" (all-the-icons-octicon "package" :v-adjust 0))
              :extensions (package))
             (treemacs-create-icon
              :icon (format "%s\t" (all-the-icons-octicon "repo" :height 1.1 :v-adjust -0.1 :face 'all-the-icons-blue))

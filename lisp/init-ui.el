@@ -33,7 +33,6 @@
   (push '(vertical-scroll-bars) default-frame-alist))
 
 (use-package doom-modeline
-  :disabled
   :ensure t
   :init (doom-modeline-mode 1)
   :config
@@ -41,11 +40,9 @@
         doom-modeline-minor-modes nil
         doom-modeline-mu4e nil
         doom-modeline-height 1)
-  (push
-   '(custom-set-faces
-     '(mode-line ((t (:family "Go Mono for Powerline" :height 0.72 :width condensed :weight light))))
-     '(mode-line-inactive ((t (:family "Go Mono for Powerline" :height 0.72)))))
-   graphic-only-plugins-setting))
+  (custom-set-faces
+   '(mode-line ((t (:family "Go Mono for Powerline" :height 0.72 :width condensed :weight light))))
+   '(mode-line-inactive ((t (:family "Go Mono for Powerline" :height 0.72))))))
 
 ;; Show native line numbers if possible, otherwise use linum
 (if (fboundp 'display-line-numbers-mode)
@@ -82,44 +79,47 @@
   ;; Don't open a file in a new frame
   (setq ns-pop-up-frames nil))
 
-(use-package spacemacs-theme :ensure :defer)
-(use-package gruvbox-theme :ensure :defer)
-(use-package leuven-theme :ensure :defer
-  :init (load-theme 'leuven t))
-(use-package tao-theme :ensure :defer)
-(use-package doom-themes
-  :init
-  ;; Global settings (defaults)
-  (setq doom-themes-enable-bold t    ; if nil, bold is universally disabled
-        doom-themes-enable-italic t) ; if nil, italics is universally disabled
-  ;; (load-theme 'doom-opera-light t)
+(push
+ '(progn
+    (use-package spacemacs-theme :ensure t :defer)
+    (use-package gruvbox-theme :ensure t :defer)
+    (use-package leuven-theme :ensure t :defer
+      :init (load-theme 'leuven t))
+    (use-package tao-theme :ensure t :defer)
+    (use-package doom-themes
+      :init
+      ;; Global settings (defaults)
+      (setq doom-themes-enable-bold t    ; if nil, bold is universally disabled
+            doom-themes-enable-italic t) ; if nil, italics is universally disabled
+      ;; (load-theme 'doom-opera-light t)
 
-  ;; Enable flashing mode-line on errors
-  (doom-themes-visual-bell-config)
+      ;; Enable flashing mode-line on errors
+      (doom-themes-visual-bell-config)
 
-  ;; Enable custom neotree theme (all-the-icons must be installed!)
-  ;; (doom-themes-neotree-config)
-  ;; or for treemacs users
-  (setq doom-themes-treemacs-theme "doom-colors") ; use the colorful treemacs theme
-  (doom-themes-treemacs-config)
+      ;; Enable custom neotree theme (all-the-icons must be installed!)
+      ;; (doom-themes-neotree-config)
+      ;; or for treemacs users
+      (setq doom-themes-treemacs-theme "doom-colors") ; use the colorful treemacs theme
+      (doom-themes-treemacs-config)
 
-  ;; Corrects (and improves) org-mode's native fontification.
-  (doom-themes-org-config))
-(use-package circadian
-  :disabled :ensure t :init
-  (setq calendar-latitude 45.75)
-  (setq calendar-longitude 126.63)
-  (setq circadian-themes '((:sunrise . doom-opera-light)
-                           (:sunset  . doom-nord)))
-  ;; (setq circadian-themes '(("8:00" . spacemacs-light)
-  ;;                          ("18:00" . gruvbox-dark-soft)))
-  (circadian-setup)
-  (add-hook 'circadian-after-load-theme-hook
-            #'(lambda (_)
-                ;; Cursor
-                (set-default 'cursor-type 'box)
-                ;; Line numbers appearance
-                (setq linum-format 'linum-format-func))))
+      ;; Corrects (and improves) org-mode's native fontification.
+      (doom-themes-org-config))
+    (use-package circadian
+      :disabled :ensure t :init
+      (setq calendar-latitude 45.75)
+      (setq calendar-longitude 126.63)
+      (setq circadian-themes '((:sunrise . doom-opera-light)
+                               (:sunset  . doom-nord)))
+      ;; (setq circadian-themes '(("8:00" . spacemacs-light)
+      ;;                          ("18:00" . gruvbox-dark-soft)))
+      (circadian-setup)
+      (add-hook 'circadian-after-load-theme-hook
+                #'(lambda (_)
+                    ;; Cursor
+                    (set-default 'cursor-type 'box)
+                    ;; Line numbers appearance
+                    (setq linum-format 'linum-format-func)))))
+ graphic-only-plugins-setting)
 
 ;; 切换buffer焦点时高亮动画
 (use-package beacon
@@ -160,7 +160,6 @@
   :hook ('Info-selection-hook . 'info-colors-fontify-node))
 
 (use-package nyan-mode
-  :disabled
   :ensure t
   :hook (after-init . nyan-mode))
 
@@ -211,31 +210,30 @@
 
     (use-package all-the-icons :ensure t)
 
-		(use-package all-the-icons-dired
-		  :ensure t
-		  :hook ('dired-mode . 'all-the-icons-dired-mode))
+    (use-package all-the-icons-dired
+      :ensure t
+      :hook ('dired-mode . 'all-the-icons-dired-mode))
 
     (use-package emojify
-		  :after telega
-		  :custom (emojify-emojis-dir (concat user-cache-directory "emojis"))
-		  :config
-		  (global-emojify-mode))
+      :after telega
+      :custom (emojify-emojis-dir (concat user-cache-directory "emojis"))
+      :config
+      (global-emojify-mode))
 
     (use-package posframe :disabled :ensure t)
-		(use-package ivy-posframe
+    (use-package ivy-posframe
       :disabled
-		  :ensure t
-		  :init (ivy-posframe-mode 1)
-		  :custom
+      :ensure t
+      :init (ivy-posframe-mode 1)
+      :custom
       (ivy-posframe-parameters '((left-fringe . 8)
-											           (right-fringe . 8)))
-		  (ivy-posframe-display-functions-alist '((t . ivy-posframe-display-at-frame-center))))
+                                 (right-fringe . 8)))
+      (ivy-posframe-display-functions-alist '((t . ivy-posframe-display-at-frame-center))))
 
     (use-package hydra-posframe
       :disabled
       :load-path "~/.emacs.d/site-lisp/hydra-posframe"
       :hook (after-init . hydra-posframe-enable))
-
 
     ;; calculate the font size based on display-pixel-height
     (setq resolution-factor (eval (/ (x-display-pixel-height) 1080.0)))
@@ -250,10 +248,9 @@
              return (set-face-attribute
                      'default nil
                      :font font
-                     :height (round (* (cond (sys/mac-x-p 150)
+                     :height (cond (sys/mac-x-p 150)
                                              (sys/win32p 110)
-                                             (t 110)))
-                                    resolution-factor)))
+                                             (t 110))))
     ;; Specify font for all unicode characters
     (cl-loop for font in '("Symbola" "Apple Symbols" "Symbol" "icons-in-terminal")
              when (font-installed-p font)

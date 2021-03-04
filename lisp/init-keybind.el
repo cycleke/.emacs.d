@@ -190,9 +190,7 @@
 
 ;; 各种插件的键绑定
 (pretty-hydra-define hydra-app-menu (:color blue)
-  ("EAF"
-   (("e" eaf-hydra/body "EAF"))
-   "Telega"
+  ("Telega"
    (("t" telega "启动Telega")
 	  ("c" ivy-telega-chat-with "选择联系人"))
    "Vterm"
@@ -253,26 +251,6 @@
   ""
   ("q" nil "QUIT" :color blue))
 
-(pretty-hydra-define eaf-hydra (:color blue)
-  ("Emacs"
-   (("s" eaf-search-it " 立即搜索 ")
-	  ("b" eaf-open-browser " 打开网页 ")
-	  ("h" eaf-open-browser-with-history " 历史记录 ")
-	  ("e" eaf-proxy-open_downloads_setting " 下载管理 ")
-	  ("m" eaf-open-bookmark " 打开书签 "))
-   "Application"
-   (("o" eaf-open " 智能 Open")
-    ("c" eaf-open-camera " 打开摄像 ")
-    ("p" eaf-open-mindmap " 思维导图 (O)")
-    ("l" eaf-create-mindmap " 思维导图 (N)")
-    ("r" eaf-restart-process " 刷新 EAF"))
-   "Framwork"
-   (("t" eaf-open-terminal " 打开终端 ")
-    ("f" eaf-file-send-qrcode " 隔空投送 (F)")
-    ("d" eaf-file-browser-qrcode " 隔空投送 (D)")
-    ("i" eaf-open-airshare " 隔空投送 (S)")
-    ("a" eaf-open-rss-reader "RSS 阅读器 "))))
-
 (defhydra hydra-common-menu ()
   "
 						^ 常用 ^
@@ -298,7 +276,6 @@
  "t" 'awesome-fast-switch/body
  "r" 'rect-hydra/body
  "o" 'origami-hydra/body
- "e" 'eaf-hydra/body
  "c" 'hydra-common-menu/body
  "w" 'hydra-window-menu/body
  "s" 'hydra-toggle-menu/body

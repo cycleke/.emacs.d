@@ -11,14 +11,14 @@
   (require 'init-custom)
   (require 'init-variables))
 
-
 ;; 增强了搜索功能
 (use-package swiper
+  :ensure t
   :bind
   (("C-s" . swiper)
    ("C-r" . counsel-rg)
    ("C-c C-r" . ivy-resume)
-   ;; ("M-x" . counsel-M-x)
+   ("M-x" . counsel-M-x)
    ("C-x C-f" . counsel-find-file))
   :config
   (setq swiper-action-recenter t)
@@ -29,16 +29,15 @@
     (define-key read-expression-map (kbd "C-r") 'counsel-expression-history)))
 
 (use-package counsel
+  :ensure t
   :hook ((after-init . ivy-mode)
          (ivy-mode . counsel-mode))
-  :ensure t
   :bind
   (("C-x C-r" . 'counsel-recentf)
    ("C-x d" . 'counsel-dired)
    :map swiper-map
    ("M-s" . swiper-isearch-toggle)
    ("M-%" . swiper-query-replace)
-
    :map isearch-mode-map
    ("M-s" . swiper-isearch-toggle)
    :map counsel-mode-map
@@ -48,13 +47,11 @@
    ([remap dired] . counsel-dired)
    ([remap set-variable] . counsel-set-variable))
   :config
-  (setq enable-recursive-minibuffers t)
   (setq ivy-use-selectable-prompt t
         ivy-use-virtual-buffers t    ; Enable bookmarks and recentf
         ivy-height 10
         ivy-fixed-height-minibuffer t
         ivy-count-format "(%d/%d) "
-        ivy-on-del-error-function nil
         ivy-initial-inputs-alist nil)
   ;; 默认的 rg 配置
   ;; (setq counsel-rg-base-command "rg -M 240 --with-filename --no-heading --line-number --color never %s")
@@ -66,9 +63,9 @@
 
 ;; Enhance M-x
 (use-package amx
-  :init
-  (setq amx-history-length 100
-        amx-save-file (expand-file-name "amx-items" user-cache-directory)))
+  :ensure t
+  :init (setq amx-history-length 100
+              amx-save-file (expand-file-name "amx-items" user-cache-directory)))
 
 ;; 强大的字符跳转工具
 (use-package avy
@@ -80,70 +77,55 @@
          ("M-g w" . 'avy-goto-word-1)
          ("M-g e" . 'avy-goto-word-0)))
 
-;; 美化ivy(swiper和counsel)
+(use-package ivy-rich
+	:ensure t
+	:init
+  (ivy-rich-mode 1)
+	(setcdr (assq t ivy-format-functions-alist) #'ivy-format-function-line)
+	:config
+  (setq ivy-rich-display-transformers-list
+        '(ivy-switch-buffer
+					(:columns ((ivy-rich-switch-buffer-icon (:width 2))
+										 (ivy-rich-candidate (:width 30))
+										 (ivy-rich-switch-buffer-size (:width 7))
+										 (ivy-rich-switch-buffer-indicators (:width 4 :face error :align right))
+										 (ivy-rich-switch-buffer-major-mode (:width 12 :face warning))
+										 (ivy-rich-switch-buffer-project (:width 15 :face success))
+										 (ivy-rich-switch-buffer-path
+                      (:width (lambda (x)
+																(ivy-rich-switch-buffer-shorten-path
+																 x
+																 (ivy-rich-minibuffer-width
+																	0.3))))))
+                    :predicate (lambda (cand)
+														     (get-buffer cand)))
+					counsel-find-file
+					(:columns ((ivy-read-file-transformer)
+										 (ivy-rich-counsel-find-file-truename (:face font-lock-doc-face))))
+					counsel-M-x
+					(:columns ((counsel-M-x-transformer (:width 40))
+										 (ivy-rich-counsel-function-docstring (:face font-lock-doc-face)))) ; return docstring of the command
+					counsel-recentf
+					(:columns ((ivy-rich-candidate (:width 0.8))
+										 (ivy-rich-file-last-modified-time (:face font-lock-comment-face)))) ; return last modified time of the file
+					counsel-describe-function
+					(:columns
+					 ((counsel-describe-function-transformer (:width 40))
+						(ivy-rich-counsel-function-docstring (:face font-lock-doc-face)))) ; return docstring of the function
+					counsel-describe-variable
+					(:columns
+					 ((counsel-describe-variable-transformer (:width 40))
+						(ivy-rich-counsel-variable-docstring (:face font-lock-doc-face)))) ; return docstring of the variable
+					)))
+
+;; 美化 ivy (swiper 和 counsel)
 (push
  '(progn
 		;;美化
 		(use-package all-the-icons-ivy-rich
 		  :ensure t
 		  :init
-      (all-the-icons-ivy-rich-mode 1))
-
-		(use-package ivy-rich
-		  :ensure t
-		  :init
-      (ivy-rich-mode 1)
-		  (setcdr (assq t ivy-format-functions-alist) #'ivy-format-function-line)
-		  :config
-      (setq ivy-rich-display-transformers-list
-            '(ivy-switch-buffer
-							(:columns ((ivy-rich-switch-buffer-icon
-													(:width 2))
-												 (ivy-rich-candidate
-													(:width 30))
-												 (ivy-rich-switch-buffer-size
-													(:width 7))
-												 (ivy-rich-switch-buffer-indicators
-													(:width 4 :face error :align right))
-												 (ivy-rich-switch-buffer-major-mode
-													(:width 12 :face warning))
-												 (ivy-rich-switch-buffer-project
-													(:width 15 :face success))
-												 (ivy-rich-switch-buffer-path
-													(:width (lambda (x)
-																		(ivy-rich-switch-buffer-shorten-path
-																		 x
-																		 (ivy-rich-minibuffer-width
-																			0.3))))))
-							          :predicate (lambda (cand)
-														         (get-buffer cand)))
-							counsel-find-file
-							(:columns ((ivy-read-file-transformer)
-												 (ivy-rich-counsel-find-file-truename
-													(:face font-lock-doc-face))))
-							counsel-M-x
-							(:columns ((counsel-M-x-transformer
-													(:width 40))
-												 (ivy-rich-counsel-function-docstring
-													(:face font-lock-doc-face)))) ; return docstring of the command
-							counsel-recentf
-							(:columns ((ivy-rich-candidate
-													(:width 0.8))
-												 (ivy-rich-file-last-modified-time
-													(:face font-lock-comment-face)))) ; return last modified time of the file
-							counsel-describe-function
-							(:columns
-							 ((counsel-describe-function-transformer
-								 (:width 40))
-								(ivy-rich-counsel-function-docstring
-								 (:face font-lock-doc-face)))) ; return docstring of the function
-							counsel-describe-variable
-							(:columns
-							 ((counsel-describe-variable-transformer
-								 (:width 40))
-								(ivy-rich-counsel-variable-docstring
-								 (:face font-lock-doc-face)))) ; return docstring of the variable
-							))))
+      (all-the-icons-ivy-rich-mode 1)))
  graphic-only-plugins-setting)
 
 ;; counsel提供对项目管理的支持
@@ -168,7 +150,6 @@
 (defun ivy-telega-chat-with ()
   "Starts chat with defined peer."
   (interactive)
-
   (telega t)
   (let ((chats (mapcar
                 (lambda (x) (cons (ivy-telega-chat-highlight x) x))
@@ -177,7 +158,6 @@
               :action (lambda (x) (telega-chat--pop-to-buffer (cdr x)))
               :caller 'ivy-telega-chat-with)))
 (bind-key "t c" #'ivy-telega-chat-with leader-key)
-
 (setq telega-completing-read-function 'ivy-completing-read)
 
 (provide 'init-ivy)

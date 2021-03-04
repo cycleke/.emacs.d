@@ -8,11 +8,8 @@
   path = site-lisp/awesome-tray
   url = https://github.com/manateelazycat/awesome-tray.git
 [submodule "company-english-helper"]
-	path = site-lisp/company-english-helper
-	url = https://github.com/manateelazycat/company-english-helper
-[submodule "emacs-application-framework"]
-  path = site-lisp/emacs-application-framework
-  url = https://github.com/manateelazycat/emacs-application-framework
+  path = site-lisp/company-english-helper
+  url = https://github.com/manateelazycat/company-english-helper
 [submodule "fuz.el"]
   path = site-lisp/fuz.el
   url = https://github.com/cireu/fuz.el.git
