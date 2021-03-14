@@ -20,6 +20,8 @@
   :custom
   (projectile-known-projects-file
    (expand-file-name "projectile-bookmarks.eld" user-cache-directory))
+  (projectile-cache-file
+   (expand-file-name "projectile.cache" user-cache-directory))
   :init
   (setq projectile-mode-line-prefix ""
         projectile-sort-order 'recentf

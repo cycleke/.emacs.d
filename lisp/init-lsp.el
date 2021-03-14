@@ -22,14 +22,16 @@
   :bind (:map lsp-mode-map
               ("C-c C-d" . lsp-describe-thing-at-point))
   :custom
+  (lsp-idle-delay 0.5)
   (lsp-auto-guess-root nil)
   (lsp-prefer-flymake nil)
   (lsp-log-io nil)
-  (lsp-idle-delay 0.500)
   (lsp-file-watch-threshold 2000)
   (read-process-output-max (* 1024 1024))
   (lsp-eldoc-hook nil)
-  (lsp-session-file (expand-file-name ".lsp-session-v1" user-cache-directory)))
+  (lsp-session-file (expand-file-name ".lsp-session-v1" user-cache-directory))
+  :config
+  (setq lsp-prefer-capf t))
 
 (push
  '(progn
@@ -95,10 +97,6 @@
         (setq mode-line-format nil))
       (advice-add #'lsp-ui-imenu :after #'my-lsp-ui-imenu-hide-mode-line))
     ) graphic-only-plugins-setting)
-
-(use-package company-lsp
-  :after (lsp-mode lsp-ui-mode)
-  :init (setq company-lsp-cache-candidates 'auto))
 
 ;; Debug
 (use-package dap-mode

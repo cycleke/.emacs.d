@@ -34,15 +34,12 @@
   (with-eval-after-load 'exec-path-from-shell
     (exec-path-from-shell-copy-env "PYTHONPATH")))
 
-;; Microsoft python-language-server support
-(use-package lsp-python-ms
+(use-package lsp-pyright
+  :ensure t
   :after lsp-mode
   :hook (python-mode . (lambda ()
-			                   (require 'lsp-python-ms)
-			                   (lsp-deferred))))
-
-;; Live Coding in Python
-(use-package live-py-mode)
+                         (require 'lsp-pyright)
+                         (lsp))))  ; or lsp-deferred
 
 ;; Format using YAPF
 ;; Install: pip install yapf
