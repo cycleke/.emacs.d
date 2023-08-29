@@ -27,8 +27,9 @@
            "tools/meow"
            "tools/completion"
            "tools/dired"
+           "tools/blink-search"
 
-           "os/macos"
+           ;; "os/macos"
 
            "prog/treesit"
            "prog/lsp"

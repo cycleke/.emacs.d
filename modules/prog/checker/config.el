@@ -5,61 +5,9 @@
 ;;
 ;;; Commentary:
 ;;
-;;  检查器： flyspell，flycheck，flymake
+;;  检查器： flycheck
 ;;
 ;;; Code:
-
-(use-package flyspell
-  :if (or (executable-find "aspell")
-          (executable-find "hunspell"))
-  :commands (flyspell-mode flyspell-prog-mode)
-  :config
-  (cond
-   ;; aspell 配置
-   ((executable-find "aspell")
-    (setq
-     ispell-program-name "aspell"
-     ispell-extra-args
-     '("--sug-mode=ultra"
-       "--camel-case"))
-
-    (unless ispell-aspell-dict-dir
-      (setq ispell-aspell-dict-dir
-            (ispell-get-aspell-config-value "dict-dir")))
-    (unless ispell-aspell-data-dir
-      (setq ispell-aspell-data-dir
-            (ispell-get-aspell-config-value "data-dir")))
-    (unless ispell-personal-dictionary
-      (setq ispell-personal-dictionary
-            (expand-file-name (concat "ispell/" ispell-dictionary ".pws")
-                              lu-data-dir))))
-   ;; hunspell 配置
-   ((executable-find "hunspell")
-    (setq ispell-program-name "hunspell"))
-   (t
-    (setq ispell-program-name nil))))
-
-(use-package flyspell-correct
-  :after flyspell
-  :commands flyspell-correct-previous
-  :bind ([remap ispell-word] . flyspell-correct-at-point))
-
-(use-package flyspell-lazy
-  :after flyspell
-  :config
-  (setq
-   flyspell-lazy-idle-seconds 1
-   flyspell-lazy-window-idle-seconds 3)
-  (add-hook
-   'message-mode-hook
-   (lambda ()
-     (setq flyspell-lazy-disallow-buffers nil)))
-  (flyspell-lazy-mode +1))
-
-(use-package wucuo
-  :hook
-  (text-mode . wucuo-start)
-  (prog-mode . wucuo-start))
 
 (use-package flycheck
   :commands flycheck-list-errors flycheck-buffer
