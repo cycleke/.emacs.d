@@ -14,8 +14,8 @@
     (add-hook 'rust-mode-hook #'eglot-ensure)))
 
 (use-package rust-ts-mode
+  :mode "\\.rs$"
   :after treesit
-  :mode "\\.proto\\'"
   :init
   (when (gethash "eglot" straight--repo-cache)
     (add-hook 'rust-ts-mode-hook #'eglot-ensure)))

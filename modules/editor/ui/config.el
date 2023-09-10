@@ -25,7 +25,7 @@
 示例：
 (setq lu-charset-fonts
       `((unicode . \"Segoe UI Emoji\")
-        ((#x4e00 . #x9fff) . \"LXGW WenKai GB Screen R\")
+        ((#x4e00 . #x9fff) . \"LXGW WenKai Mono GB\")
         (symbol . \"Segoe UI Symbol\")))
 ")
 
@@ -164,7 +164,7 @@
    whitespace-display-mappings
    '((tab-mark ?\t [?› ?\t])
      (space-mark ?\  [?·] [?.])
-      (space-mark 160 [164] [95]))))
+     (space-mark 160 [164] [95]))))
 
 (use-package highlight-numbers
   :hook ((prog-mode conf-mode) . highlight-numbers-mode)
@@ -192,7 +192,15 @@
   :init
   (setq
    ef-themes-mixed-fonts t
-   ef-themes-variable-pitch-ui t))
+   ef-themes-variable-pitch-ui t
+   ef-themes-headings
+   '((0 . (bold 1))
+     (1 . (bold 1))
+     (2 . (rainbow bold 1))
+     (3 . (rainbow bold 1))
+     (4 . (rainbow bold 1))
+     (t . (rainbow bold 1)))
+   ef-themes-region '(intense no-extend neutral)))
 
 (use-package doom-modeline
   :hook (emacs-startup . doom-modeline-mode)

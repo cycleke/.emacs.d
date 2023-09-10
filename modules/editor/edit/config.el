@@ -63,7 +63,7 @@
   :hook (emacs-startup . recentf-mode)
   :custom (recentf-save-file (file-name-concat lu-cache-dir "recentf"))
   :config
-  (setq recentf-max-saved-items 300
+  (setq recentf-max-saved-items 1000
         recentf-exclude
         '(".cask"
           "COMMIT_EDITMSG\\'"

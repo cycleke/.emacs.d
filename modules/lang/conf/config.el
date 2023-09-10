@@ -27,9 +27,9 @@
 (use-package protobuf-mode
   :straight (:type git :host github :repo "emacsmirror/protobuf-mode" :files ("*.el")))
 
-;; (use-package protobuf-ts-mode
-;;   :after treesit
-;;   :mode "\\.proto\\'"
-;;   :straight (:type git :host github :repo "emacsmirror/protobuf-ts-mode"))
+(use-package protobuf-ts-mode
+  :after treesit
+  :mode "\\.proto\\'"
+  :straight (:type git :host github :repo "emacsmirror/protobuf-ts-mode"))
 
 ;;; lang/conf/config.el ends here
