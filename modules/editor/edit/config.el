@@ -218,6 +218,11 @@
   :custom (highlight-indent-guides-method 'bitmap))
 
 (use-package format-all
-  :commands (format-all-buffer format-all-region))
+  :commands (format-all-buffer format-all-region)
+  :init
+  (with-eval-after-load "meow"
+    (meow-leader-define-key
+     '("= =" . format-all-buffer)
+     '("= r" . format-all-region))))
 
 ;;; editor/edit/config.el ends here

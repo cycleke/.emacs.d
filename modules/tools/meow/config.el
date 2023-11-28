@@ -112,16 +112,4 @@
   (meow-global-mode 1)
   (meow-setup))
 
-(meow-leader-define-key
- '("s s" . consult-line)
- '("s b" . consult-buffer)
- '("s d" . consult-ripgrep)
- '("s f" . consult-find)
- '("= =" . format-all-buffer)
- '("= r" . format-all-region)
- '("l = =" . eglot-format)
- '("l g d" . eglot-find-declaration)
- '("l g r" . xref-find-references)
- '("l r r" . eglot-rename))
-
 ;;; tools/meow/config.el ends here

@@ -1,11 +1,11 @@
-;;; prog/lsp/config.el --- LSP 配置 -*- lexical-binding: t; -*-
+;;; prog/eglot/config.el --- eglot 配置 -*- lexical-binding: t; -*-
 ;;
 ;; Copyright (C) 2023 Lu Yaoke
 ;; License: GPL v3, or (at your option) any later version
 ;;
 ;;; Commentary:
 ;;
-;;  LSP 配置： eglot
+;;  eglot 配置
 ;;
 ;;; Code:
 
@@ -46,7 +46,14 @@
    eglot-sync-connect 1
    eglot-connect-timeout 10
    eglot-autoshutdown t
-   eglot-stay-out-of '(flymake)))
+   eglot-stay-out-of '(flymake))
+
+  (with-eval-after-load "meow"
+    (meow-leader-define-key
+     '("l = =" . eglot-format)
+     '("l g d" . eglot-find-declaration)
+     '("l g r" . xref-find-references)
+     '("l r r" . eglot-rename))))
 
 (use-package consult-eglot
   :after (consult eglot)
@@ -59,4 +66,4 @@
   :after (flycheck eglot)
   :hook (eglot-managed-mode . flycheck-eglot-mode))
 
-;;; prog/lsp/config.el ends here
+;;; prog/eglot/config.el ends here

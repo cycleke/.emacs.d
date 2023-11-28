@@ -25,14 +25,16 @@
 
            "tools/magit"
            "tools/meow"
-           "tools/completion"
+           "tools/corfu"
+           "tools/consult"
            "tools/dired"
            "tools/blink-search"
 
            ;; "os/macos"
 
            "prog/treesit"
-           "prog/lsp"
+           "prog/eglot"
+           ;; "prog/lsp-bridge"
            ;; "prog/citire"
            "prog/checker"
 

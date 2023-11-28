@@ -1,4 +1,4 @@
-;;; tools/completion/config.el --- 文本补全工具 -*- lexical-binding: t; -*-
+;;; tools/consult/config.el --- 文本补全工具 -*- lexical-binding: t; -*-
 ;;
 ;; Copyright (C) 2023 Lu Yaoke
 ;; License: GPL v3, or (at your option) any later version
@@ -73,7 +73,7 @@
      ((string-prefix-p "~" pattern) `(orderless-flex . ,(substring pattern 1)))
      ((string-suffix-p "~" pattern) `(orderless-flex . ,(substring pattern 0 -1)))))
   :custom
-  (completion-styles '(substring orderless))
+  (completion-styles '(substring orderless basic))
   (completion-category-overrides '((file (styles orderless partial-completion))))
   (orderless-style-dispatchers '(+vertico-orderless-dispatch))
   (orderless-component-separator "[ &]")
@@ -106,7 +106,15 @@
   (consult-async-min-input 2)
   (consult-async-refresh-delay 0.15)
   (consult-async-input-throttle 0.2)
-  (consult-async-input-debounce 0.1))
+  (consult-async-input-debounce 0.1)
+
+  :init
+  (with-eval-after-load "meow"
+    (meow-leader-define-key
+     '("s s" . consult-line)
+     '("s b" . consult-buffer)
+     '("s d" . consult-ripgrep)
+     '("s f" . consult-find))))
 
 (use-package consult-dir
   :bind ([remap list-directory] . consult-dir))
@@ -114,40 +122,4 @@
 (use-package marginalia
   :hook (emacs-startup . marginalia-mode))
 
-;; 使用 Corfu 代替 Company
-(use-package corfu
-  :straight (:files (:defaults "extensions/*") :includes (corfu-popupinfo))
-  :hook
-  (emacs-startup . global-corfu-mode)
-  (corfu-mode . corfu-popupinfo-mode)
-  :bind
-  (:map
-   corfu-map
-   ("<return>" . corfu-insert)
-   ("<escape>" . corfu-quit)
-   ([remap corfu-info-documentation] . corfu-popupinfo-toggle))
-  :custom
-  (completion-cycle-threshold nil)
-
-  (corfu-cycle t)
-  (corfu-auto t)
-  (corfu-separator ?\s)
-  (corfu-quit-at-boundary nil)
-  (corfu-quit-no-match t)
-  (corfu-preview-current t)
-  (corfu-preselect-first t)
-  (corfu-echo-documentation t)
-  (corfu-auto-delay 0)
-  (corfu-auto-prefix 2)
-
-  ;; corfu-popupinfo
-  (corfu-doc-delay 0)
-  (corfu-doc-max-width 70)
-  (corfu-doc-max-height 20))
-
-(use-package corfu-terminal
-  :unless (display-graphic-p)
-  :commands corfu-terminal-mode
-  :hook (corfu-mode . corfu-terminal-mode))
-
-;;; tools/completion/config.el ends here
+;;; tools/consult/config.el ends here
