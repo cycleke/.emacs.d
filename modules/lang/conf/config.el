@@ -27,7 +27,9 @@
 (use-package protobuf-mode
   :straight (:type git :host github :repo "emacsmirror/protobuf-mode" :files ("*.el")))
 
+;; 目前只支持 proto3
 (use-package protobuf-ts-mode
+  :disabled
   :after treesit
   :mode "\\.proto\\'"
   :straight (:type git :host github :repo "emacsmirror/protobuf-ts-mode"))

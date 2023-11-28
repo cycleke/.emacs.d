@@ -14,9 +14,9 @@
 
 示例：
 (setq lu-fonts
-      `((default . \"Pes Mono\")
-        (fixed-pitch . \"Pes Mono\")
-        (variable-pitch . \"Rec Mono SemiCasual\")))
+      `((default . \"Iosevka Nerd Font Mono\")
+        (fixed-pitch . \"Iosevka Nerd Font Mono\")
+        (variable-pitch . \"IosevkaTermSlab Nerd Font Mono\")))
 ")
 
 (defvar lu-charset-fonts nil

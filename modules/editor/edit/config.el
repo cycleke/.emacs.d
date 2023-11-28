@@ -225,4 +225,7 @@
      '("= =" . format-all-buffer)
      '("= r" . format-all-region))))
 
+(use-package breadcrumb
+  :hook (after-init . breadcrumb-mode))
+
 ;;; editor/edit/config.el ends here
