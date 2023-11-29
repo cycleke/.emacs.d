@@ -40,4 +40,14 @@
      (require 'ns-auto-titlebar nil t)
      (ns-auto-titlebar-mode +1))
 
+(use-package auto-dark
+  :hook (after-init . auto-dark-mode)
+  :config
+  (add-hook 'auto-dark-dark-mode-hook
+            (lambda ()
+              (setq lu-theme auto-dark-dark-theme)))
+  (add-hook 'auto-dark-light-mode-hook
+            (lambda ()
+              (setq lu-theme auto-dark-light-theme))))
+
 ;;; os/macos/config.el ends here
