@@ -39,14 +39,8 @@
    esc-map
    ("C-'" . iedit-execute-last-modification)))
 
-(use-package undo-fu
-  :bind
-  ("C-z" . undo-fu-only-undo)
-  ("C-S-z" . undo-fu-only-redo)
-  ("C-/" . undo-fu-only-undo)
-  ("C-x u" . undo-fu-only-redo)
-  :init
-  (global-unset-key (kbd "C-z")))
+(use-package vundo
+  :bind ("C-x u" . vundo))
 
 ;; 快速跳转
 (use-package ace-window

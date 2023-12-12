@@ -44,6 +44,9 @@
  tab-always-indent nil)
 (setq tabify-regexp "^\t* [ \t]+")
 
+;; 关闭自动缩进
+(electric-indent-mode -1)
+
 ;; 行长度
 (setq-default fill-column 120)
 

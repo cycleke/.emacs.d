@@ -33,5 +33,4 @@
      '("l g a" . lsp-bridge-code-action)
      '("l f" . lsp-bridge-diagnostic-list))))
 
-
 ;;; prog/eglot/config.el ends here
