@@ -44,7 +44,8 @@
 
 ;; 快速跳转
 (use-package ace-window
-  :bind ("M-o" . ace-window))
+  :bind ("M-o" . ace-window)
+  :custom (aw-scope 'frame))
 
 (use-package avy
   :bind

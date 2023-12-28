@@ -18,8 +18,9 @@
    blink-search-search-backends
    '("Find File" "Recent File" "Grep File" "Find File" "Grep File"))
 
-  (meow-leader-define-key
-   '("s d" . blink-search))
-  (add-to-list 'meow-mode-state-list '(blink-search-mode . insert)))
+  (with-eval-after-load "meow"
+    (meow-leader-define-key
+     '("s d" . blink-search))
+    (add-to-list 'meow-mode-state-list '(blink-search-mode . insert))))
 
 ;;; tools/blink-search/config.el ends here
