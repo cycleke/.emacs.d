@@ -1,52 +1,48 @@
-;;; init.el --- -*- lexical-binding: t; -*-
+;;; init.el --- Initial File -*- lexical-binding: t; -*-
 ;;
-;; Copyright (C) 2023 Lu Yaoke
+;; Copyright (C) 2023, Lu Yaoke. All rights reserved.
 ;; License: GPL v3, or (at your option) any later version
 ;;
 ;;; Commentary:
 ;;
+;; 启动文件
+;;
 ;;; Code:
 
-;; 版本判断
-(eval-and-compile
-  (when (< emacs-major-version 27)
-    (user-error
-     (concat
-      "Emacs 版本过低！！！\n"
-      "当前版本 " emacs-version "，最低版本 27.1"))))
+(dolist (path '("site-lisp" "lisp"))
+  (push (expand-file-name path user-emacs-directory) load-path))
 
-(load (expand-file-name "lu-core" user-emacs-directory))
+(require 'lu-core)
 
-(dolist (module
-         '(
-           "editor/base"
-           "editor/edit"
-           "editor/ui"
+(load lu-pre-custom-file 'noerror)
 
-           "tools/magit"
-           "tools/meow"
-           "tools/completion"
-           "tools/dired"
+(require 'init-basic)
+(require 'init-os)
+(require 'init-edit)
+(require 'init-ui)
+;; (require 'init-completion)
+(require 'init-corfu)
+(require 'init-consult)
 
-           "os/macos"
+(require 'init-dired)
+(require 'init-magit)
+(require 'init-meow)
 
-           "prog/treesit"
-           "prog/lsp"
-           ;; "prog/citire"
-           "prog/checker"
+(require 'init-treesit)
+(require 'init-eglot)
+(require 'init-citre)
 
-           "lang/elisp"
-           "lang/cc"
-           "lang/rust"
-           "lang/sh"
-           "lang/python"
-           "lang/haskell"
-           "lang/conf"
-           "lang/org"
-           "lang/markdown"
-           ))
-  (load (file-name-concat lu-emacs-dir "modules/" module "config")))
+(require 'init-markdown)
+(require 'init-org)
 
-(load custom-file 'noerror 'nomessage)
+(require 'init-conf)
+(require 'init-cc)
+(require 'init-haskell)
+
+(dolist (plugin '("auto-space" "protobuf-mode"))
+  (lu-byte-compile-site-lisp-newer plugin)
+  (require (intern plugin)))
+
+(load lu-post-custom-file)
 
 ;;; init.el ends here
