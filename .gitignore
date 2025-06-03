@@ -8,6 +8,7 @@
 auto-save-list
 tramp
 .\#*
+/eln-cache/
 
 # Org-mode
 .org-id-locations
