@@ -12,10 +12,8 @@
 ;; 版本判断，最低要求 30.0
 (eval-and-compile
   (when (< emacs-major-version 30)
-    (user-error
-     (concat
-      "EMACS VERSION IS TOO LOW！！！\n"
-      "Current version " emacs-version ", requires 30.0 or above."))))
+    (user-error (concat "EMACS VERSION IS TOO LOW！！！\n"
+                        "Current version " emacs-version ", requires 30.0 or above."))))
 
 ;; 添加特性
 (if (bound-and-true-p module-file-suffix)
@@ -26,40 +24,33 @@
     (if (not (native-comp-available-p))
         (delq 'native-compile features)))
 
-(defconst lu-is-mac      (eq system-type 'darwin))
-(defconst lu-is-linux    (memq system-type '(gnu gnu/linux gnu/kfreebsd berkeley-unix)))
-(defconst lu-is-windows  (memq system-type '(cygwin windows-nt ms-dos)))
-(defconst lu-is-bsd      (memq system-type '(darwin berkeley-unix gnu/kfreebsd)))
+(defconst lu-is-mac (eq system-type 'darwin))
+(defconst lu-is-linux (memq system-type '(gnu gnu/linux gnu/kfreebsd berkeley-unix)))
+(defconst lu-is-windows (memq system-type '(cygwin windows-nt ms-dos)))
+(defconst lu-is-bsd (memq system-type '(darwin berkeley-unix gnu/kfreebsd)))
 
-(defvar lu-emacs-dir
-  (expand-file-name user-emacs-directory))
+(defvar lu-emacs-dir (expand-file-name user-emacs-directory))
 
-(defvar lu-data-dir
-  (file-name-concat lu-emacs-dir ".data/"))
+(defvar lu-data-dir (file-name-concat lu-emacs-dir ".data/"))
 
-(defvar lu-cache-dir
-  (file-name-concat lu-emacs-dir ".cache/"))
+(defvar lu-cache-dir (file-name-concat lu-emacs-dir ".cache/"))
 
-(defvar lu-pre-custom-file
-  (file-name-concat lu-data-dir "pre-custom.el"))
+(defvar lu-pre-custom-file (file-name-concat lu-data-dir "pre-custom.el"))
 
-(defvar lu-post-custom-file
-  (file-name-concat lu-data-dir "custom.el"))
+(defvar lu-post-custom-file (file-name-concat lu-data-dir "custom.el"))
 
 (defun lu-temp-buffer ()
   "Switch to the *Lu Temporarily* buffer.
 If the buffer doesn't exist, create it first."
   (interactive)
-  (pop-to-buffer-same-window
-   (get-buffer-create "*Lu Temporarily*")))
+  (pop-to-buffer-same-window (get-buffer-create "*Lu Temporarily*")))
 
 (defun lu-childframe-workable-p ()
   "Whether childframe is workable."
   (and (>= emacs-major-version 26)
        (not noninteractive)
        (not emacs-basic-display)
-       (or (display-graphic-p)
-           (featurep 'tty-child-frames))
+       (or (display-graphic-p) (featurep 'tty-child-frames))
        (eq (frame-parameter (selected-frame) 'minibuffer) 't)))
 
 (defun lu-indent-buffer ()
@@ -83,10 +74,8 @@ If the buffer doesn't exist, create it first."
 
 (defun lu-byte-compile-site-lisp-if-newer (file)
   "Byte compile FILE in site-lisp directory if it is newer."
-  (let ((el-file (concat lu-emacs-dir "/site-lisp/"
-                         file ".el"))
-        (elc-file (concat lu-emacs-dir "/site-lisp/"
-                          file ".elc")))
+  (let ((el-file (concat lu-emacs-dir "/site-lisp/" file ".el"))
+        (elc-file (concat lu-emacs-dir "/site-lisp/" file ".elc")))
     (when (file-newer-than-file-p el-file elc-file)
       (byte-compile-file el-file))))
 
@@ -113,9 +102,7 @@ If the buffer doesn't exist, create it first."
     ;; 启动后恢复
     (add-hook
      'emacs-startup-hook
-     (lambda ()
-       (setq file-name-handler-alist
-             (delete-dups (append file-name-handler-alist orig-value))))))
+     (lambda () (setq file-name-handler-alist (delete-dups (append file-name-handler-alist orig-value))))))
 
   (unless noninteractive
     ;; 不显示开始页面以及额外的日志
@@ -136,19 +123,22 @@ If the buffer doesn't exist, create it first."
     (put 'mode-line-format 'initial-value (default-toplevel-value 'mode-line-format))
     (setq-default mode-line-format nil)
     (dolist (buf (buffer-list))
-      (with-current-buffer buf (setq mode-line-format nil)))
+      (with-current-buffer buf
+        (setq mode-line-format nil)))
 
     ;; 让窗口启动更平滑，关闭启动时闪烁
     (setq frame-inhibit-implied-resize t)
-    (setq-default inhibit-redisplay t
-                  inhibit-message t)
+    (setq-default
+     inhibit-redisplay t
+     inhibit-message t)
 
     ;; 恢复
     (add-hook
      'window-setup-hook
      (lambda ()
-       (setq-default inhibit-redisplay nil
-                     inhibit-message nil)
+       (setq-default
+        inhibit-redisplay nil
+        inhibit-message nil)
        (redraw-frame)
        (unless (default-toplevel-value 'mode-line-format)
          (setq-default mode-line-format (get 'mode-line-format 'initial-value)))))
@@ -163,13 +153,12 @@ If the buffer doesn't exist, create it first."
   (add-to-list 'native-comp-eln-load-path (file-name-concat lu-cache-dir "eln-cache/"))
 
   ;; 关闭烦人的告警
-  (setq native-comp-async-report-warnings-errors nil
-        native-comp-warning-on-missing-source nil)
+  (setq
+   native-comp-async-report-warnings-errors nil
+   native-comp-warning-on-missing-source nil)
 
   (unless (boundp 'native-comp-deferred-compilation-deny-list)
-    (defvaralias
-      'native-comp-deferred-compilation-deny-list
-      'native-comp-jit-compilation-deny-list)))
+    (defvaralias 'native-comp-deferred-compilation-deny-list 'native-comp-jit-compilation-deny-list)))
 
 (provide 'lu-core)
 ;;; lu-core.el ends here

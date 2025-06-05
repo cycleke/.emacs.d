@@ -9,18 +9,17 @@
 ;;
 ;;; Code:
 
-(use-package citre
-  :defer t
-  :hook
-  (after-init
-   . (lambda ()
-       (require 'citre-config)))
-  :bind
-  (:map prog-mode-map
-        ("C-x c j" . citre-jump)
-        ("C-x c p" . citre-peek)
-        ("C-x c a" . citre-ace-peek)
-        ("C-x c u" . citre-update-this-tags-file)))
+(use-package
+ citre
+ :defer t
+ :hook (after-init . (lambda () (require 'citre-config)))
+ :bind
+ (:map
+  prog-mode-map
+  ("C-x c j" . citre-jump)
+  ("C-x c p" . citre-peek)
+  ("C-x c a" . citre-ace-peek)
+  ("C-x c u" . citre-update-this-tags-file)))
 
 (provide 'init-citre)
 ;;; init-citre.el ends here
