@@ -23,7 +23,7 @@
      '("l g r" . xref-find-references)
      '("l g a" . eglot-code-actions)
      '("l r r" . eglot-rename)
-     '("."     . eldoc))))
+     '("l ."   . eldoc))))
 
 (provide 'init-eglot)
 ;;; init-eglot.el ends here
