@@ -7,51 +7,57 @@
 ;;
 ;;; Code:
 
-(use-package yaml-mode
-  :ensure nil
-  :unless (fboundp 'yaml-ts-mode)
-  :mode "\\.yaml$" "\\.yml$"
-  :mode ".clang-format" ".clang-tidy")
+(use-package
+ yaml-mode
+ :ensure nil
+ :unless (fboundp 'yaml-ts-mode)
+ :mode
+ "\\.yaml\\'"
+ "\\.yml\\'"
+ :mode
+ ".clang-format"
+ ".clang-tidy")
 
-(use-package yaml-ts-mode
-  :ensure nil
-  :after treesit
-  :mode "\\.yaml$" "\\.yml$"
-  :mode ".clang-format" ".clang-tidy")
+(use-package
+ yaml-ts-mode
+ :ensure nil
+ :after (treesit)
+ :mode
+ "\\.yaml\\'"
+ "\\.yml\\'"
+ :mode
+ ".clang-format"
+ ".clang-tidy")
 
-(use-package nxml-mode
-  :ensure nil
-  :mode "\\.rss\\'"
-  :mode "\\.xs\\(?:d\\|lt\\)\\'"   ; xslt, xsd
-  :mode "\\.p\\(?:list\\|om\\)\\'" ; plist, pom
-  :config
-  (setq nxml-slash-auto-complete-flag t
-        nxml-auto-insert-xml-declaration-flag t))
+(use-package
+ nxml-mode
+ :ensure nil
+ :mode "\\.rss\\'"
+ :mode "\\.xs\\(?:d\\|lt\\)\\'" ; xslt, xsd
+ :mode "\\.p\\(?:list\\|om\\)\\'" ; plist, pom
+ :config
+ (setq
+  nxml-slash-auto-complete-flag t
+  nxml-auto-insert-xml-declaration-flag t))
 
-(use-package lua-mode
-  :ensure nil
-  :unless (fboundp 'lua-ts-mode)
-  :mode "\\.lua$")
+(use-package nushell-mode :mode "\\.nu\\'")
+(use-package vimrc-mode :mode "\\.vim\\'" "[._]?g?vimrc\\'")
+(use-package lua-mode :ensure nil :unless (fboundp 'lua-ts-mode) :mode "\\.lua\\'")
 
-(use-package vimrc-mode
-  :mode "\\.vim$" "[._]?g?vimrc$")
-
-(use-package nushell-mode
-  :mode "\\.nu$")
-
-(use-package sh-script
-  :ensure nil
-  :mode "\\.bats\\'"
-  :mode "\\.\\(?:zunit\\|env\\)\\'"
-  :mode "/bspwmrc\\'"
-  :config
-  (setq sh-indent-after-continuation 'always)
-  (add-to-list 'sh-imenu-generic-expression
-               '(sh (nil "^\\s-*function\\s-+\\([[:alpha:]_-][[:alnum:]_-]*\\)\\s-*\\(?:()\\)?" 1)
-                    (nil "^\\s-*\\([[:alpha:]_-][[:alnum:]_-]*\\)\\s-*()" 1)))
-  (sp-local-pair
-   'sh-mode "`" "`"
-   :unless '(sp-point-before-word-p sp-point-before-same-p)))
+(use-package
+ sh-script
+ :ensure nil
+ :mode "\\.bats\\'"
+ :mode "\\.\\(?:zunit\\|env\\)\\'"
+ :mode "/bspwmrc\\'"
+ :config
+ (add-to-list
+  'sh-imenu-generic-expression
+  '(sh
+    (nil "^\\s-*function\\s-+\\([[:alpha:]_-][[:alnum:]_-]*\\)\\s-*\\(?:()\\)?" 1)
+    (nil "^\\s-*\\([[:alpha:]_-][[:alnum:]_-]*\\)\\s-*()" 1)))
+ (sp-local-pair 'sh-mode "`" "`" :unless '(sp-point-before-word-p sp-point-before-same-p))
+ (setq sh-indent-after-continuation 'always))
 
 (provide 'init-conf)
 ;;; init-conf.el ends here

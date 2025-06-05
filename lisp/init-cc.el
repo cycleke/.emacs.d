@@ -9,17 +9,16 @@
 ;;
 ;;; Code:
 
-(use-package c-ts-mode
-  :requires treesit
-  :custom
-  (c-ts-mode-indent-offset 2)
-  (c-ts-mode-indent-style 'k&r)
-  :preface
-  (defun cc-ts-setup ()
-    (modify-syntax-entry ?_ "w")
-    (treesit-font-lock-recompute-features)
-    (setq-default compile-command "clang++ -Wall -Wextra -std=c++17 "))
-  :hook ((c-ts-mode c++-ts-mode) . cc-ts-setup))
+(use-package
+ c-ts-mode
+ :requires treesit
+ :custom (c-ts-mode-indent-offset 2) (c-ts-mode-indent-style 'k&r)
+ :preface
+ (defun cc-ts-setup ()
+   (modify-syntax-entry ?_ "w")
+   (treesit-font-lock-recompute-features)
+   (setq-default compile-command "clang++ -Wall -Wextra -std=c++17 "))
+ :hook ((c-ts-mode c++-ts-mode) . cc-ts-setup))
 
 (provide 'init-cc)
 ;;; init-cc.el ends here

@@ -9,13 +9,13 @@
 ;;
 ;;; Code:
 
-(use-package treesit-auto
-  :hook (after-init . global-treesit-auto-mode)
-  :custom
-  (treesit-font-lock-level 4)
-  (treesit-auto-install 'prompt)
-  :config
-  (treesit-auto-add-to-auto-mode-alist 'all))
+(use-package
+ treesit-auto
+ :hook (after-init . global-treesit-auto-mode)
+ :custom
+ (treesit-font-lock-level 4)
+ (treesit-auto-install 'prompt)
+ :config (treesit-auto-add-to-auto-mode-alist 'all))
 
 (provide 'init-treesit)
 ;;; init-treesit.el ends here
