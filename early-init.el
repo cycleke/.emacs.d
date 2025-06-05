@@ -10,8 +10,9 @@
 ;;; Code:
 
 (let ((orig-value gc-cons-threshold))
-  (setq gc-cons-threshold most-positive-fixnum
-        gc-cons-percentage 0.6)
+  (setq
+   gc-cons-threshold most-positive-fixnum
+   gc-cons-percentage 0.6)
 
   (add-hook
    'emacs-startup-hook
@@ -27,8 +28,9 @@
                        (garbage-collect)))))))
 
 ;; 禁止自动启动包
-(setq package-enable-at-startup nil
-      package--init-file-ensured t)
+(setq
+ package-enable-at-startup nil
+ package--init-file-ensured t)
 
 ;; 加速 GUI 配置
 (push '(menu-bar-lines . 0) default-frame-alist)
