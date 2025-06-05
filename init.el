@@ -18,11 +18,13 @@
 
 (require 'init-basic)
 (require 'init-os)
+
 (require 'init-edit)
 (require 'init-ui)
-;; (require 'init-completion)
+
 (require 'init-corfu)
 (require 'init-consult)
+;; (require 'init-completion)
 
 (require 'init-dired)
 (require 'init-magit)
@@ -39,8 +41,8 @@
 (require 'init-cc)
 (require 'init-haskell)
 
-(dolist (plugin '("auto-space" "protobuf-mode"))
-  (lu-byte-compile-site-lisp-newer plugin)
+(dolist (plugin '("auto-space" "protobuf-mode" "bazel"))
+  (lu-byte-compile-site-lisp-if-newer plugin)
   (require (intern plugin)))
 
 (load lu-post-custom-file)

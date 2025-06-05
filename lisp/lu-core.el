@@ -81,14 +81,14 @@ If the buffer doesn't exist, create it first."
 
 (global-set-key (kbd "C-M-\\") #'lu-indent-region-or-buffer)
 
-(defun lu-byte-compile-site-lisp-newer (file)
-  "Compile FILE in site-lisp directory."
+(defun lu-byte-compile-site-lisp-if-newer (file)
+  "Byte compile FILE in site-lisp directory if it is newer."
   (let ((el-file (concat lu-emacs-dir "/site-lisp/"
                          file ".el"))
         (elc-file (concat lu-emacs-dir "/site-lisp/"
-                  file ".elc")))
-  (when (file-newer-than-file-p el-file elc-file)
-    (byte-compile-file el-file))))
+                          file ".elc")))
+    (when (file-newer-than-file-p el-file elc-file)
+      (byte-compile-file el-file))))
 
 ;; 生成数据和缓存目录
 (dolist (dir (list lu-data-dir lu-cache-dir))
