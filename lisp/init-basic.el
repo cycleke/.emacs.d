@@ -111,7 +111,8 @@
  tramp-auto-save-directory (file-name-concat lu-cache-dir "tramp-autosave/")
  auto-save-file-name-transforms
  (list
-  (list "\\`/[^/]*:\\([^/]*/\\)*\\([^/]*\\)\\'" (concat auto-save-list-file-prefix "tramp-\\2") t)
+  (list "\\`/[^/]*:\\([^/]*/\\)*\\([^/]*\\)\\'"
+        (concat auto-save-list-file-prefix "tramp-\\2") t)
   (list ".*" auto-save-list-file-prefix t)))
 
 ;; 折行
@@ -195,8 +196,10 @@
 
 (eval-when-compile
   (require 'use-package))
-(use-package bind-key :ensure t)
-(use-package use-package :commands use-package-autoload-keymap)
+(use-package bind-key
+  :ensure t)
+(use-package use-package
+  :commands use-package-autoload-keymap)
 (setq use-package-always-defer t)
 (setq use-package-always-ensure t)
 
