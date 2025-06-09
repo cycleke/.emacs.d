@@ -9,8 +9,7 @@
 ;;
 ;;; Code:
 
-(use-package
- magit
+(use-package magit
  :commands magit
  :bind ("C-x g" . magit)
  :custom
@@ -19,8 +18,12 @@
  (magit-revision-insert-related-refs 'mixed)
  :config
  ;; Add additional switches that seem common enough
- (transient-append-suffix 'magit-fetch "-p" '("-t" "Fetch all tags" ("-t" "--tags")))
- (transient-append-suffix 'magit-pull "-r" '("-a" "Autostash" "--autostash"))
+ (transient-append-suffix
+   'magit-fetch "-p"
+   '("-t" "Fetch all tags" ("-t" "--tags")))
+ (transient-append-suffix
+   'magit-pull "-r"
+   '("-a" "Autostash" "--autostash"))
 
  (define-key transient-map [escape] #'transient-quit-one))
 

@@ -9,20 +9,21 @@
 ;;
 ;;; Code:
 
-(use-package
- eglot
- :commands eglot eglot-ensure
- :custom (eglot-sync-connect 1) (eglot-autoshutdown t)
- :init
- (with-eval-after-load 'meow
-   (meow-leader-define-key
-    '("l = =" . eglot-format)
-    '("l = r" . eglot-format-buffer)
-    '("l g d" . eglot-find-declaration)
-    '("l g r" . xref-find-references)
-    '("l g a" . eglot-code-actions)
-    '("l r r" . eglot-rename)
-    '("l ." . eldoc))))
+(use-package eglot
+  :commands eglot eglot-ensure
+  :custom
+  (eglot-sync-connect 1)
+  (eglot-autoshutdown t)
+  :init
+  (with-eval-after-load 'meow
+    (meow-leader-define-key
+     '("l = =" . eglot-format)
+     '("l = r" . eglot-format-buffer)
+     '("l g d" . eglot-find-declaration)
+     '("l g r" . xref-find-references)
+     '("l g a" . eglot-code-actions)
+     '("l r r" . eglot-rename)
+     '("l ." . eldoc))))
 
 (provide 'init-eglot)
 ;;; init-eglot.el ends here
