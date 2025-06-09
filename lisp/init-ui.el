@@ -85,8 +85,12 @@ Each element is like
            "Apple Symbols"
          "Noto Sans Symbols 2")
       :add 'append))
-    (((#x20000 . #x2fffff)) . (:font ("Planschrift P1" "Planschrift P2") :add 'prepend))
-    (nil . (:font ("Symbols Nerd Font Mono" "Noto Unicode") :add 'append)))
+    (((#x20000 . #x2fffff))
+     .
+     (:font ("Planschrift P1" "Planschrift P2") :add 'prepend))
+    (nil
+     .
+     (:font ("Symbols Nerd Font Mono" "Noto Unicode") :add 'append)))
   "An alist of all the fonts you can switch between by `lu-load-charset-font'.
 Each element is like
 
@@ -96,11 +100,17 @@ Each element is like
 (defun lu-create-fontset (ascii-spec cjk-spec)
   "Create a fontset NAME with ASCII-SPEC and CJK-SPEC font."
   (if (lu-font-installed-p (apply #'font-spec ascii-spec))
-      (let* ((font-hash (sxhash (list (plist-get ascii-spec :family) (plist-get cjk-spec :family))))
-             (fontset-name (format "fontset-%s+%x" (downcase (plist-get ascii-spec :family)) (abs font-hash)))
+      (let* ((font-hash
+              (sxhash (list (plist-get ascii-spec :family)
+                            (plist-get cjk-spec :family))))
+             (fontset-name
+              (format "fontset-%s+%x"
+                      (downcase (plist-get ascii-spec :family))
+                      (abs font-hash)))
              (fontset
               (create-fontset-from-fontset-spec
-               (font-xlfd-name (apply #'font-spec :registry fontset-name ascii-spec)))))
+               (font-xlfd-name
+                (apply #'font-spec :registry fontset-name ascii-spec)))))
         (if (lu-font-installed-p (apply #'font-spec cjk-spec))
             (dolist (charset '(kana han cjk-misc bopomofo (#x4e00 . #x9fff) hangul))
               (set-fontset-font fontset charset (apply #'font-spec cjk-spec)))
@@ -110,8 +120,10 @@ Each element is like
 
 (defun lu-get-fontset (font-name)
   "Get fontset with FONT-NAME."
-  (when-let* ((font-spec (alist-get font-name lu-font-alist nil nil #'equal))
-              (fontset (apply #'lu-create-fontset (lu-font-expand-spec font-spec 1))))
+  (when-let* ((font-spec
+               (alist-get font-name lu-font-alist nil nil #'equal))
+              (fontset
+               (apply #'lu-create-fontset (lu-font-expand-spec font-spec 1))))
     fontset))
 
 (defun lu-font-expand-spec (font-spec size)
@@ -140,9 +152,12 @@ See `lu-load-font'."
   ;; bug that prevents us from setting a fontset for the default face
   ;; (although ‘set-frame-parameter’ works). So we just set default
   ;; face with ASCII font and use default fontset for Unicode font.
-  (interactive (let ((font-name (completing-read "FONT: " (mapcar #'car lu-font-alist) nil t))
-                     (font-size (read-number "SIZE: " 10.0)))
-                 (list (alist-get font-name lu-font-alist nil nil #'equal) font-size)))
+  (interactive (let ((font-name
+                      (completing-read "FONT: " (mapcar #'car lu-font-alist) nil t))
+                     (font-size
+                      (read-number "SIZE: " 10.0)))
+                 (list (alist-get font-name lu-font-alist nil nil #'equal)
+                       font-size)))
   (let* ((specs (lu-font-expand-spec font-spec size))
          (ascii (apply #'font-spec (car specs)))
          (cjk (apply #'font-spec (cadr specs))))
@@ -160,12 +175,17 @@ See `lu-load-font'."
                 (intern (completing-read "FACE: " (face-list)))
                 (completing-read "FONT: " (mapcar #'car lu-font-alist) nil t)
                 (read-number "SIZE: " 10.0)))
-  (let* ((font-spec (or (alist-get font-name lu-font-alist nil nil #'equal) (list font-name "LXGW WenKai Screen" 1)))
-         (fontset (apply #'lu-create-fontset (lu-font-expand-spec font-spec size))))
+  (let* ((font-spec
+          (or (alist-get font-name lu-font-alist nil nil #'equal)
+              (list font-name "LXGW WenKai Screen" 1)))
+         (fontset
+          (apply #'lu-create-fontset (lu-font-expand-spec font-spec size))))
     (when fontset
       (if (eq face 'default)
           (apply #'lu-load-default-font font-spec size attrs)
-        (apply #'set-face-attribute face nil :font fontset :fontset fontset attrs)))))
+        (apply #'set-face-attribute face nil
+               :font fontset
+               :fontset fontset attrs)))))
 
 (defun lu-apply-to-list-wrapper (func vars)
   "Apply FUNC to each element in VARS."
@@ -175,18 +195,23 @@ See `lu-load-font'."
 
 (defun lu-load-charset-font (&optional fontset charset-font-alist)
   "Set font for specific charset CHARSET-FONT-ALIST to FONTSET."
-  (let* ((fontset (or fontset (frame-parameter nil 'font)))
-         (chatset-font-alist (or charset-font-alist lu-default-charset-font-alist)))
+  (let* ((fontset
+          (or fontset (frame-parameter nil 'font)))
+         (chatset-font-alist
+          (or charset-font-alist lu-default-charset-font-alist)))
     (dolist (map chatset-font-alist)
       (let* ((charsets (car map))
              (configuration (cdr map))
-             (fonts (or (plist-get configuration :font) configuration))
+             (fonts (or (plist-get configuration :font)
+                        configuration))
              (add (plist-get configuration :add)))
         (lu-apply-to-list-wrapper
          (lambda (foNt)
            (if (lu-font-installed-p foNt)
                (lu-apply-to-list-wrapper
-                (lambda (charset) (set-fontset-font t charset (font-spec :family foNt) nil add)) charsets)
+                (lambda (charset)
+                  (set-fontset-font t charset (font-spec :family foNt) nil add))
+                charsets)
              (warn "FONT %s is not installed!!!" foNt)))
          fonts)))))
 
@@ -229,7 +254,8 @@ See `lu-load-font'."
       "* ")
     (buffer-name)
     (when buffer-file-name
-      (format " (%s) - Emcas" (directory-file-name (abbreviate-file-name default-directory))))))
+      (format " (%s) - Emcas"
+              (directory-file-name (abbreviate-file-name default-directory))))))
  icon-title-format frame-title-format)
 
 ;; 设置缩放模式
@@ -275,58 +301,54 @@ See `lu-load-font'."
 (when (not indicate-empty-lines)
   (toggle-indicate-empty-lines))
 
-(use-package
- ediff
- :commands (ediff ediff-files)
- :custom
- (ediff-diff-options "-w")
- (ediff-split-window-function #'split-window-horizontally))
+(use-package ediff
+  :commands (ediff ediff-files)
+  :custom
+  (ediff-diff-options "-w")
+  (ediff-split-window-function #'split-window-horizontally))
 
-(use-package
- paren
- :hook (after-init . show-paren-mode)
- :custom
- (show-paren-highlight-openparen t)
- (show-paren-when-point-inside-paren t)
- (show-paren-when-point-in-periphery t))
+(use-package paren
+  :hook (after-init . show-paren-mode)
+  :custom
+  (show-paren-highlight-openparen t)
+  (show-paren-when-point-inside-paren t)
+  (show-paren-when-point-in-periphery t))
 
-(use-package
- whitespace
- :diminish
- :hook (prog-mode conf-mode text-mode)
- :custom
- (whitespace-line-column nil)
- (whitespace-style '(face trailing lines-char newline missing-newline-at-eof empty tab-mark newline-mark))
- (whitespace-display-mappings
-  '((space-mark ?\s [?\u00B7] [46])
-    (newline-mark ?\n [?\u00AC ?\n] [?$ ?\n])
-    (tab-mark ?\t [?\u2192 ?\t] [?\u00BB ?\t] [?\\ ?\t]))))
+(use-package whitespace
+  :diminish
+  :hook (prog-mode conf-mode text-mode)
+  :custom
+  (whitespace-line-column nil)
+  (whitespace-style '(face trailing lines-char newline missing-newline-at-eof empty tab-mark newline-mark))
+  (whitespace-display-mappings
+   '((space-mark ?\s [?\u00B7] [46])
+     (newline-mark ?\n [?\u00AC ?\n] [?$ ?\n])
+     (tab-mark ?\t [?\u2192 ?\t] [?\u00BB ?\t] [?\\ ?\t]))))
 
-(use-package
- display-line-numbers
- :hook (prog-mode text-mode conf-mode)
- :init
- (setq-default
-  display-line-numbers-width 3
-  display-line-numbers-widen t))
+(use-package display-line-numbers
+  :hook (prog-mode text-mode conf-mode)
+  :init
+  (setq-default
+   display-line-numbers-width 3
+   display-line-numbers-widen t))
 
-(use-package
- diminish
- :demand
- :config
- (dolist (mode '(subword-mode which-key-mode eldoc-mode))
-   (diminish mode)))
+(use-package diminish
+  :demand
+  :config
+  (dolist (mode '(subword-mode which-key-mode eldoc-mode))
+    (diminish mode)))
 
-(use-package
- auto-dark
- :diminish
- :custom (auto-dark-themes '((modus-vivendi) (modus-operandi)))
- :preface
- (defun on-auto-dark-dark ()
-   (setq lu-theme (car (car auto-dark-themes))))
- (defun on-auto-dark-light ()
-   (setq lu-theme (car (cadr auto-dark-themes))))
- :hook (auto-dark-dark-mode . on-auto-dark-dark) (auto-dark-light-mode . on-auto-dark-light))
+(use-package auto-dark
+  :diminish
+  :custom (auto-dark-themes '((modus-vivendi) (modus-operandi)))
+  :preface
+  (defun on-auto-dark-dark ()
+    (setq lu-theme (car (car auto-dark-themes))))
+  (defun on-auto-dark-light ()
+    (setq lu-theme (car (cadr auto-dark-themes))))
+  :hook
+  (auto-dark-dark-mode . on-auto-dark-dark)
+  (auto-dark-light-mode . on-auto-dark-light))
 
 ;; 终端下忽略字体设置
 (unless (fboundp 'define-fringe-bitmap)

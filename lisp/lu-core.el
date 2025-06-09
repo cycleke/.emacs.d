@@ -32,11 +32,9 @@
 (defvar lu-emacs-dir (expand-file-name user-emacs-directory))
 
 (defvar lu-data-dir (file-name-concat lu-emacs-dir ".data/"))
-
 (defvar lu-cache-dir (file-name-concat lu-emacs-dir ".cache/"))
 
 (defvar lu-pre-custom-file (file-name-concat lu-data-dir "pre-custom.el"))
-
 (defvar lu-post-custom-file (file-name-concat lu-data-dir "custom.el"))
 
 (defun lu-temp-buffer ()
@@ -102,7 +100,9 @@ If the buffer doesn't exist, create it first."
     ;; 启动后恢复
     (add-hook
      'emacs-startup-hook
-     (lambda () (setq file-name-handler-alist (delete-dups (append file-name-handler-alist orig-value))))))
+     (lambda ()
+       (setq file-name-handler-alist
+             (delete-dups (append file-name-handler-alist orig-value))))))
 
   (unless noninteractive
     ;; 不显示开始页面以及额外的日志
@@ -120,7 +120,8 @@ If the buffer doesn't exist, create it first."
       (advice-remove #'load-file #'load-file@silence))
 
     ;; 不渲染 mode line，启动后恢复
-    (put 'mode-line-format 'initial-value (default-toplevel-value 'mode-line-format))
+    (put 'mode-line-format
+         'initial-value (default-toplevel-value 'mode-line-format))
     (setq-default mode-line-format nil)
     (dolist (buf (buffer-list))
       (with-current-buffer buf
@@ -150,7 +151,8 @@ If the buffer doesn't exist, create it first."
 
 ;; Native compilation 支持
 (when (boundp 'native-comp-eln-load-path)
-  (add-to-list 'native-comp-eln-load-path (file-name-concat lu-cache-dir "eln-cache/"))
+  (add-to-list 'native-comp-eln-load-path
+               (file-name-concat lu-cache-dir "eln-cache/"))
 
   ;; 关闭烦人的告警
   (setq
@@ -158,7 +160,9 @@ If the buffer doesn't exist, create it first."
    native-comp-warning-on-missing-source nil)
 
   (unless (boundp 'native-comp-deferred-compilation-deny-list)
-    (defvaralias 'native-comp-deferred-compilation-deny-list 'native-comp-jit-compilation-deny-list)))
+    (defvaralias
+      'native-comp-deferred-compilation-deny-list
+      'native-comp-jit-compilation-deny-list)))
 
 (provide 'lu-core)
 ;;; lu-core.el ends here

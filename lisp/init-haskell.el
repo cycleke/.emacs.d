@@ -7,15 +7,14 @@
 ;;
 ;;; Code:
 
-(use-package
- haskell-mode
- :mode "\\.hs\\'"
- :hook
- (haskell-mode . turn-on-haskell-doc-mode)
- (haskell-mode . hlint-refactor-mode)
- (haskell-mode . interactive-haskell-mode)
- (haskell-mode . haskell-doc-mode)
- (haskell-mode . haskell-indentation-mode))
+(use-package haskell-mode
+  :mode "\\.hs\\'"
+  :hook
+  (haskell-mode . turn-on-haskell-doc-mode)
+  (haskell-mode . hlint-refactor-mode)
+  (haskell-mode . interactive-haskell-mode)
+  (haskell-mode . haskell-doc-mode)
+  (haskell-mode . haskell-indentation-mode))
 
 (provide 'init-haskell)
 ;;; init-haskell.el ends here
