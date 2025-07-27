@@ -52,14 +52,23 @@
 
 ;; 访问链接文件时访问真实文件
 (setq
- find-file-visit-truename t
- vc-follow-symlinks t)
+ find-file-visit-truename nil
+ vc-follow-symlinks nil)
 
 ;; 备份文件和锁的设置
 (setq
  create-lockfiles t
- make-backup-files nil
- backup-inhibited t)
+ make-backup-files t)
+
+(setq backup-directory-alist
+      `((".*" . ,(concat lu-cache-dir "backup")))
+      backup-by-copying t    ; Don't delink hardlinks
+      version-control t      ; Use version numbers on backups
+      delete-old-versions t) ; Automatically delete excess backups
+
+(setq lock-file-name-transforms
+      `((".*" ,(concat lu-cache-dir "lock-file") t)))
+
 
 ;; 删除移动到垃圾桶
 (setq delete-by-moving-to-trash t)
