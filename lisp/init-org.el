@@ -30,6 +30,7 @@
   (org-display-custom-times t)
   (org-time-stamp-custom-formats '("<%Y-%m-%d %a>" . "<%Y-%m-%d %a %H:%M>"))
   ;; Capture
+  (org-directory "~/org/")
   (org-agenda-files '("~/org/todo.org"))
   (org-capture-templates
    '(("t" "todo" entry (file+olp+datetree "")
@@ -57,7 +58,9 @@
            ("DONE" ("WAITING") ("CANCELLED")))))
   :bind
   (("C-c a" . org-agenda)
-   ("C-c c" . org-capture))
+   ("C-c c" . org-capture)
+   :map org-mode-map
+   ("C-SPC" . (lambda () (interactive) (insert "\u200b"))))
   :hook (org-mode . lu-org-mode-setup)
   :preface
   (defun lu-org-mode-setup ()
@@ -65,7 +68,7 @@
      tab-width 8
      truncate-lines nil)
     (variable-pitch-mode)
-    (push '("​" . 8248) prettify-symbols-alist)
+    (push '("\u200b" . 8248) prettify-symbols-alist)
     (prettify-symbols-mode t))
   :config
   (require 'ox-ascii)
@@ -85,6 +88,8 @@
      ("C-c n t" . org-roam-tag-add)
      ("C-c n a" . org-roam-alias-add)
      ("C-c n l" . org-roam-buffer-toggle))))
+  :custom
+  (org-roam-directory "~/org/roam/")
   :config
   (org-roam-db-autosync-mode))
 

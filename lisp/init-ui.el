@@ -59,12 +59,12 @@
   `(("IBMPlex" "IBM Plex Mono" "YShiMincho CL" 1.0)
     ("Monaspace" "Monaspace Neon Frozen" "YShiMincho CL" 1.0)
 
-    ("ModulatedText" "Charter" "LXGW ZhiSong MN" 1.0)
-    ("ModulatedTitle" "Georgia" "LXGW WenKai Screen" 1.0)
+    ("ModulatedText" "Minion Pro" "LXGW ZhiSong MN" 1.0)
+    ("ModulatedTitle" "Bookerly" "LXGW WenKai Screen" 1.0)
     ("Monolinear" "Helvetica" "LXGW XiHei MN" 1.0)
 
     ("MapleMono" "Maple Mono NF CN" "Maple Mono NF CN" 1.0)
-    ("LXGWMono" "LXGW WenKai Mono Screen" "LXGW WenKai Mono Screen" 1.0)
+    ("LXGWWenKaiMono" "LXGW WenKai Mono Screen" "LXGW WenKai Mono Screen" 1.0)
 
     ("Handwritten" "Monaspace Radon Frozen" "YShiPen-ShutiCL" 1.0))
   "An alist of all the fonts you can switch between by `lu-load-font'.

@@ -69,7 +69,6 @@
 (setq lock-file-name-transforms
       `((".*" ,(concat lu-cache-dir "lock-file") t)))
 
-
 ;; 删除移动到垃圾桶
 (setq delete-by-moving-to-trash t)
 

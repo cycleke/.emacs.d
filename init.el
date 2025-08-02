@@ -37,7 +37,7 @@
 (require 'init-markdown)
 (require 'init-org)
 
-(require 'init-conf)
+(require 'init-data)
 (require 'init-cc)
 (require 'init-haskell)
 
