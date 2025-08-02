@@ -9,6 +9,9 @@
 
 (use-package markdown-mode
   :mode ("README\\.md\\'" . gfm-mode)
+  :bind
+  (:map markdown-mode-map
+        ("C-SPC" . (lambda () (interactive) (insert "\u200b"))))
   :custom
   (markdown-enable-math t)
   (markdown-enable-wiki-links t)
