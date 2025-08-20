@@ -10,7 +10,7 @@
 ;;; Code:
 
 (use-package c-ts-mode
-  :requires treesit
+  :after treesit
   :custom
   (c-ts-mode-indent-offset 2)
   (c-ts-mode-indent-style 'k&r)
@@ -18,7 +18,7 @@
   (defun cc-ts-setup ()
     (modify-syntax-entry ?_ "w")
     (treesit-font-lock-recompute-features)
-    (setq-default compile-command "clang++ -Wall -Wextra -std=c++17 "))
+    (setq-local compile-command "clang++ -Wall -Wextra -std=c++17 "))
   :hook ((c-ts-mode c++-ts-mode) . cc-ts-setup))
 
 (provide 'init-cc)

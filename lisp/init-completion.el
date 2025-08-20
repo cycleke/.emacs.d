@@ -9,23 +9,23 @@
 ;;
 ;;; Code:
 
-(setq
- completion-auto-select t
- completion-auto-help 'always
- completions-format 'one-column
- completions-sort 'historical
- completion-show-help nil
- completion-show-inline-help nil
- completions-max-height 20
- completions-detailed t)
+(setq completion-auto-select t
+      completion-auto-help 'always
+      completions-format 'one-column
+      completions-sort 'historical
+      completion-show-help nil
+      completion-show-inline-help nil
+      completions-max-height 20
+      completions-detailed t)
 
-(add-to-list
- 'display-buffer-alist
- '("\\*Completions\\*" (display-buffer-reuse-window display-buffer-in-side-window) (side . bottom) (slot . 0)))
+(add-to-list 'display-buffer-alist
+             '("*Completions*" (display-buffer-reuse-window display-buffer-in-side-window)
+               (side . bottom) (slot . 0)))
 
 (define-key minibuffer-local-completion-map (kbd "SPC") nil)
 (define-key minibuffer-mode-map (kbd "C-n") #'minibuffer-next-completion)
 (define-key minibuffer-mode-map (kbd "C-p") #'minibuffer-previous-completion)
+
 (defun live-completions--update (&rest _)
   "Update the *Completions* buffer.
 Meant to be added to `after-change-functions'."
@@ -40,13 +40,14 @@ Meant to be added to `after-change-functions'."
                       (ring-bell-function #'ignore))
                   (minibuffer-completion-help))))
           (quit (abort-recursive-edit)))))))
+
 (defun live-completions--setup ()
   "Setup live updating for the *Completions* buffer.
 Meant to be added to `minibuffer-setup-hook'."
-  (unless (memq
-           (or (bound-and-true-p current-minibuffer-command) this-command)
-           '(execute-extended-command describe-command describe-symbol describe-function describe-variable))
+  (unless (memq (or (bound-and-true-p current-minibuffer-command) this-command)
+                '(execute-extended-command describe-command describe-symbol describe-function describe-variable))
     (add-hook 'after-change-functions #'live-completions--update nil t)))
+
 (add-hook 'minibuffer-setup-hook #'live-completions--setup)
 
 ;; 开启补全预览

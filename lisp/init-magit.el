@@ -18,11 +18,9 @@
   (magit-save-repository-buffers nil)
   (magit-revision-insert-related-refs 'mixed)
   :config
-  (transient-append-suffix
-    'magit-fetch "-p"
+  (transient-append-suffix 'magit-fetch "-p"
     '("-t" "Fetch all tags" ("-t" "--tags")))
-  (transient-append-suffix
-    'magit-pull "-r"
+  (transient-append-suffix 'magit-pull "-r"
     '("-a" "Autostash" "--autostash"))
 
   (define-key transient-map [escape] #'transient-quit-one))

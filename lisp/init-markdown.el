@@ -8,10 +8,11 @@
 ;;; Code:
 
 (use-package markdown-mode
+  :mode "\\.mdc\\'"
   :mode ("README\\.md\\'" . gfm-mode)
   :bind
   (:map markdown-mode-map
-        ("C-SPC" . (lambda () (interactive) (insert "\u200b"))))
+        ("C-SPC" . (lambda () (interactive) (insert "\u200B"))))
   :custom
   (markdown-enable-math t)
   (markdown-enable-wiki-links t)

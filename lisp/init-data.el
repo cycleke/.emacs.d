@@ -7,13 +7,6 @@
 ;;
 ;;; Code:
 
-(use-package yaml-mode
-  :ensure nil
-  :unless (fboundp 'yaml-ts-mode)
-  :hook (yaml-ts-mode . (lambda () (hungry-delete-mode -1)))
-  :mode "\\.yml\\'" "\\.yaml\\'"
-  :mode ".clang-tidy" ".clang-format")
-
 (use-package yaml-ts-mode
   :ensure nil
   :after (treesit)

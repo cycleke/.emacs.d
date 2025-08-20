@@ -9,9 +9,8 @@
 ;;
 ;;; Code:
 
-(setq
- completion-ignore-case t
- completion-styles '(basic flex))
+(setq completion-ignore-case t
+      completion-styles '(basic flex))
 
 (use-package orderless
   :custom (orderless-component-separator "[ &]")
@@ -26,16 +25,15 @@
   (after-init . global-corfu-mode)
   (corfu-mode . corfu-popupinfo-mode)
   :bind
-  (:map
-   corfu-map
-   ("C-g" . corfu-quit)
-   ("<escape>" . corfu-quit)
-   ("<return>" . corfu-insert)
+  (:map corfu-map
+        ("C-g" . corfu-quit)
+        ("<escape>" . corfu-quit)
+        ("<return>" . corfu-insert)
 
-   ("M-p" . corfu-popupinfo-scroll-down)
-   ("M-n" . corfu-popupinfo-scroll-up)
-   ("M-d" . corfu-popupinfo-toggle)
-   ("M-D" . corfu-popupinfo-location))
+        ("M-p" . corfu-popupinfo-scroll-down)
+        ("M-n" . corfu-popupinfo-scroll-up)
+        ("M-d" . corfu-popupinfo-toggle)
+        ("M-D" . corfu-popupinfo-location))
   :custom
   (completion-cycle-threshold nil)
   (corfu-cycle t)
@@ -54,10 +52,6 @@
 
 (use-package cape
   :init
-  (add-to-list 'completion-at-point-functions #'cape-dabbrev)
-  (add-to-list 'completion-at-point-functions #'cape-file)
-  (add-to-list 'completion-at-point-functions #'cape-keyword)
-  (add-to-list 'completion-at-point-functions #'cape-abbrev)
   (with-eval-after-load 'eglot
     (advice-add 'eglot-completion-at-point :around #'cape-wrap-buster))
   :config
@@ -66,7 +60,11 @@
   (defun cape-file-scapf ()
     (cape-wrap-super #'cape-file #'cape-history))
   (defun cape-char-scapf ()
-    (cape-wrap-super #'cape-tex #'cape-sgml #'cape-rfc1345)))
+    (cape-wrap-super #'cape-tex #'cape-sgml #'cape-rfc1345))
+
+  (add-to-list 'completion-at-point-functions #'cape-symbol-scapf)
+  (add-to-list 'completion-at-point-functions #'cape-keyword)
+  (add-to-list 'completion-at-point-functions #'cape-file-scapf))
 
 (provide 'init-corfu)
 ;;; init-corfu.el ends here
