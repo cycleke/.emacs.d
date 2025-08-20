@@ -12,22 +12,21 @@
 ;; 文件末尾添加空白行
 (setq require-final-newline t)
 
-;; 句末空格设置
+;; 设置 sentence-end 可以识别中文标点。不用在 fill 时在句号后插
 (setq-default sentence-end-double-space nil)
 (setq sentence-end "\\([。！？]\\|……\\|[.?!][]\"')}]*\\($\\|[ \t]\\)\\)[ \t\n]*")
 
 ;; 缩进和 Tab 设置
-(setq-default
- indent-tabs-mode nil
- tab-width 4
- tab-always-indent nil)
-(setq tabify-regexp "^\t* [ \t]+")
+(setq-default indent-tabs-mode nil
+              tab-width 4
+              tab-always-indent nil)
+(setq tabify-regexp "^\\t* [ \\t]+")
 
 ;; 保持补全的原始大小写
 (setq dabbrev-case-replace nil)
 
 ;; elisp 添加告警
-(use-package flymake-mode
+(use-package flymake
   :ensure nil
   :hook (emacs-lisp-mode eglot-managed-mode)
   :init
@@ -36,15 +35,12 @@
       (meow-leader-define-key '("f" . consult-flymake)))))
 
 ;; 自动加载文件
-(use-package autorevert
-  :ensure nil
-  :bind ("C-M-g" . #'revert-buffer)
-  :hook (after-init . global-auto-revert-mode)
-  :custom
-  (auto-revert-verbose t)
-  (auto-revert-use-notify nil)
-  (auto-revert-stop-on-user-input nil)
-  (revert-without-query (list ".")))
+(global-auto-revert-mode)
+(bind-key "C-M-g" #'revert-buffer)
+(setq auto-revert-verbose t
+      auto-revert-use-notify nil
+      auto-revert-stop-on-user-input nil
+      revert-without-query (list "."))
 
 ;; 注释
 (use-package comment-dwim-2
@@ -74,40 +70,44 @@
   :bind ("M-o" . ace-window)
   :custom (aw-scope 'frame))
 
-(use-package recentf
-  :ensure nil
-  :hook (after-init . recentf-mode)
-  :hook (kill-emacs . recentf-cleanup)
-  :custom
-  (recentf-auto-cleanup 600)
-  (recentf-max-saved-items 1000)
-  (recentf-save-file (file-name-concat lu-cache-dir "recentf"))
-  (recentf-exclude
-   '("COMMIT_EDITMSG\\'"
-     "\\.\\(?:gz\\|gif\\|svg\\|png\\|jpe?g\\|bmp\\|xpm\\)\\'"
-     "/.elfeed/"
-     "^/tmp/"
-     "^/var/folders/"
-     "/AppData/Local/Temp/"
-     (lambda (file) (file-in-directory-p file package-user-dir))))
-  (recentf-keep '(file-remote-p file-readable-p)))
+;; 保存最近打开文件
+(recentf-mode 1)
+(add-hook 'kill-emacs-hook #'recentf-cleanup)
+(setq recentf-auto-cleanup 600
+      recentf-max-saved-items 1000
+      recentf-save-file (file-name-concat lu-cache-dir "recentf")
+      recentf-exclude
+      '("recentf"
+        "/elpa/"
+        ".*?autoloads.el$"
+        "COMMIT_EDITMSG\\'"
+        "/.git/"
+        ".gitignore"
+        "^/tmp/"
+        "/AppData/Local/Temp/"
+        "^/var/folders/.+$"
+        "/TAGS$"
+        "/.TAGS$"
+        "/tags$"
+        "/.tags$"
+        "\\.\\(?:gz\\|gif\\|svg\\|png\\|jpe?g\\|bmp\\|xpm\\)\\'"
+        (lambda (file) (file-in-directory-p file package-user-dir)))
+      recentf-keep '(file-remote-p file-readable-p))
 
-(use-package savehist
-  :ensure nil
-  :hook after-init
-  :custom
-  (savehist-autosave-interval 300)
-  (savehist-save-minibuffer-history t)
-  (savehist-file (file-name-concat lu-cache-dir "savehist"))
-  (savehist-additional-variables
-   '(kill-ring mark-ring global-mark-ring search-ring
-               regexp-search-ring extended-command-history))
-  (enable-recursive-minibuffers t)
-  (history-length 8000))
+;; 保存历史记录
+(savehist-mode 1)
+(setq savehist-autosave-interval 300
+      savehist-save-minibuffer-history t
+      savehist-file (file-name-concat lu-cache-dir "savehist")
+      savehist-additional-variables
+      '(kill-ring mark-ring global-mark-ring search-ring
+                  regexp-search-ring extended-command-history)
+      enable-recursive-minibuffers t
+      history-length 8000)
 
-(use-package saveplace
-  :hook (after-init . save-place-mode)
-  :custom (save-place-file (file-name-concat lu-cache-dir "saveplace")))
+;; 保存光标位置
+(save-place-mode 1)
+(setq save-place-file (file-name-concat lu-cache-dir "saveplace"))
 
 (use-package tramp
   :defer 5
@@ -115,11 +115,9 @@
   (remote-file-name-inhibit-cache 60)
   (tramp-default-method "ssh")
   (tramp-use-connection-share nil)
-  (vc-ignore-dir-regexp
-   (format "%s\\|%s\\|%s"
-           vc-ignore-dir-regexp
-           tramp-file-name-regexp
-           "[/\\\\]node_modules")))
+  (vc-ignore-dir-regexp (format "\\(%s\\)\\|\\(%s\\)"
+                                vc-ignore-dir-regexp
+                                tramp-file-name-regexp)))
 
 (use-package dtrt-indent
   :diminish
@@ -156,15 +154,14 @@
   (add-to-list 'so-long-variable-overrides '(save-place-alist . nil))
 
   (setq so-long-minor-modes
-        (append
-         so-long-minor-modes
-         '(eldoc-mode
-           highlight-numbers-mode
-           ws-butler-mode
-           auto-composition-mode
-           vundo-mode
-           smartparens-mode
-           smartparens-strict-mode))))
+        (append so-long-minor-modes
+                '(eldoc-mode
+                  highlight-numbers-mode
+                  ws-butler-mode
+                  auto-composition-mode
+                  vundo-mode
+                  smartparens-mode
+                  smartparens-strict-mode))))
 
 (use-package ws-butler
   :diminish

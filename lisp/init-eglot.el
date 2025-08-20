@@ -22,8 +22,22 @@
      '("l g d" . eglot-find-declaration)
      '("l g r" . xref-find-references)
      '("l g a" . eglot-code-actions)
+     '("l g ." . eldoc)
      '("l r r" . eglot-rename)
-     '("l ." . eldoc))))
+     '("l m r" . eglot-reconnect)
+     '("l m s" . eglot-shutdown)))
+  :config
+  (add-to-list 'eglot-server-programs
+               '((c-mode c-ts-mode c++-mode c++-ts-mode)
+                 .
+                 ("clangd"
+                  "--all-scopes-completion"
+                  "--background-index"
+                  "--clang-tidy"
+                  "--completion-style=detailed"
+                  "--enable-config"
+                  "--header-insertion=iwyu"
+                  "--header-insertion-decorators=0"))))
 
 (provide 'init-eglot)
 ;;; init-eglot.el ends here

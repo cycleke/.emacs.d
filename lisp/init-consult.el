@@ -18,9 +18,10 @@
   :config
   ;; 补全时添加分隔提示符
   (defun crm-indicator (args)
-    (cons
-     (format "[CRM%s] %s" (replace-regexp-in-string "\\`\\[.*?]\\*\\|\\[.*?]\\*\\'" "" crm-separator) (car args))
-     (cdr args)))
+    (cons (format "[CRM%s] %s"
+                  (replace-regexp-in-string "\\`\\[.*?\\]\\*\\|\\[.*?\\]\\*\\'" "" crm-separator)
+                  (car args))
+          (cdr args)))
   (advice-add #'completing-read-multiple :filter-args #'crm-indicator)
 
   ;; minibuffer 中不显示提示符

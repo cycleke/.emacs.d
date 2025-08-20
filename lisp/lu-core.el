@@ -12,7 +12,7 @@
 ;; 版本判断，最低要求 30.0
 (eval-and-compile
   (when (< emacs-major-version 30)
-    (user-error (concat "EMACS VERSION IS TOO LOW！！！\n"
+    (user-error (concat "EMACS VERSION IS TOO LOW!!!\n"
                         "Current version " emacs-version ", requires 30.0 or above."))))
 
 ;; 添加特性
@@ -98,11 +98,10 @@ If the buffer doesn't exist, create it first."
             (list (rassq 'jka-compr-handler orig-value))))
     (set-default-toplevel-value 'file-name-handler-alist file-name-handler-alist)
     ;; 启动后恢复
-    (add-hook
-     'emacs-startup-hook
-     (lambda ()
-       (setq file-name-handler-alist
-             (delete-dups (append file-name-handler-alist orig-value))))))
+    (add-hook 'emacs-startup-hook
+              (lambda ()
+                (setq file-name-handler-alist
+                      (delete-dups (append file-name-handler-alist orig-value))))))
 
   (unless noninteractive
     ;; 不显示开始页面以及额外的日志
@@ -129,20 +128,17 @@ If the buffer doesn't exist, create it first."
 
     ;; 让窗口启动更平滑，关闭启动时闪烁
     (setq frame-inhibit-implied-resize t)
-    (setq-default
-     inhibit-redisplay t
-     inhibit-message t)
+    (setq-default inhibit-redisplay t
+                  inhibit-message t)
 
     ;; 恢复
-    (add-hook
-     'window-setup-hook
-     (lambda ()
-       (setq-default
-        inhibit-redisplay nil
-        inhibit-message nil)
-       (redraw-frame)
-       (unless (default-toplevel-value 'mode-line-format)
-         (setq-default mode-line-format (get 'mode-line-format 'initial-value)))))
+    (add-hook 'window-setup-hook
+              (lambda ()
+                (setq-default inhibit-redisplay nil
+                              inhibit-message nil)
+                (redraw-frame)
+                (unless (default-toplevel-value 'mode-line-format)
+                  (setq-default mode-line-format (get 'mode-line-format 'initial-value)))))
 
     (unless lu-is-mac
       (setq command-line-ns-option-alist nil))
@@ -155,13 +151,11 @@ If the buffer doesn't exist, create it first."
                (file-name-concat lu-cache-dir "eln-cache/"))
 
   ;; 关闭烦人的告警
-  (setq
-   native-comp-async-report-warnings-errors nil
-   native-comp-warning-on-missing-source nil)
+  (setq native-comp-async-report-warnings-errors nil
+        native-comp-warning-on-missing-source nil)
 
   (unless (boundp 'native-comp-deferred-compilation-deny-list)
-    (defvaralias
-      'native-comp-deferred-compilation-deny-list
+    (defvaralias 'native-comp-deferred-compilation-deny-list
       'native-comp-jit-compilation-deny-list)))
 
 (provide 'lu-core)
