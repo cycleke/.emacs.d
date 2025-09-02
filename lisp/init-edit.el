@@ -179,7 +179,7 @@
   (setq-default format-all-formatters
                 '(("Bazel" buildifier)
                   ("C" clang-format)
-                  ("C++" clang-format)
+                  ("C++" (clang-format "--fallback-style=Google"))
                   ("CSS" prettier)
                   ("HTML" prettier)
                   ("JSON" prettier)

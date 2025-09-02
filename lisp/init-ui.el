@@ -199,8 +199,13 @@ See `lu-load-font'."
   (interactive "MFONT: ")
   (face-remap-set-base 'default `(:family ,font)))
 
+(defvar lu--original-composition-table nil
+  "Original `composition-function-table`.")
+
 (defun lu-enable-ligatures ()
-  "Enable ligatures."
+  "Enable ligatures for programming modes, saving original config if not saved."
+  (unless lu--original-composition-table
+    (setq lu--original-composition-table (copy-sequence composition-function-table)))
   (dolist (char/ligature-re
            `((?- . ,(rx (or "->" "-->")))
              (?/ . ,(rx (or (or "/==" "/=" "/>" "/**" "/*") (+ "/"))))
@@ -219,6 +224,12 @@ See `lu-load-font'."
           (ligature-re (cdr char/ligature-re)))
       (set-char-table-range composition-function-table char
                             `([,ligature-re 0 font-shape-gstring])))))
+
+(defun lu-disable-ligatures ()
+  "Restore original `composition-function-table` to disable ligatures."
+  (when lu--original-composition-table
+    (setq composition-function-table lu--original-composition-table)
+    (setq lu--original-composition-table nil)))
 
 (defun lu-init-fonts (&rest _)
   "Initalize fonts for current session."
