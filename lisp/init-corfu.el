@@ -51,20 +51,21 @@
   (corfu-popupinfo-max-height 20))
 
 (use-package cape
-  :init
-  (with-eval-after-load 'eglot
-    (advice-add 'eglot-completion-at-point :around #'cape-wrap-buster))
-  :config
+  :preface
   (defun cape-symbol-scapf ()
     (cape-wrap-super #'cape-abbrev #'cape-dabbrev))
   (defun cape-file-scapf ()
     (cape-wrap-super #'cape-file #'cape-history))
   (defun cape-char-scapf ()
     (cape-wrap-super #'cape-tex #'cape-sgml #'cape-rfc1345))
-
+  :init
   (add-to-list 'completion-at-point-functions #'cape-symbol-scapf)
   (add-to-list 'completion-at-point-functions #'cape-keyword)
-  (add-to-list 'completion-at-point-functions #'cape-file-scapf))
+  (add-to-list 'completion-at-point-functions #'cape-file-scapf)
+  :commands (cape-symbol-scapf cape-keyword cape-file-scapf)
+  :config
+  (with-eval-after-load 'eglot
+    (advice-add 'eglot-completion-at-point :around #'cape-wrap-buster)))
 
 (provide 'init-corfu)
 ;;; init-corfu.el ends here

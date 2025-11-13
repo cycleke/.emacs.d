@@ -36,7 +36,7 @@
   ;; Org files and directories
   (org-directory "~/org/")
   (org-default-notes-file (expand-file-name "notes.org" org-directory))
-  (org-agenda-files '("~/org/todo.org" "~/org/agenda.org"))
+  (org-agenda-files '("~/org/todo.org"))
 
   ;; Capture templates
   (org-capture-templates
@@ -145,6 +145,7 @@
   (org-appear-autosubmarkers t))
 
 (use-package valign
+  :disabled
   :defer t
   :hook ((org-mode markdown-mode markdown-ts-mode) . valign-mode))
 
