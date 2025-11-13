@@ -24,5 +24,9 @@
   (markdown-fontify-code-blocks-natively t)
   (markdown-content-type "application/xhtml+xml"))
 
+(use-package mixed-pitch
+  :defer t
+  :hook ((org-mode markdown-mode markdown-ts-mode) . mixed-pitch-mode))
+
 (provide 'init-markdown)
 ;;; init-markdown.el ends here

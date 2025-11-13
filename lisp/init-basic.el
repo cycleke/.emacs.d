@@ -65,7 +65,16 @@
 (setq delete-by-moving-to-trash t)
 
 ;; 時間格式
-(setq system-time-locale "C")
+(setq system-time-locale "C"
+      calendar-date-style 'iso
+      calendar-day-abbrev-array
+      ["Sun" "Mon" "Tue" "Wed" "Thu" "Fri" "Sat"]
+      calendar-day-name-array
+      ["日曜日" "月曜日" "火曜日" "水曜日" "木曜日" "金曜日" "木曜日"]
+      calendar-month-name-array
+      ["一月" "二月" "三月" "四月"
+       "五月" "六月" "七月" "八月"
+       "九月" "十月" "冬月" "臘月"])
 
 ;; ;; 减少 ping
 ;; (setq ffap-machine-p-local 'accept
@@ -85,6 +94,9 @@
         'overlay)
       blink-matching-paren t
       blink-matching-paren-highlight-offscreen t)
+
+;; 設置 Elisp 高亮
+(setq elisp-fontify-semantically t)
 
 ;; 输入时不执行跳过字形相关函数
 (setq redisplay-skip-fontification-on-input t)

@@ -14,6 +14,8 @@
   :bind ("C-x g" . magit)
   :custom
   (git-commit-summary-max-length 72)
+  (git-commit-style-convention-checks
+   '(non-empty-second-line overlong-summary-line))
   (magit-diff-refine-hunk t)
   (magit-save-repository-buffers nil)
   (magit-revision-insert-related-refs 'mixed)

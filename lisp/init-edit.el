@@ -35,9 +35,10 @@
       (meow-leader-define-key '("f" . consult-flymake)))))
 
 ;; 自动加载文件
-(global-auto-revert-mode)
+(add-hook 'after-init-hook #'global-auto-revert-mode)
 (bind-key "C-M-g" #'revert-buffer)
 (setq auto-revert-verbose t
+      auto-revert-remote-files t
       auto-revert-use-notify nil
       auto-revert-stop-on-user-input nil
       revert-without-query (list "."))
@@ -178,7 +179,7 @@
   :config
   (setq-default format-all-formatters
                 '(("Bazel" buildifier)
-                  ("C" clang-format)
+                  ("C" clang-format "--fallback-style=Google")
                   ("C++" (clang-format "--fallback-style=Google"))
                   ("CSS" prettier)
                   ("HTML" prettier)
@@ -190,22 +191,13 @@
                   ("Python" black)
                   ("Rust" (rustfmt "--edition=2021"))
                   ("Shell" (shfmt "-i" "2"))
-                  ("TOML" taplo-fmt)
-                  ("YAML" prettier))))
+                  ("TOML" taplo-fmt))))
 
 (use-package rg
   :commands rg-menu
   :init
   (with-eval-after-load 'meow
     (meow-leader-define-key '("S" . rg-menu))))
-
-(use-package string-inflection
-  :bind
-  (("C-c c i" . string-inflection-cycle)
-   ("C-c c l" . string-inflection-lower-camelcase)
-   ("C-c c c" . string-inflection-camelcase)
-   ("C-c c s" . string-inflection-underscore)
-   ("C-c c u" . string-inflection-upcase)))
 
 (provide 'init-edit)
 ;;; init-edit.el ends here

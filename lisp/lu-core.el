@@ -43,6 +43,11 @@ If the buffer doesn't exist, create it first."
   (interactive)
   (pop-to-buffer-same-window (get-buffer-create "*Lu Temporarily*")))
 
+(defun lu-open-post-custom-file ()
+  "Open post custom file."
+  (interactive)
+  (find-file lu-post-custom-file))
+
 (defun lu-childframe-workable-p ()
   "Whether childframe is workable."
   (and (>= emacs-major-version 26)

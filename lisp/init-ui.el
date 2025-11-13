@@ -55,17 +55,23 @@
     (find-font font-spec)))
 
 (defvar lu-font-alist
-  `(("IBMPlex" "IBM Plex Mono" "YShiMincho CL" 1.0)
-    ("Monaspace" "Monaspace Neon Frozen" "YShiMincho CL" 1.0)
+  `(
+    ;; Coding
+    ("IBMPlex" "IBM Plex Mono" "LXGW ZhiSong MN" 1.0)
+    ("MonaspaceNeon" "Monaspace Neon" "LXGW ZhiSong MN" 1.0)
 
-    ("ModulatedText" "Minion Pro" "LXGW ZhiSong MN" 1.0)
-    ("ModulatedTitle" "Bookerly" "LXGW WenKai Screen" 1.0)
-    ("Monolinear" "Helvetica" "LXGW XiHei MN" 1.0)
+    ;; Handwritten
+    ("MonaspaceRadon" "Monaspace Radon" "LXGW WenKai Screen" 1.0)
 
+    ("Monolinear" "Helvetica Neue" "LXGW XiHei CL" 1.0)
+
+    ;; Variable
+    ("ModulatedText" "Minion Pro" "LXGW ZhiSong CL" 1.0)
+    ("ModulatedTitle" "Instrument Serif" "LXGW WenKai TC" 1.0)
+
+    ;; Monospaced CJK
     ("MapleMono" "Maple Mono NF CN" "Maple Mono NF CN" 1.0)
-    ("LXGWWenKaiMono" "LXGW WenKai Mono Screen" "LXGW WenKai Mono Screen" 1.0)
-
-    ("Handwritten" "Monaspace Radon Frozen" "YShiPen-ShutiCL" 1.0))
+    ("LXGWWenKaiMono" "LXGW WenKai Mono Screen" "LXGW WenKai Mono Screen" 1.0))
   "An alist of all the fonts you can switch between by `lu-load-font'.
 Each element is like
 
@@ -76,16 +82,16 @@ Each element is like
      .
      ,(if lu-is-mac
           "Apple Color Emoji"
-        "Noto Emoji"))
+        "Noto Color Emoji SVG"))
     ((unicode symbol)
      .
      (:font ,(if lu-is-mac
                  "Apple Symbols"
-               "Noto Sans Symbols 2")
+               "Noto Sans Symbols")
             :add 'append))
     (((#x20000 . #x2fffff))
      .
-     (:font ("Planschrift P1" "Planschrift P2") :add 'prepend))
+     (:font ("TH-Tshyn-P0" "TH-Tshyn-P1" "TH-Tshyn-P2") :add 'prepend))
     (nil
      .
      (:font ("Symbols Nerd Font Mono" "Noto Unicode") :add 'append)))
