@@ -63,11 +63,10 @@
     ;; Handwritten
     ("MonaspaceRadon" "Monaspace Radon" "LXGW WenKai Screen" 1.0)
 
-    ("Monolinear" "Helvetica Neue" "LXGW XiHei CL" 1.0)
-
     ;; Variable
-    ("ModulatedText" "Minion Pro" "LXGW ZhiSong CL" 1.0)
-    ("ModulatedTitle" "Instrument Serif" "LXGW WenKai TC" 1.0)
+    ("ModulatedText" "Neuton" "LXGW ZhiSong CL" 1.0)
+    ("ModulatedTitle" "Rufina" "LXGW WenKai TC" 1.0)
+    ("Monolinear" "Helvetica Neue" "LXGW XiHei CL" 1.0)
 
     ;; Monospaced CJK
     ("MapleMono" "Maple Mono NF CN" "Maple Mono NF CN" 1.0)
@@ -87,11 +86,11 @@ Each element is like
      .
      (:font ,(if lu-is-mac
                  "Apple Symbols"
-               "Noto Sans Symbols")
+               '("Noto Sans Symbols 2" "Noto Sans Symbols"))
             :add 'append))
     (((#x20000 . #x2fffff))
      .
-     (:font ("TH-Tshyn-P0" "TH-Tshyn-P1" "TH-Tshyn-P2") :add 'prepend))
+     (:font ("TH-Tshyn-P0" "TH-Tshyn-P1" "TH-Tshyn-P2" "TH-Tshyn-P16") :add 'prepend))
     (nil
      .
      (:font ("Symbols Nerd Font Mono" "Noto Unicode") :add 'append)))
