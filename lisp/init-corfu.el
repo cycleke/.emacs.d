@@ -9,14 +9,21 @@
 ;;
 ;;; Code:
 
-(setq completion-ignore-case t
-      completion-styles '(basic flex))
-
 (use-package orderless
-  :custom (orderless-component-separator "[ &]")
+  :custom
+  ;; (orderless-component-separator "[ &]")
+  (orderless-component-separator #'orderless-escapable-split-on-space)
+
+  (completion-ignore-case t)
+  (completion-styles '(orderless flex basic))
+  (completion-category-overrides '((file (styles partial-completion))))
+  (completion-category-defaults nil)
+  (completion-pcm-leading-wildcard t)
   :preface
   (defun lu-set-minibuffer-completion-styles ()
-    (setq-local completion-styles '(substring orderless)))
+    ;; (setq-local completion-styles '(substring orderless))
+    (setq-local orderless-matching-styles '(orderless-literal)
+              orderless-style-dispatchers nil))
   :hook (minibuffer-setup . lu-set-minibuffer-completion-styles))
 
 ;; 使用 Corfu 代替 Company
@@ -51,18 +58,11 @@
   (corfu-popupinfo-max-height 20))
 
 (use-package cape
-  :preface
-  (defun cape-symbol-scapf ()
-    (cape-wrap-super #'cape-abbrev #'cape-dabbrev))
-  (defun cape-file-scapf ()
-    (cape-wrap-super #'cape-file #'cape-history))
-  (defun cape-char-scapf ()
-    (cape-wrap-super #'cape-tex #'cape-sgml #'cape-rfc1345))
+  :bind ("C-c p" . cape-prefix-map)
   :init
-  (add-to-list 'completion-at-point-functions #'cape-symbol-scapf)
-  (add-to-list 'completion-at-point-functions #'cape-keyword)
-  (add-to-list 'completion-at-point-functions #'cape-file-scapf)
-  :commands (cape-symbol-scapf cape-keyword cape-file-scapf)
+  (add-hook 'completion-at-point-functions #'cape-dabbrev)
+  (add-hook 'completion-at-point-functions #'cape-file)
+  (add-hook 'completion-at-point-functions #'cape-elisp-block)
   :config
   (with-eval-after-load 'eglot
     (advice-add 'eglot-completion-at-point :around #'cape-wrap-buster)))
