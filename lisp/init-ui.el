@@ -64,7 +64,7 @@
     ("MonaspaceRadon" "Monaspace Radon" "LXGW WenKai Screen" 1.0)
 
     ;; Variable
-    ("ModulatedText" "Neuton" "LXGW ZhiSong CL" 1.0)
+    ("ModulatedText" "Libre Baskerville" "LXGW ZhiSong CL" 1.0)
     ("ModulatedTitle" "Rufina" "LXGW WenKai TC" 1.0)
     ("Monolinear" "Helvetica Neue" "LXGW XiHei CL" 1.0)
 
