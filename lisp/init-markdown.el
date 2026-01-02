@@ -13,6 +13,7 @@
   :bind
   (:map markdown-mode-map
         ("C-SPC" . (lambda () (interactive) (insert "\u200B"))))
+  :hook ((markdown-mode markdown-ts-mode) . variable-pitch-mode)
   :custom
   (markdown-enable-math t)
   (markdown-enable-wiki-links t)
