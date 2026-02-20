@@ -24,7 +24,6 @@
 
 (require 'init-corfu)
 (require 'init-consult)
-;; (require 'init-completion)
 
 (require 'init-dired)
 (require 'init-magit)
@@ -42,7 +41,7 @@
 (require 'init-haskell)
 
 (dolist (plugin '("auto-space" "protobuf-mode" "bazel"))
-  (lu-byte-compile-site-lisp-if-newer plugin)
+  (lu-update-site-lisp-bytecode plugin)
   (require (intern plugin)))
 
 (load lu-post-custom-file)

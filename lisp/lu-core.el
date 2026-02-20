@@ -75,12 +75,22 @@ If the buffer doesn't exist, create it first."
 
 (global-set-key (kbd "C-M-\\") #'lu-indent-region-or-buffer)
 
-(defun lu-byte-compile-site-lisp-if-newer (file)
-  "Byte compile FILE in site-lisp directory if it is newer."
-  (let ((el-file (concat lu-emacs-dir "/site-lisp/" file ".el"))
-        (elc-file (concat lu-emacs-dir "/site-lisp/" file ".elc")))
+(defun lu-update-bytecode (file-path)
+  "若 FILE-PATH 對應的 .el 文件比 .elc 文件新，或者 .elc 不存在，則進行編譯."
+  (when-let* ((base-name (file-name-sans-extension file-path))
+              (el-file (concat base-name ".el"))
+              (elc-file (concat base-name ".elc")))
     (when (file-newer-than-file-p el-file elc-file)
       (byte-compile-file el-file))))
+
+(defun lu-update-site-lisp-bytecode (file-name)
+  "若 site-lisp/ 目錄中 FILE-NAME 對應的 .el 文件需要更新（或未編譯），則編譯.
+此函數會自動拼接 `lu-emacs-dir'/site-lisp/ 路徑。"
+  (when-let* ((full-path
+               (expand-file-name
+                file-name
+                (expand-file-name "site-lisp" lu-emacs-dir))))
+    (lu-update-bytecode full-path)))
 
 ;; 生成数据和缓存目录
 (dolist (dir (list lu-data-dir lu-cache-dir))
