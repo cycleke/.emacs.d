@@ -5,16 +5,17 @@
 ;;
 ;;; Commentary:
 ;;
-;; 启动文件
+;; 啟動文件
 ;;
 ;;; Code:
 
-(dolist (path '("site-lisp" "lisp"))
-  (push (expand-file-name path user-emacs-directory) load-path))
+(eval-when-compile
+  (dolist (path '("site-lisp" "lisp"))
+    (push (expand-file-name path user-emacs-directory) load-path)))
 
 (require 'lu-core)
 
-(load lu-pre-custom-file 'noerror)
+(load lu-pre-custom-file :noerror)
 
 (require 'init-basic)
 (require 'init-os)
@@ -40,10 +41,10 @@
 (require 'init-cc)
 (require 'init-haskell)
 
-(dolist (plugin '("auto-space" "protobuf-mode" "bazel"))
-  (lu-update-site-lisp-bytecode plugin)
-  (require (intern plugin)))
+(dolist (plugin '(auto-space protobuf-mode bazel))
+  (lu-update-site-lisp-bytecode (symbol-name plugin))
+  (require plugin))
 
-(load lu-post-custom-file)
+(load lu-custom-file)
 
 ;;; init.el ends here
