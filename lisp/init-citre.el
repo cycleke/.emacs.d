@@ -5,13 +5,17 @@
 ;;
 ;;; Commentary:
 ;;
-;;  citre 配置
+;; citre 配置
 ;;
 ;;; Code:
 
 (use-package citre
   :defer t
-  :hook (after-init . (lambda () (require 'citre-config)))
+  :preface
+  (defun lu--load-citre-config ()
+    "加載 citre-config."
+    (require 'citre-config))
+  :hook (after-init . lu--load-citre-config)
   :bind
   (:map prog-mode-map
         ("C-x c j" . citre-jump)
@@ -31,7 +35,8 @@
            "--fields=-ST\12"
            "--extras=*\12"
            "--tag-relative=never\12"
-           "--recurse\12")))
+           "--recurse\12"))
+  (citre-auto-enable-citre-mode-backends-for-remote nil))
 
 (provide 'init-citre)
 ;;; init-citre.el ends here

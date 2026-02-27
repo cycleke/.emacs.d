@@ -1,11 +1,9 @@
-;;; init-magit.el --- magit 相关配置 -*- lexical-binding: t; -*-
+;;; init-magit.el --- magit 相關配置 -*- lexical-binding: t; -*-
 ;;
 ;; Copyright (C) 2023, Lu Yaoke. All rights reserved.
 ;; License: GPL v3, or (at your option) any later version
 ;;
 ;;; Commentary:
-;;
-;;  magit 配置
 ;;
 ;;; Code:
 

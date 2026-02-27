@@ -5,7 +5,7 @@
 ;;
 ;;; Commentary:
 ;;
-;;  eglot 配置
+;; eglot 配置
 ;;
 ;;; Code:
 

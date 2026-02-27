@@ -5,7 +5,7 @@
 ;;
 ;;; Commentary:
 ;;
-;;  Dired 配置
+;; Dired 配置
 ;;
 ;;; Code:
 
@@ -24,7 +24,7 @@
         dired-create-destination-dirs 'ask)
   :config
   (put 'dired-find-alternate-file 'disabled nil)
-  ;; Let OS decide how to open certain files
+  ;; 讓操作系統決定如何打開特定文件
   (when-let* ((cmd (cond
                     (lu-is-mac "open")
                     (lu-is-linux "xdg-open")
