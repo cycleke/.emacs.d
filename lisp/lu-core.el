@@ -5,7 +5,7 @@
 ;;
 ;;; Commentary:
 ;;
-;;  包含變量聲明等代碼
+;; 包含變量聲明等代碼
 ;;
 ;;; Code:
 
@@ -73,6 +73,11 @@
 
 (global-set-key (kbd "C-M-\\") #'lu-indent-region-or-buffer)
 
+(defun lu-insert-zero-width-space ()
+  "插入零寬空格字符."
+  (interactive)
+  (insert "\u200B"))
+
 (defun lu-update-bytecode (file-path)
   "若 FILE-PATH 對應的 .el 文件比 .elc 文件新，或者 .elc 不存在，則進行編譯."
   (when-let* ((base-name (file-name-sans-extension file-path))
@@ -104,19 +109,25 @@
 
 ;; 啟動加速
 (unless (daemonp)
-  ;; 优化 file-name-handler-alist
-  (let ((orig-value (default-toplevel-value 'file-name-handler-alist)))
+  ;; 優化 file-name-handler-alist
+  (defvar lu--orig-file-name-handler-alist
+    (default-toplevel-value 'file-name-handler-alist)
+    "保存原始 file-name-handler-alist 用於啟動後恢復.")
+
+  (defun lu--restore-file-name-handler-alist ()
+    "恢復 file-name-handler-alist."
     (setq file-name-handler-alist
-          (if (eval-when-compile
-                (locate-file-internal "calc-loaddefs.el" load-path))
-              nil
-            (list (rassq 'jka-compr-handler orig-value))))
-    (set-default-toplevel-value 'file-name-handler-alist file-name-handler-alist)
-    ;; 啟動後恢復
-    (add-hook 'emacs-startup-hook
-              (lambda ()
-                (setq file-name-handler-alist
-                      (delete-dups (append file-name-handler-alist orig-value))))))
+          (delete-dups (append file-name-handler-alist
+                               lu--orig-file-name-handler-alist))))
+
+  (setq file-name-handler-alist
+        (if (eval-when-compile
+              (locate-file-internal "calc-loaddefs.el" load-path))
+            nil
+          (list (rassq 'jka-compr-handler lu--orig-file-name-handler-alist))))
+  (set-default-toplevel-value 'file-name-handler-alist file-name-handler-alist)
+  ;; 啟動後恢復
+  (add-hook 'emacs-startup-hook #'lu--restore-file-name-handler-alist)
 
   (unless noninteractive
     ;; 不顯示開始頁面以及額外的日誌
@@ -147,13 +158,15 @@
                   inhibit-message t)
 
     ;; 恢復
-    (add-hook 'window-setup-hook
-              (lambda ()
-                (setq-default inhibit-redisplay nil
-                              inhibit-message nil)
-                (redraw-frame)
-                (unless (default-toplevel-value 'mode-line-format)
-                  (setq-default mode-line-format (get 'mode-line-format 'initial-value)))))
+    (defun lu--restore-display-settings ()
+      "恢復顯示設置."
+      (setq-default inhibit-redisplay nil
+                    inhibit-message nil)
+      (redraw-frame)
+      (unless (default-toplevel-value 'mode-line-format)
+        (setq-default mode-line-format (get 'mode-line-format 'initial-value))))
+
+    (add-hook 'window-setup-hook #'lu--restore-display-settings)
 
     (unless lu-is-mac
       (setq command-line-ns-option-alist nil))

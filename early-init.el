@@ -9,21 +9,27 @@
 ;;
 ;;; Code:
 
-(let ((orig-value gc-cons-threshold))
-  (setq gc-cons-threshold most-positive-fixnum
-        gc-cons-percentage 0.6)
+(defvar lu--orig-gc-cons-threshold gc-cons-threshold
+  "保存原始 GC 閾值.")
 
-  (add-hook 'emacs-startup-hook
-            (lambda ()
-              ;; 恢復 GC 閾值
-              (setq gc-cons-threshold orig-value)
-              ;; 閒置時 GC
-              (run-with-idle-timer 5 t #'garbage-collect)
-              ;; 不聚焦當前窗口時 GC
-              (add-function :after after-focus-change-function
-                            (lambda ()
-                              (unless (frame-focus-state)
-                                (garbage-collect)))))))
+(defun lu--gc-when-unfocused ()
+  "當窗口不聚焦時執行 GC."
+  (unless (frame-focus-state)
+    (garbage-collect)))
+
+(defun lu--restore-gc-settings ()
+  "恢復 GC 設置並添加空閒時 GC."
+  (setq gc-cons-threshold lu--orig-gc-cons-threshold)
+  ;; 閒置時 GC
+  (run-with-idle-timer 5 t #'garbage-collect)
+  ;; 不聚焦當前窗口時 GC
+  (add-function :after after-focus-change-function
+                #'lu--gc-when-unfocused))
+
+(setq gc-cons-threshold most-positive-fixnum
+      gc-cons-percentage 0.6)
+
+(add-hook 'emacs-startup-hook #'lu--restore-gc-settings)
 
 ;; 禁止自動啟動包
 (setq package-enable-at-startup nil
