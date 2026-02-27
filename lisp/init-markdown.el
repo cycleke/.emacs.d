@@ -5,6 +5,8 @@
 ;;
 ;;; Commentary:
 ;;
+;; Markdown 編輯相關配置
+;;
 ;;; Code:
 
 (use-package markdown-mode
@@ -12,7 +14,7 @@
   :mode ("README\\.md\\'" . gfm-mode)
   :bind
   (:map markdown-mode-map
-        ("C-SPC" . (lambda () (interactive) (insert "\u200B"))))
+        ("C-SPC" . lu-insert-zero-width-space))
   :hook ((markdown-mode markdown-ts-mode) . variable-pitch-mode)
   :custom
   (markdown-enable-math t)
@@ -27,7 +29,7 @@
 
 (use-package mixed-pitch
   :defer t
-  :hook ((org-mode markdown-mode markdown-ts-mode) . mixed-pitch-mode))
+  :hook ((markdown-mode markdown-ts-mode) . mixed-pitch-mode))
 
 (provide 'init-markdown)
 ;;; init-markdown.el ends here
