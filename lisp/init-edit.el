@@ -1,28 +1,29 @@
-;;; init-edit.el --- 编辑相关配置 -*- lexical-binding: t; -*-
+;;; init-edit.el --- 編輯相關配置 -*- lexical-binding: t; -*-
 ;;
 ;; Copyright (C) 2023, Lu Yaoke. All rights reserved.
 ;; License: GPL v3, or (at your option) any later version
 ;;
 ;;; Commentary:
 ;;
-;;  编辑相关配置
+;; 編輯相關配置
 ;;
 ;;; Code:
 
 ;; 文件末尾添加空白行
 (setq require-final-newline t)
 
-;; 设置 sentence-end 可以识别中文标点。不用在 fill 时在句号后插
-(setq-default sentence-end-double-space nil)
+;; 設置 sentence-end 可以識別中文標點
 (setq sentence-end "\\([。！？]\\|……\\|[.?!][]\"')}]*\\($\\|[ \t]\\)\\)[ \t\n]*")
+;; 不用在 fill 時在句號後插入兩個空格
+(setq-default sentence-end-double-space nil)
 
-;; 缩进和 Tab 设置
+;; 縮進和 Tab 設置
 (setq-default indent-tabs-mode nil
               tab-width 4
               tab-always-indent nil)
 (setq tabify-regexp "^\\t* [ \\t]+")
 
-;; 保持补全的原始大小写
+;; 保持補全的原始大小寫
 (setq dabbrev-case-replace nil)
 
 ;; elisp 添加告警
@@ -34,7 +35,7 @@
     (with-eval-after-load 'consult
       (meow-leader-define-key '("f" . consult-flymake)))))
 
-;; 自动加载文件
+;; 自動加載文件
 (add-hook 'after-init-hook #'global-auto-revert-mode)
 (bind-key "C-M-g" #'revert-buffer)
 (setq auto-revert-verbose t
@@ -43,16 +44,16 @@
       auto-revert-stop-on-user-input nil
       revert-without-query (list "."))
 
-;; 注释
+;; 註釋
 (use-package comment-dwim-2
   :bind ("M-;" . comment-dwim-2))
 
-;; 删除空格
+;; 刪除空格
 (use-package hungry-delete
   :diminish
   :hook (after-init . global-hungry-delete-mode))
 
-;; 多光标编辑
+;; 多光標編輯
 (use-package iedit
   :bind ("C-;" . iedit-mode))
 
@@ -60,18 +61,25 @@
   :diminish
   :hook (prog-mode text-mode markdown-mode)
   :config
-  (require 'smartparens-config))
+  (require 'smartparens-config)
+  ;; 添加中文括號支持
+  (sp-pair "【" "】")
+  (sp-pair "「" "」")
+  (sp-pair "『" "』")
+  (sp-pair "（" "）")
+  (sp-pair "《" "》")
+  (sp-pair "〈" "〉"))
 
-;; 撤销
+;; 撤銷
 (use-package vundo
   :bind ("C-x u" . vundo))
 
-;; 快速跳转
+;; 快速跳轉
 (use-package ace-window
   :bind ("M-o" . ace-window)
   :custom (aw-scope 'frame))
 
-;; 保存最近打开文件
+;; 保存最近打開文件
 (recentf-mode 1)
 (add-hook 'kill-emacs-hook #'recentf-cleanup)
 (setq recentf-auto-cleanup 600
@@ -95,7 +103,7 @@
         (lambda (file) (file-in-directory-p file package-user-dir)))
       recentf-keep '(file-remote-p file-readable-p))
 
-;; 保存历史记录
+;; 保存歷史記錄
 (savehist-mode 1)
 (setq savehist-autosave-interval 300
       savehist-save-minibuffer-history t
@@ -106,7 +114,7 @@
       enable-recursive-minibuffers t
       history-length 8000)
 
-;; 保存光标位置
+;; 保存光標位置
 (save-place-mode 1)
 (setq save-place-file (file-name-concat lu-cache-dir "saveplace"))
 
@@ -134,19 +142,19 @@
 (use-package helpful
   :hook (helpful-mode . visual-line-mode)
   :bind
-  ([remap describe-function] . #'helpful-callable)
-  ([remap describe-command] . #'helpful-command)
-  ([remap describe-variable] . #'helpful-variable)
-  ([remap describe-key] . #'helpful-key)
-  ([remap describe-symbol] . #'helpful-symbol))
+  ([remap describe-function] . helpful-callable)
+  ([remap describe-command] . helpful-command)
+  ([remap describe-variable] . helpful-variable)
+  ([remap describe-key] . helpful-key)
+  ([remap describe-symbol] . helpful-symbol))
 
 (use-package so-long
   :hook (after-init . global-so-long-mode)
   :config
-  (if (fboundp 'buffer-line-statistics)
-      (unless (featurep 'native-compile)
-        (setq so-long-threshold 5000))
-    (setq so-long-threshold 400))
+  (setq so-long-threshold
+        (if (fboundp 'buffer-line-statistics)
+            (if (featurep 'native-compile) 1000 5000)
+          400))
 
   (setq so-long-minor-modes (delq 'font-lock-mode so-long-minor-modes))
   (setq so-long-minor-modes (delq 'display-line-numbers-mode so-long-minor-modes))
