@@ -1,36 +1,32 @@
-;;; init-corfu.el --- 文本补全 -*- lexical-binding: t; -*-
+;;; init-corfu.el --- 文本補全 -*- lexical-binding: t; -*-
 ;;
 ;; Copyright (C) 2023, Lu Yaoke. All rights reserved.
 ;; License: GPL v3, or (at your option) any later version
 ;;
 ;;; Commentary:
 ;;
-;;  文本补全
+;; 文本補全
 ;;
 ;;; Code:
 
 (use-package orderless
   :custom
-  ;; (orderless-component-separator "[ &]")
-  (orderless-component-separator #'orderless-escapable-split-on-space)
-
   (completion-ignore-case t)
   (completion-styles '(orderless flex basic))
   (completion-category-overrides '((file (styles partial-completion))))
   (completion-category-defaults nil)
   (completion-pcm-leading-wildcard t)
+
+  (orderless-component-separator #'orderless-escapable-split-on-space)
   :preface
-  (defun lu-set-minibuffer-completion-styles ()
-    ;; (setq-local completion-styles '(substring orderless))
+  (defun lu--set-minibuffer-completion-styles ()
     (setq-local orderless-matching-styles '(orderless-literal)
-              orderless-style-dispatchers nil))
-  :hook (minibuffer-setup . lu-set-minibuffer-completion-styles))
+                orderless-style-dispatchers nil))
+  :hook (minibuffer-setup . lu--set-minibuffer-completion-styles) )
 
 ;; 使用 Corfu 代替 Company
 (use-package corfu
-  :hook
-  (after-init . global-corfu-mode)
-  (corfu-mode . corfu-popupinfo-mode)
+  :hook (after-init . global-corfu-mode)
   :bind
   (:map corfu-map
         ("C-g" . corfu-quit)
@@ -43,19 +39,21 @@
         ("M-D" . corfu-popupinfo-location))
   :custom
   (completion-cycle-threshold nil)
+  ;; corfu
   (corfu-cycle t)
-  (corfu-history-mode t)
   (corfu-auto t)
   (corfu-auto-prefix 2)
   (corfu-auto-delay 0.1)
   (corfu-separator ?\s)
   (corfu-quit-no-match 'separator)
   (corfu-preview-current nil)
-
   ;; corfu-popupinfo
   (corfu-popupinfo-delay '(0.4 . 0.2))
   (corfu-popupinfo-max-width 70)
-  (corfu-popupinfo-max-height 20))
+  (corfu-popupinfo-max-height 20)
+  :config
+  (corfu-history-mode +1)
+  (corfu-popupinfo-mode +1))
 
 (use-package cape
   :bind ("C-c p" . cape-prefix-map)
