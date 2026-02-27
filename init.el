@@ -45,6 +45,6 @@
   (lu-update-site-lisp-bytecode (symbol-name plugin))
   (require plugin))
 
-(load lu-custom-file)
+(load lu-custom-file :noerror)
 
 ;;; init.el ends here
