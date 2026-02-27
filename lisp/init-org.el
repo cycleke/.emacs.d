@@ -4,14 +4,15 @@
 ;; License: GPL v3, or (at your option) any later version
 ;;
 ;;; Commentary:
-;; Configuration for org-mode and related packages
+;;
+;; Org-mode 及相關包的配置
 ;;
 ;;; Code:
 
 (use-package org
   :ensure nil
   :custom
-  ;; Basic behavior settings
+  ;; 基本行為設置
   (org-log-done t)
   (org-log-into-drawer t)
   (org-clock-into-drawer t)
@@ -20,7 +21,7 @@
   (org-src-fontify-natively t)
   (org-html-validation-link nil)
 
-  ;; Display settings
+  ;; 顯示設置
   (org-tags-column 80)
   (org-hide-leading-stars t)
   (org-hide-emphasis-markers t)
@@ -29,16 +30,16 @@
   (org-outline-path-complete-in-steps nil)
   (org-pretty-entities t)
 
-  ;; Timestamp configuration
+  ;; 時間戳配置
   (org-display-custom-times t)
   (org-time-stamp-custom-formats '("<%Y-%m-%d %a>" . "<%Y-%m-%d %a %H:%M>"))
 
-  ;; Org files and directories
+  ;; Org 文件和目錄
   (org-directory "~/org/")
   (org-default-notes-file (expand-file-name "notes.org" org-directory))
   (org-agenda-files '("~/org/todo.org"))
 
-  ;; Capture templates
+  ;; 捕獲模板
   (org-capture-templates
    '(("t" "待辦" entry
       (file+olp+datetree "~/org/todo.org")
@@ -53,7 +54,7 @@
       "* %? :IDEA:\n%U\n%a"
       :clock-resume t)))
 
-  ;; Org-Mode TODO workflow
+  ;; Org-Mode TODO 工作流
   (org-todo-keywords
    '((sequence "TODO(t)" "NEXT(n)" "IN-PROGRESS(p)" "|" "DONE(d!/!)")
      (sequence "WAITING(w@/!)" "HOLD(h)" "|" "CANCELLED(c@/!)")))
@@ -73,7 +74,7 @@
      ("TODO" ("WAITING") ("CANCELLED"))
      ("NEXT" ("WAITING") ("CANCELLED"))
      ("DONE" ("WAITING") ("CANCELLED"))))
-  ;; Agenda settings
+  ;; 議程設置
   (org-agenda-span 'day)
   (org-agenda-start-on-weekday nil)  ; Start agenda on current day
   (org-agenda-include-diary t)
@@ -83,11 +84,11 @@
   (("C-c a" . org-agenda)
    ("C-c c" . org-capture)
    :map org-mode-map
-   ("C-SPC" . (lambda () (interactive) (insert "\u200B"))))
+   ("C-SPC" . lu-insert-zero-width-space))
   :hook (org-mode . lu-org-mode-setup)
   :preface
   (defun lu-org-mode-setup ()
-    "Setup function for org-mode with improved visual and editing experience."
+    "Org-mode 設置函數，提供改進的視覺和編輯體驗."
     (setq-local tab-width 8
                 truncate-lines nil
                 line-spacing 0.1)
@@ -97,7 +98,7 @@
     (visual-line-mode 1)
     (org-indent-mode 1))
   :config
-  ;; Load export backends
+  ;; 加載導出後端
   (require 'ox-ascii)
   (require 'ox-md)
   (require 'ox-html))
@@ -125,7 +126,6 @@
   :after org
   :hook (org-mode . org-superstar-mode)
   :custom
-  (org-hide-leading-stars nil)
   (org-superstar-leading-bullet "\u2005")
   (org-superstar-item-bullet-alist
    '((?* . ?✼) (?+ . ?✚) (?- . ?▶)))
@@ -144,14 +144,9 @@
   (org-appear-autolinks t)
   (org-appear-autosubmarkers t))
 
-(use-package valign
-  :disabled
-  :defer t
-  :hook ((org-mode markdown-mode markdown-ts-mode) . valign-mode))
-
 (use-package mixed-pitch
   :defer t
-  :hook ((org-mode markdown-mode markdown-ts-mode) . mixed-pitch-mode))
+  :hook (org-mode . mixed-pitch-mode))
 
 (provide 'init-org)
 ;;; init-org.el ends here

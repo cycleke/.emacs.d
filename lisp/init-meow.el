@@ -1,31 +1,32 @@
-;;; init-meow.el --- 猫态编辑 -*- lexical-binding: t; -*-
+;;; init-meow.el --- 貓態編輯 -*- lexical-binding: t; -*-
 ;;
 ;; Copyright (C) 2023, Lu Yaoke. All rights reserved.
 ;; License: GPL v3, or (at your option) any later version
 ;;
 ;;; Commentary:
 ;;
-;;  猫态编辑
-;;  Yet another modal editing on Emacs
+;; 貓態編輯
+;; Yet another modal editing on Emacs
 ;;
 ;;; Code:
 
 (use-package meow
   :preface
-  (defun meow-setup ()
+  (defun lu--meow-setup ()
+    ;; 此時 meow 尚未加載
     (require 'meow)
     (setq meow-cheatsheet-layout meow-cheatsheet-layout-qwerty)
+
     (meow-motion-define-key
      '("h" . meow-left)
      '("j" . meow-next)
      '("k" . meow-prev)
      '("l" . meow-right)
      '("<escape>" . ignore))
+
     (meow-leader-define-key
-     ;; SPC j/k will run the original command in MOTION state.
      '("j" . "H-j")
      '("k" . "H-k")
-     ;; Use SPC (0-9) for digit arguments.
      '("1" . meow-digit-argument)
      '("2" . meow-digit-argument)
      '("3" . meow-digit-argument)
@@ -101,12 +102,12 @@
      '("z" . meow-pop-selection)
      '("'" . repeat)
 
-     ;; customize
+     ;; 自定義
      '("&" . meow-query-replace)
      '("%" . meow-query-replace-regexp))
 
-    (meow-global-mode 1))
-  :hook (after-init . meow-setup))
+    (meow-global-mode +1))
+  :hook (after-init . lu--meow-setup))
 
 (provide 'init-meow)
 ;;; init-meow.el ends here
