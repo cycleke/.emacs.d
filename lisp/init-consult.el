@@ -46,10 +46,9 @@
 
 (use-package consult
   :bind
-  ("C-c h" . consult-history)
-  ("C-c k" . consult-kmacro)
-  ("C-c m" . consult-man)
-  ("C-c i" . consult-info)
+  ("C-c o" . consult-outline)
+  ("C-c i" . consult-imenu)
+  ("C-c I" . consult-imenu-multi)
   ("C-c r" . consult-ripgrep)
 
   ([remap switch-to-buffer] . consult-buffer)
@@ -69,9 +68,6 @@
   ("M-#" . consult-register-load)
   ("M-'" . consult-register-store)
 
-  ("M-g o" . consult-outline)
-  ("M-g i" . consult-imenu)
-  ("M-g I" . consult-imenu-multi)
   :custom
   (consult-narrow-key "<")
   (consult-line-numbers-widen t)
