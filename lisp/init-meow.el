@@ -12,7 +12,7 @@
 
 (use-package meow
   :preface
-  (defun lu--meow-setup ()
+  (defun lu--setup-meow ()
     ;; 此時 meow 尚未加載
     (require 'meow)
     (setq meow-cheatsheet-layout meow-cheatsheet-layout-qwerty)
@@ -107,7 +107,7 @@
      '("%" . meow-query-replace-regexp))
 
     (meow-global-mode +1))
-  :hook (after-init . lu--meow-setup))
+  :hook (after-init . lu--setup-meow))
 
 (provide 'init-meow)
 ;;; init-meow.el ends here
