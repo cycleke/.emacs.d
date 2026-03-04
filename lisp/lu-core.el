@@ -71,8 +71,6 @@
       (lu-indent-buffer)
       (message "已縮進緩衝區"))))
 
-(global-set-key (kbd "C-M-\\") #'lu-indent-region-or-buffer)
-
 (defun lu-insert-zero-width-space ()
   "插入零寬空格字符."
   (interactive)
