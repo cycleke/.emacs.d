@@ -13,9 +13,8 @@
 (setq require-final-newline t)
 
 ;; 設置 sentence-end 可以識別中文標點
-(setq sentence-end "\\([。！？]\\|……\\|[.?!][]\"')}]*\\($\\|[ \t]\\)\\)[ \t\n]*")
-;; 不用在 fill 時在句號後插入兩個空格
-(setq-default sentence-end-double-space nil)
+(setq sentence-end "\\([。！？]\\|……\\|[.?!][]\"')}]*\\($\\|[ \t]\\)\\)[ \t\n]*"
+      sentence-end-double-space nil)
 
 ;; 縮進和 Tab 設置
 (setq-default indent-tabs-mode nil
@@ -26,23 +25,30 @@
 ;; 保持補全的原始大小寫
 (setq dabbrev-case-replace nil)
 
-;; elisp 添加告警
+;; Flymake 診斷
 (use-package flymake
   :ensure nil
   :hook (emacs-lisp-mode eglot-managed-mode)
-  :init
-  (with-eval-after-load 'meow
-    (with-eval-after-load 'consult
-      (meow-leader-define-key '("f" . consult-flymake)))))
+  :preface
+  (defun lu-toggle-flymake-diagnostics-buffer ()
+    "切換 Flymake 診斷 Buffer."
+    (interactive)
+    (let ((buffer-name (flymake--diagnostics-buffer-name)))
+      (if-let ((window (get-buffer-window buffer-name)))
+          (delete-window window)
+        (flymake-show-buffer-diagnostics))))
+  :bind ("C-c f" . lu-toggle-flymake-diagnostics-buffer))
 
 ;; 自動加載文件
-(add-hook 'after-init-hook #'global-auto-revert-mode)
-(bind-key "C-M-g" #'revert-buffer)
-(setq auto-revert-verbose t
-      auto-revert-remote-files t
-      auto-revert-use-notify nil
-      auto-revert-stop-on-user-input nil
-      revert-without-query (list "."))
+(use-package auto-revert
+  :ensure nil
+  :hook ((after-init . global-auto-revert-mode)
+         (dired-mode . auto-revert-mode))
+  :bind ("C-M-g" . revert-buffer)
+  :custom
+  (revert-without-query
+   '("\\.pdf\\'" "\\.png\\'" "\\.jpg\\'" "\\.gif\\'"
+     "\\.svg\\'" "\\.out\\'" "\\.log\\'")))
 
 ;; 註釋
 (use-package comment-dwim-2
@@ -80,43 +86,72 @@
   :custom (aw-scope 'frame))
 
 ;; 保存最近打開文件
-(recentf-mode 1)
-(add-hook 'kill-emacs-hook #'recentf-cleanup)
-(setq recentf-auto-cleanup 600
-      recentf-max-saved-items 1000
-      recentf-save-file (file-name-concat lu-cache-dir "recentf")
-      recentf-exclude
-      '("recentf"
-        "/elpa/"
-        ".*?autoloads.el$"
-        "COMMIT_EDITMSG\\'"
-        "/.git/"
-        ".gitignore"
-        "^/tmp/"
-        "/AppData/Local/Temp/"
-        "^/var/folders/.+$"
-        "/TAGS$"
-        "/.TAGS$"
-        "/tags$"
-        "/.tags$"
-        "\\.\\(?:gz\\|gif\\|svg\\|png\\|jpe?g\\|bmp\\|xpm\\)\\'"
-        (lambda (file) (file-in-directory-p file package-user-dir)))
-      recentf-keep '(file-remote-p file-readable-p))
+(use-package recentf
+  :ensure nil
+  :hook ((after-init . recentf-mode)
+         (kill-emacs . recentf-cleanup))
+  :custom
+  (recentf-auto-cleanup 600)
+  (recentf-max-saved-items 500)
+  (recentf-max-menu-items 20)
+  (recentf-save-file (file-name-concat lu-cache-dir "recentf"))
+  (recentf-exclude
+   '(,recentf-save-file
+     ,package-user-dir
+     ".*?autoloads\\.el\\'"
+     "/loaddefs\\.el\\'"
+     "\\.elc\\'"
+
+     ;; 臨時文件
+     "/tmp/"
+     "/var/tmp/"
+     "/AppData/Local/Temp/"
+     "/var/folders/.+"
+
+     ;; 版本控制
+     "/\\.git/"
+     "COMMIT_EDITMSG\\'"
+     "MERGE_MSG\\'"
+     "git-rebase-todo\\'"
+
+     ;; TAGS
+     "/\\.?[tT][aA][gG][sG]\\'"
+
+     ;; 二進制媒體文件
+     "\\.\\(?:gz\\|tar\\|zip\\|rar\\|7z\\)\\'"
+     "\\.\\(?:gif\\|svg\\|png\\|jpe?g\\|bmp\\|xpm\\|ico\\|webp\\)\\'"
+     "\\.\\(?:mp[34]\\|avi\\|mkv\\|mov\\|webm\\|wav\\|flac\\|ogg\\)\\'"
+     "\\.\\(?:pdf\\|docx?\\|xlsx?\\|pptx?\\|od[tfsp]\\)\\'"))
+  (recentf-keep '(file-remote-p file-readable-p)))
+
 
 ;; 保存歷史記錄
-(savehist-mode 1)
-(setq savehist-autosave-interval 300
-      savehist-save-minibuffer-history t
-      savehist-file (file-name-concat lu-cache-dir "savehist")
-      savehist-additional-variables
-      '(kill-ring mark-ring global-mark-ring search-ring
-                  regexp-search-ring extended-command-history)
-      enable-recursive-minibuffers t
-      history-length 8000)
+(use-package savehist
+  :ensure nil
+  :hook ((after-init . savehist-mode)
+         (kill-emacs . savehist-save))
+  :custom
+  (savehist-autosave-interval 120)
+  (savehist-file (file-name-concat lu-cache-dir "savehist"))
+  (savehist-additional-variables
+   '(kill-ring
+     mark-ring
+     global-mark-ring
+     search-ring
+     regexp-search-ring
+     extended-command-history
+     shell-command-history))
+  (savehist-ignored-variables '(kill-ring))
+
+  (history-length 1000)
+  (enable-recursive-minibuffers t))
 
 ;; 保存光標位置
-(save-place-mode 1)
-(setq save-place-file (file-name-concat lu-cache-dir "saveplace"))
+(use-package save-place
+  :ensure nil
+  :hook (after-init . save-place-mode)
+  :custom
+  (save-place-file (file-name-concat lu-cache-dir "saveplace")))
 
 (use-package tramp
   :defer 5
@@ -156,12 +191,13 @@
             (if (featurep 'native-compile) 1000 5000)
           400))
 
-  (setq so-long-minor-modes (delq 'font-lock-mode so-long-minor-modes))
-  (setq so-long-minor-modes (delq 'display-line-numbers-mode so-long-minor-modes))
-
   (add-to-list 'so-long-variable-overrides '(font-lock-maximum-decoration . 1))
   (add-to-list 'so-long-variable-overrides '(save-place-alist . nil))
 
+  (setq so-long-minor-modes
+        (delq 'font-lock-mode so-long-minor-modes))
+  (setq so-long-minor-modes
+        (delq 'display-line-numbers-mode so-long-minor-modes))
   (setq so-long-minor-modes
         (append so-long-minor-modes
                 '(eldoc-mode
@@ -185,9 +221,20 @@
      '("= =" . format-all-buffer)
      '("= r" . format-all-region)))
   :config
+  (defun lu-update-formatters (&rest formatters)
+    "批量更新 `format-all-formatters' 的全局默認值。
+FORMATTERS 格式應為 (language-id formatter-or-list) 的序列。"
+    (let ((current-settings (default-value 'format-all-formatters)))
+      (dolist (item formatters)
+        (let ((lang (car item))
+              (fmt (cadr item)))
+          (setq current-settings (cons (list lang fmt)
+                                       (assoc-delete-all lang current-settings)))))
+      (setq-default format-all-formatters current-settings)))
+
   (setq-default format-all-formatters
                 '(("Bazel" buildifier)
-                  ("C" clang-format "--fallback-style=Google")
+                  ("C" (clang-format "--fallback-style=Google"))
                   ("C++" (clang-format "--fallback-style=Google"))
                   ("CSS" prettier)
                   ("HTML" prettier)
