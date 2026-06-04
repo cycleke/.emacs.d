@@ -153,7 +153,6 @@
   (setq pgtk-wait-for-event-timeout 0.001))
 
 ;; 各種自帶的 mode
-(which-key-mode +1)
 (blink-cursor-mode -1)
 (transient-mark-mode +1)
 (global-subword-mode +1)
@@ -187,6 +186,9 @@
       use-package-always-ensure t)
 
 (use-package bind-key)
+
+(use-package which-key
+  :hook (after-init . which-key-mode))
 
 (provide 'init-basic)
 ;;; init-basic.el ends here

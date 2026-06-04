@@ -37,7 +37,7 @@
       (if-let ((window (get-buffer-window buffer-name)))
           (delete-window window)
         (flymake-show-buffer-diagnostics))))
-  :bind ("C-c f" . lu-toggle-flymake-diagnostics-buffer))
+  :bind ("C-c F" . lu-toggle-flymake-diagnostics-buffer))
 
 ;; 自動加載文件
 (use-package auto-revert

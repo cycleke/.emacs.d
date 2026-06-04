@@ -50,6 +50,7 @@
   ("C-c i" . consult-imenu)
   ("C-c I" . consult-imenu-multi)
   ("C-c r" . consult-ripgrep)
+  ("C-c f" . consult-flymake)
 
   ([remap switch-to-buffer] . consult-buffer)
   ([remap switch-to-buffer-other-window] . consult-buffer-other-window)

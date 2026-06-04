@@ -22,7 +22,7 @@
   :ensure nil
   :after treesit
   :mode ("\\.ya?ml\\'"
-         "\\.clang-\\(?:tidy\\|format\\)\\'")
+         "\\.clang\\(?:d\\|-tidy\\|-format\\)\\'")
   :preface
   (defun lu--setup-yaml-ts ()
     (hungry-delete-mode -1))
