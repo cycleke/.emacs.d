@@ -36,19 +36,97 @@
 (defvar lu-pre-custom-file (file-name-concat lu-data-dir "pre-custom.el"))
 (defvar lu-custom-file (file-name-concat lu-data-dir "custom.el"))
 
-(defun lu-temp-buffer ()
-  "切換至 *Lu Temporarily* 緩衝區.
-若該緩衝區不存在，則先創建之."
+(defvar lu-scratch-buffer-name "*Lu Scratch*"
+  "Base name for Lu Scratch buffers.")
+
+(defvar lu-scratch-buffer-prefix "*Lu Scratch"
+  "Prefix of Lu Scratch buffers.")
+
+(defun lu-scratch--list-buffers ()
+  "Return a list of all Lu Scratch buffers.
+
+A Lu Scratch buffer is any buffer whose name starts with
+`lu-scratch-buffer-prefix' and ends with '*'."
+  (cl-remove-if-not
+   (lambda (buf)
+     (string-match-p
+      (rx string-start
+          (literal lu-scratch-buffer-prefix)
+          (zero-or-more anything)
+          "*" string-end)
+      (buffer-name buf)))
+   (buffer-list)))
+
+(defun lu-scratch-buffer (&optional id)
+  "Switch to or create a Lu Scratch buffer.
+
+Optional ID is the name, number, or identifier for the scratch buffer.
+
+Buffer naming rules:
+- If ID is nil or empty, use `lu-scratch-buffer-name'
+- If ID is a number N, create a buffer named
+  `lu-scratch-buffer-prefix' followed by \" #N*\"
+- If ID matches an existing Lu Scratch buffer name, switch to it
+- Otherwise, create a buffer named
+  `lu-scratch-buffer-prefix' followed by \": ID*\"
+
+When called interactively, prompt for ID with completion from existing
+Lu Scratch buffers.
+
+Returns the buffer object."
+  (interactive
+   (let* ((existing (lu-scratch--list-buffers))
+          (candidates (mapcar #'buffer-name existing))
+          (prompt (if candidates
+                      (format "選擇 Lu Scratch 緩衝區（共 %d 個）: " (length candidates))
+                    "新建 Lu Scratch 緩衝區: ")))
+     (list (completing-read prompt candidates nil nil))))
+
+  (let* ((id-str (cond ((stringp id) id)
+                       ((numberp id) (number-to-string id))
+                       (t "")))
+         (buffer-name
+          (cond
+           ((string-empty-p id-str)
+            lu-scratch-buffer-name)
+           ((member id-str (mapcar #'buffer-name (lu-scratch--list-buffers)))
+            id-str)
+           ((string-match-p "\\`[0-9]+\\'" id-str)
+            (format "%s #%s*" lu-scratch-buffer-prefix id-str))
+           (t
+            (format "%s: %s*" lu-scratch-buffer-prefix id-str))))
+         (buffer-exists (get-buffer buffer-name))
+         (buffer (get-buffer-create buffer-name)))
+
+    ;; 僅在「新建立」時初始化
+    (unless buffer-exists
+      (with-current-buffer buffer
+        (fundamental-mode)
+        (setq-local buffer-offer-save nil)))
+
+    (pop-to-buffer-same-window buffer)
+    buffer))
+
+(defun lu-scratch-kill-all-buffers ()
+  "Kill all Lu Scratch buffers.
+
+Interactively, prompt for confirmation before killing.
+If no Lu Scratch buffers exist, display a message."
   (interactive)
-  (pop-to-buffer-same-window (get-buffer-create "*Lu Temporarily*")))
+  (let ((buffers (lu-scratch--list-buffers)))
+    (if buffers
+        (when (y-or-n-p (format "確定要關閉全部 %d 個 Lu Scratch 緩衝區嗎？?"
+                                (length buffers)))
+          (mapc #'kill-buffer buffers))
+      (message "未找到任何 Lu Scratch 緩衝區"))))
 
 (defun lu-open-custom-file ()
-  "打開自定義文件（custom.el）."
+  "Open the custom file."
   (interactive)
   (find-file lu-custom-file))
 
 (defun lu-childframe-workable-p ()
-  "判斷子視圖（childframe）是否可用."
+  "Return non-nil if child frames are supported in the current environment."
   (and (>= emacs-major-version 26)
        (not noninteractive)
        (not emacs-basic-display)
