@@ -82,7 +82,9 @@
      '("s l" . consult-line)
      '("s L" . consult-line-multi)
      '("s f" . consult-fd)
-     '("s b" . consult-buffer))))
+     '("s b" . consult-buffer)))
+  :config
+  (consult-customize consult-recent-file :preview-key "M-."))
 
 (provide 'init-consult)
 ;;; init-consult.el ends here

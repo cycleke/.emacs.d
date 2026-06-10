@@ -42,8 +42,7 @@
 ;; 自動加載文件
 (use-package auto-revert
   :ensure nil
-  :hook ((after-init . global-auto-revert-mode)
-         (dired-mode . auto-revert-mode))
+  :hook (after-init . global-auto-revert-mode)
   :bind ("C-M-g" . revert-buffer)
   :custom
   (revert-without-query
@@ -244,9 +243,10 @@ FORMATTERS 格式應為 (language-id formatter-or-list) 的序列。"
                   ("Lua" stylua)
                   ("Markdown" prettier)
                   ("Python" black)
-                  ("Rust" (rustfmt "--edition=2021"))
+                  ("Rust" (rustfmt "--edition=2024"))
                   ("Shell" (shfmt "-i" "2"))
-                  ("TOML" taplo-fmt))))
+                  ("TOML" taplo-fmt)
+                  ("TypeScript" prettier))))
 
 (use-package rg
   :commands rg-menu

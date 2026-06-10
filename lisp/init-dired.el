@@ -21,7 +21,8 @@
         dired-clean-confirm-killing-deleted-buffers nil
         dired-recursive-copies 'always
         dired-recursive-deletes 'top
-        dired-create-destination-dirs 'ask)
+        dired-create-destination-dirs 'ask
+        dired-do-revert-buffer t)
   :config
   (put 'dired-find-alternate-file 'disabled nil)
   ;; 讓操作系統決定如何打開特定文件

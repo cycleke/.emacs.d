@@ -20,6 +20,7 @@
   (org-startup-indented t)
   (org-src-fontify-natively t)
   (org-html-validation-link nil)
+  (org-modules '(org-tempo))
 
   ;; 顯示設置
   (org-tags-column 80)
